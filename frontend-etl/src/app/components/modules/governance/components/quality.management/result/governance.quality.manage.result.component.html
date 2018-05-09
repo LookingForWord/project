@@ -1,0 +1,41 @@
+<div class="container">
+    <table-component>
+            <div class="table-component-search line">
+                <button class="back line btn mr20 ml10" (click)="goBack()">
+                    <i class="icon iconfont icon-ico_back"></i><span>返回</span>
+                </button>
+            </div>
+            <div class="table-component-title">
+                <span class="title">
+                    <i class="icon iconfont icon-ico_quality_manage mr8"></i>检查报告
+                </span>
+                <span class="total">共{{totalcount}}条记录</span>
+            </div>
+            <thead class="table-component-thead">
+            <tr>
+                <th width="22.5%">检查时间</th>
+                <th width="22.5%">规则名称</th>
+                <th width="22.5%">检查内容</th>
+                <th width="22.5%">检查状态</th>
+                <th width="10%">检查结果</th>
+            </tr>
+            </thead>
+            <tbody class="table-component-tbody">
+                <tr *ngFor="let source of sources">
+                <td>{{source.checkRunTime | date}}</td>
+                <td>{{source.ruleNamecn}}</td>
+                <td>{{source.checkResultDesc}}</td>
+                <td><div [attr.class]="changeStatusColor(source.checkResult)" [attr.title]="changeStatus(source.checkResult)"></div></td>
+                <td>{{changeStatus(source.checkResult)}}</td>
+                </tr>
+            </tbody>
+            <tfoot class="table-component-tfoot">
+            <tr *ngIf="noDataType">
+                <td colspan="5">暂无数据...</td>
+            </tr>
+            </tfoot>
+            <div class="table-component-page">
+                <pagination-component [pagenow]="pagenow" [pagesize]="pagesize" [totalcount]="totalcount" (onPageChange)="doPageChange($event)"></pagination-component>
+            </div>
+        </table-component>
+</div>

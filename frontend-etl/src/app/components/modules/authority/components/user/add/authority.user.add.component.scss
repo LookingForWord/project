@@ -1,0 +1,178 @@
+@import 'assets/styles/global.scss';
+.container {
+    width: 635px;
+    padding: 25px 0;
+    .row {
+        margin-bottom: 25px;
+        &:last-child {
+            margin-bottom: 30px;
+        }
+        li {
+            display: inline-block;
+            float: left;
+            &:first-child {
+                margin-right: 10px;
+            }
+            &.department-box {
+                margin-right: 0;
+                //所属部门
+                .department {
+                    vertical-align: middle;
+                    >span>input {
+                        width: 519px;
+                    }
+                    i.jt {
+                        display: inline-block;
+                        position: absolute;
+                        right: 10px;
+                        top: 10px;
+                        color: #BBCCDD;
+                        font-size: 12px;
+                        transition: all 0.2s ease;
+                        transform: rotate(0);
+                        &.open {
+                            transform: rotate(180deg);
+                            color: #4499EE;
+                        }
+                    }
+                }
+            }
+            .sex-box {
+                width: 243px;
+            }
+            .role-box {
+                width: 243px;
+            }
+            // 必填项设置
+            .required-content {
+                width: calc(100% - 10px);
+                display: inline-block;
+                padding-left: 10px;
+                position: relative;
+                .required-red {
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    margin-top: -7px;
+                    &.invisible {
+                        visibility: hidden;
+                    }
+                }
+                .required-label {
+                    position: absolute;
+                    bottom: -18px;
+                    left: 13px;
+                    color: $redColor;
+                }
+            }
+            > span {
+                &:first-child {
+                    display: inline-block;
+                    width: 60px;
+                    text-align: right;
+                    margin-right: 5px;
+                    color: #666666;
+                    font-size: 14px;
+                }
+            }
+            //出生日期
+            .birthday {
+                >span >span{
+                    >input {
+                        width: 194px;
+                    }
+                }
+            }
+
+            span.input-error{
+                padding-left: 14px;
+            }
+            .input {
+                width: 217px;
+            }
+            .input-error {
+                bottom: -17px;
+                font-size: 12px;
+            }
+        }
+    }
+    .row {
+        .department-box {
+            .jt {
+                cursor: pointer;
+            }
+            .checked-department {
+                display: inline-block;
+                width: 519px;
+                min-height: 26px;
+                height: auto;
+                line-height: 26px;
+                border: 1px solid #CCDDEE;
+                border-radius: $borderRradius;
+                padding: 4px 7px;
+                padding-right: 27px;
+                font-size: 14px;
+                color: #333333;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                cursor: pointer;
+                &:hover {
+                    border-color: #4499EE;
+                    &.error {
+                        border: 1px solid #FF3333;
+                    }
+                    & + .jt {
+                        color: #4499EE;
+                    }
+                }
+                &.error {
+                    border: 1px solid #FF3333;
+                }
+                &.no-data {
+                    color: #BBCCDD;
+                }
+                &.disabled {
+                    background: #F5F5F5;
+                    border: 1px solid #E0E0E0;
+                    color: #CCCCCC;
+                    cursor: not-allowed;
+                }
+            }
+            .tree-box {
+                position: absolute;
+                top: 40px;
+                left: 10px;
+                height: 240px;
+                overflow-y: auto;
+                background: #fff;
+                z-index: 9999;
+                border: 1px solid #CCDDEE;
+                box-shadow: 0 2px 2px 0 rgba(206, 211, 223, 0.6);
+                border-radius: 4px;
+                width: 553px;
+            }
+        }
+    }
+    //.btns {
+    //    text-align: center;
+    //    button {
+    //        margin-right: 10px;
+    //    }
+    //}
+    //.import-box {
+    //    min-width: 216px;
+    //    display: inline-block;
+    //}
+    //.file-btn {
+    //    position: relative;
+    //    input {
+    //        position: absolute;
+    //        right: 0;
+    //        top: 0;
+    //        opacity: 0;
+    //        filter: alpha(opacity=0);
+    //        cursor: pointer;
+    //    }
+    //}
+}

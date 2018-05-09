@@ -1,0 +1,64 @@
+<div class="aside" #dragOrigin>
+    <ul>
+        <li *ngFor="let flow of configs;let i = index;">
+            <div class="tree-title"
+                 [class.checked]="flow.checked"
+                 (click)="checkedClick(flow, $event)"
+                 [style.paddingLeft.px]="0*20 + 10"
+                 [attr.index]="i">
+                <span>
+                    <i class="iconfont icon-ico_folder_close icon-fold" *ngIf="!flow.expand"></i>
+                    <i class="iconfont icon-ico_folder_open icon-fold" *ngIf="flow.expand"></i>
+                </span>
+                <span>{{flow.name}}</span>
+            </div>
+            <div class="child-content" *ngIf="flow.children&&flow.children.length&&flow.expand" [@slideUpDwon]>
+                <ul class="clearfix">
+                    <li *ngFor="let child of flow.children;let n = index;">
+                        <div class="tree-title"
+                             [class.checked]="child.checked"
+                             (click)="checkedClick(child, $event)"
+                             [style.paddingLeft.px]="1*20 + 10"
+                             [attr.index]="n">
+                            <span>
+                                <i class="iconfont icon-ico_folder_close icon-fold" *ngIf="!child.expand"></i>
+                                <i class="iconfont icon-ico_folder_open icon-fold" *ngIf="child.expand"></i>
+                            </span>
+                            <span>{{child.name}}</span>
+                        </div>
+                        <div class="child-content" *ngIf="child.children&&child.children.length&&child.expand" [@slideUpDwon]>
+                            <ul class="clearfix">
+                                <li *ngFor="let idx of child.children;let m = index;">
+                                    <div class="tree-title drag-item origin data-audit-item"
+                                         [class.checked]="idx.checked"
+                                         [style.paddingLeft.px]="2*20 + 10"
+                                         [attr.normId]="idx.id"
+                                         [attr.index]="m">
+                                        <span>
+                                            <i class="iconfont icon-ico_task_work_flow icon-work"></i>
+                                        </span>
+                                        <span [title]="idx.name">{{idx.name}}</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="drag-target-container">
+    <div class="drag-target"
+         #dragTarget
+         [style.transform]="dragTargetPosition"
+         [style.width.px]="dragTargetOption.width"
+         [style.height.px]="dragTargetOption.height"></div>
+    <div class="drag-view">
+        <i class="iconfont icon-ico_array mr10" (click)="positionClick()"></i>
+        <i class="iconfont icon-ico_enlarge" (click)="scaleClick('+')"></i>
+        <span>{{getScaleView()}}</span>
+        <i class="iconfont icon-ico_narrow" (click)="scaleClick('-')"></i>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+.container {
+    width: 635px;
+    //height: 60px;
+    padding: 25px 0;
+    .row {
+        //margin-bottom: 25px;
+        padding-left: 18px;
+        span.title {
+            display: inline-block;
+            width: 60px;
+            text-align: right;
+            margin-right: 5px;
+            color: #666666;
+            font-size: 14px;
+        }
+        .input-container {
+            width: calc(100% - 80px);
+            .required-label {
+                position: absolute;
+                top:100%;
+                left: 0;
+                color: #FF3333;
+            }
+        }
+        .file-btn {
+            position: relative;
+            line-height: 34px;
+            overflow: hidden;
+            vertical-align: middle;
+            cursor: pointer;
+            input {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                width: 100%;
+                cursor: pointer;
+                opacity: 0;
+                filter: alpha(opacity=0);
+            }
+        }
+        .file-name {
+            display: inline-block;
+            width: 320px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            vertical-align: middle;
+            padding-left: 5px;
+        }
+        .input.export {
+            //width: calc(100% - 7px);
+        }
+    }
+    .export {
+        width: 250px;
+    }
+}

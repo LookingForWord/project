@@ -1,0 +1,209 @@
+@import 'frontend-common/assets/styles/variable.scss';
+@import 'assets/styles/global.scss';
+
+$contentWidth: 1168px;
+.container {
+    background: #F5F5F5;
+    height: 100%;
+    .title {
+        line-height: 60px;
+        background: #fff;
+        .title-content {
+            width: $contentWidth;
+            margin: 0 auto;
+        }
+        .left {
+            .iconfont {
+                color: #4499EE;
+            }
+            span {
+                font-size: 16px;
+                color: $textNormalColor;
+            }
+            &:first-child {
+                font-size: 16px;
+                span {
+                    cursor: pointer;
+                    color: #4499EE;
+                    letter-spacing: 1px;
+                }
+            }
+        }
+        .jt {
+            font-size: 14px;
+            color: #CCCCCC;
+        }
+    }
+    .content {
+        width: $contentWidth;
+        margin: 22px auto;
+        background: #FFFFFF;
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+        padding: 10px 0;
+        .row {
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            margin-bottom: 25px;
+            padding: 0 44px;
+            &:last-child {
+                margin-bottom: 30px;
+            }
+            li {
+                display: inline-block;
+                float: left;
+                min-width: 390px;
+                &:first-child {
+                    margin-right: 10px;
+                }
+                .select-box {
+                    width: 243px;
+                }
+                // 必填项设置
+                .required-content {
+                    width: calc(100% - 10px);
+                    display: inline-block;
+                    padding-left: 10px;
+                    position: relative;
+                    .required-red {
+                        position: absolute;
+                        left: 0;
+                        top: 50%;
+                        margin-top: -7px;
+                        &.invisible {
+                            visibility: hidden;
+                        }
+                    }
+                    .required-label {
+                        font-size: 14px;
+                        color: #666666;
+                        letter-spacing: 1px;
+                        position: absolute;
+                        bottom: -18px;
+                        left: 13px;
+                        color: $redColor;
+                    }
+                }
+                > span {
+                    &:first-child {
+                        display: inline-block;
+                        width: 60px;
+                        text-align: right;
+                        margin-right: 5px;
+                        color: #666666;
+                        font-size: 14px;
+                    }
+                }
+                span.input-error{
+                    padding-left: 14px;
+                }
+                .input {
+                    width: 217px;
+                }
+                textarea.input {
+                    width: 618px;
+                }
+                .input-error {
+                    bottom: -17px;
+                    font-size: 12px;
+                }
+                textarea.input {
+                    height: 90px;
+                    vertical-align: top;
+                }
+                .textarea {
+                    .required-content {
+                        .required-red {
+                            top: 10px;
+                            left: -12px;
+                        }
+                    }
+
+                }
+            }
+        }
+        // 添加表
+        .add-table {
+            border-top: 1px solid #EEEEEE;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            padding: 20px 44px;
+            .add-title {
+                font-size: 14px;
+                color: #999999;
+                letter-spacing: 1px;
+                margin-bottom: 8px;
+            }
+            .add-table-content {
+                .row {
+                    padding: 0;
+                    margin-bottom: 0;
+                    ul li {
+                        width: auto;
+                        min-width: unset;
+                        margin-right: 10px;
+                        padding-left: 10px;
+                        .input-container.select-box {
+                            width: 200px;
+                            .required-content {
+                                padding-left: 0;
+                                width: 100%;
+                                i.required-red {
+                                    left: -10px;
+                                }
+                            }
+                        }
+
+                    }
+                    &.sql {
+                        width: 100%;
+                        ul li {
+                            width: 100%;
+                            .input-container.textarea {
+                                width: 100%;
+                                .required-content {
+                                    padding-left: 0;
+                                    width: 100%;
+                                }
+                                .input {
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+                // 选择字段
+                .row.check-column{
+                    margin: 20px 0;
+                    .common-table{
+                        width: 300px;
+                        display: inline-block;
+                        vertical-align: top;
+                        &:last-child{
+                            margin-left: 100px;
+                        }
+                    }
+                    span.checkbox{
+                        top: 3px;
+                    }
+                }
+            }
+
+            .add-table-content:first-child {
+                padding-bottom: 25px;
+            }
+        }
+    }
+    .btn-box {
+        text-align: center;
+        margin-top: 15px;
+    }
+}
+textarea{
+    resize: none;
+}
+.bug-mulsel{
+    position: relative;
+    top:-4px;
+}

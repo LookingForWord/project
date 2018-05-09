@@ -1,0 +1,97 @@
+@import 'frontend-common/assets/styles/variable';
+@import 'assets/styles/variable.scss';
+
+.container {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    .header-container {
+        border-bottom: 1px solid #CCDDEE;
+        background: #F5F5F5;
+        text-align: center;
+        height: 34px;
+        ul {
+            display: inline-block;
+        }
+        li {
+            float: left;
+            display: inline-block;
+            line-height: 33px;
+            cursor: pointer;
+            transition: $transitionAll;
+            padding: 0 10px;
+            &:hover {
+                background: #E0E0E0;
+            }
+            i {
+                color: #4499EE;
+            }
+            span {
+                color: #666;
+            }
+        }
+    }
+    .content-container {
+        position: absolute;
+        top: 35px;
+        bottom: 0;
+        right: 0;
+        left: 0;
+
+        .drag-target-container {
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0, 0, 0, .3);
+            .drag-target {
+                background: #fff;
+                position: relative;
+            }
+            .drag-view {
+                position: absolute;
+                right: 15px;
+                top: 5px;
+                color: #666;
+                i {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .relations {
+            height: 100%;
+            width: 400px;
+            display: inline-block;
+            float: left;
+            border-right: 1px solid $borderColor;
+            .relation {
+                padding: 50px 0;
+                text-align: center;
+                .relation-item {
+                    display: inline-block;
+                    margin: 0 10px;
+                    border: 1px solid #33CCDD;
+                    width: 140px;
+                    position: relative;
+                    z-index: 3;
+                    cursor: default;
+                    background: #fff;
+                    user-select: none;
+                    &.checked {
+                        border-color: #FF7C5C;
+                        .t {
+                            background: #FF7C5C;
+                        }
+                    }
+                    .t {
+                        background: #33CCDD;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}

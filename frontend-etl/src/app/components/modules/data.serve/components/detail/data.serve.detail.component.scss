@@ -1,0 +1,135 @@
+@import 'frontend-common/assets/styles/variable.scss';
+
+$contentWidth: 1366px;
+
+.ontainer {
+    background: #F5F5F5;
+    min-height: 100%;
+    .title {
+        line-height: 60px;
+        background: #fff;
+        .title-content {
+            width: $contentWidth;
+            margin: 0 auto;
+        }
+        .left {
+            .iconfont {
+                color: #4499EE;
+            }
+            span {
+                font-size: 16px;
+                color: $textNormalColor;
+            }
+            &:first-child {
+                font-size: 16px;
+                span {
+                    cursor: pointer;
+                    color: #4499EE;
+                    letter-spacing: 1px;
+                }
+            }
+        }
+        .jt {
+            font-size: 14px;
+            color: #CCCCCC;
+        }
+    }
+
+    .content {
+        width: $contentWidth;
+        margin: 22px auto;
+        background: #fff;
+        * {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+        .detai-top {
+            padding: 10px 10px 0 10px;
+            h5 {
+                font-size: 18px;
+                font-weight: 600;
+            }
+            ul li {
+                line-height: 30px;
+                font-size: 14px;
+                &.tag-box {
+                    span {
+                        color: #FFFFFF;
+                        background: #4499EE;
+                        border-radius: 4px;
+                        padding: 2px 5px;
+                        margin-right: 8px;
+                    }
+                }
+            }
+        }
+        .tab {
+            margin-top: 20px;
+            background: #F5F5F5;
+            border-bottom: 1px solid #CCDDEE;
+            span {
+                padding: 8px 20px;
+                text-align: center;
+                font-size: 14px;
+                border-top: 2px solid transparent;
+                border-right: 1px solid rgba(204, 221, 238, 0);
+                border-left: 1px solid rgba(204, 221, 238, 0);
+                color: #666;
+                position: relative;
+                transition: $transitionAll;
+                display: inline-block;
+                cursor: pointer;
+                float: left;
+                &:hover {
+                    color: #333;
+                }
+                &:first-child {
+                    &.checked {
+                        border-left-color: transparent;
+                    }
+                }
+                &.active {
+                    background: #fff;
+                    border-color: #4499EE;
+                    color: #333;
+                    border-right: 1px solid #CCDDEE;
+                    border-left: 1px solid #CCDDEE;
+                    &.department {
+                        border-left: 1px solid transparent;
+                    }
+                    &:after {
+                        content: '';
+                        width: 100%;
+                        height: 1px;
+                        position: absolute;
+                        bottom: -1px;
+                        left: 0;
+                        background: #fff;
+                    }
+                }
+            }
+
+        }
+        .content-box {
+            padding: 10px;
+            min-height: 290px;
+            h6 {
+                margin-top: 20px;
+            }
+            ul li {
+                line-height: 30px;
+            }
+
+            .error {
+                width: 800px;
+                margin: 0 auto;
+            }
+        }
+    }
+}
+:host ::ng-deep table-component {
+    .container {
+        padding: 0;
+    }
+}

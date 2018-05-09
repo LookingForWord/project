@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="title">
+        <span class="pl3 pr3 new-folder" [tooltip]="'新增目录'" (click)="addDirectory()" authority="workflow.work.addMenu">
+            <i class="iconfont icon-ico_folder_add"></i>
+        </span>
+        <span class="pl3 pr3 new-workflow" [tooltip]="'新增工作流'" (click)="addTaskClick()"  authority="workflow.work.addWork">
+            <i class="iconfont icon-ico_add_workflow"></i>
+        </span>
+        <span class="input-icon" position="left">
+            <input type="text"
+                   class="input"
+                   size="small"
+                   placeholder="搜索目录/工作流"
+                   #search
+                   [(ngModel)]="keyWord"
+                   (keyup)="searchClick(search.value)">
+            <span class="iconfont icon-ico_search_textfield"></span>
+        </span>
+    </div>
+    <div class="tree-container">
+        <div class="inner clearfix">
+            <workflow-work-aside-tree-component
+                [workflows]="workflows" [sessionTrees]="sessionTrees"></workflow-work-aside-tree-component>
+        </div>
+    </div>
+</div>

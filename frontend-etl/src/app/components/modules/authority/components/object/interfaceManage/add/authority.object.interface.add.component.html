@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="row">
+        <ul>
+            <li>
+                <span>接口名称</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" [disabled]="type==='detail'" maxlength="20" minlength="2" [class.error]="errorType===1" [(ngModel)]="name" placeholder="请输入2-20位接口名称">
+                        <span class="required-label" *ngIf="errorType===1">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+            <li >
+                <span>接口地址</span>
+                <span class="input-container db-type">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" [disabled]="type==='detail'" maxlength="60" [class.error]="errorType===2" [(ngModel)]="url" placeholder="接口地址">
+                        <span class="required-label" *ngIf="errorType===2">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <ul>
+            <li>
+                <span>所属系统</span>
+                <span class="input-container db-type">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <select-component
+                            [disabled]="type==='detail'"
+                            [option]="system"
+                            [options]="systems"
+                            (callback)="systemChecked($event, 'system')"
+                            [downHeight]="180"
+                            [placeholder]="'选择所属系统'">
+                        </select-component>
+                        <span class="required-label" *ngIf="errorType===3">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+            <li>
+                <span>接口状态</span>
+                <span class="input-container db-type">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <select-component
+                            [disabled]="type==='detail'"
+                            [option]="status"
+                            [options]="statusArr"
+                            (callback)="systemChecked($event, 'status')"
+                            [placeholder]="'选择状态'">
+                        </select-component>
+                        <span class="required-label" *ngIf="errorType===4">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

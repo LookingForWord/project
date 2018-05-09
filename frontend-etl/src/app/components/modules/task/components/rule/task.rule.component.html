@@ -1,0 +1,50 @@
+<div class="container" >
+    <div class="left-tree">
+        <div class="tree-container">
+            <task-rule-aside-component #aside></task-rule-aside-component>
+            <!--这里是一个所有组织机构的树形结构-->
+        </div>
+    </div>
+    <div class="right-table" *ngIf="!noCheck">
+        <div class="search-bar line">
+            <button class="back line btn  primary" [class.disabled]="noCheck" (click)="newRule()" authority="task.rule.add">
+                创建规则
+            </button>
+        </div>
+        <table-component>
+            <thead class="table-component-thead">
+            <tr>
+                <th class="rule" width="22.5%">规则内容</th>
+                <th width="22.5%">规则描述</th>
+                <th width="22.5%">创建人</th>
+                <th width="20%">创建时间</th>
+                <th width="12.5%">操作</th>
+            </tr>
+            </thead>
+            <tbody class="table-component-tbody">
+            <tr *ngFor="let item of list">
+                <td>{{item.content}}</td>
+                <td>{{item.remark}}</td>
+                <td>{{item.createUserName}}</td>
+                <td>{{item.createTime | date}}</td>
+                <td>
+                    <button class="btn icon only"  tooltip="查看" position="top" (click)="detailClick(item.id)">
+                        <i class="icon iconfont icon-ico_view"></i>
+                    </button>
+                    <button class="btn icon only"  tooltip="编辑" position="top" (click)="updateClick(item.id)" authority="task.rule.editRule">
+                        <i class="icon iconfont icon-ico_edit"></i>
+                    </button>
+                    <button class="btn icon only"  tooltip="删除" position="top" (click)="deleteClick(item.id,item.pid)" authority="task.rule.deleteRule">
+                        <i class="icon iconfont icon-ico_delete"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot class="table-component-tfoot">
+            <tr *ngIf="noData">
+                <td colspan="5">暂无数据...</td>
+            </tr>
+            </tfoot>
+        </table-component>
+    </div>
+</div>

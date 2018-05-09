@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="title">
+        <span class="pl3 pr3 new-folder" [tooltip]="'新增目录'" (click)="addDirectory()" authority="governance.normAudit.addDirectory">
+            <i class="iconfont icon-ico_folder_add"></i>
+        </span>
+        <span class="pl3 pr3 new-workflow" [tooltip]="'新增任务'" (click)="addTaskClick()"  authority="governance.normAudit.addTask">
+            <i class="iconfont icon-ico_add_workflow"></i>
+        </span>
+        <span class="input-icon" position="left">
+            <input type="text"
+                   class="input"
+                   size="small"
+                   placeholder="暂不支持"
+                   inputDebounce
+                   disabled
+                   (debounceClick)="searchClick($event)"
+                   [(ngModel)]="keyWord">
+            <span class="iconfont icon-ico_search_textfield"></span>
+        </span>
+    </div>
+    <div class="tree-container">
+        <div class="inner clearfix">
+            <governance-norm-audit-aside-tree-component
+                [workflows]="workflows"
+                [allWorkflows]="workflows"
+            ></governance-norm-audit-aside-tree-component>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+<div class="container clearfix">
+    <div class="aside">
+        <div class="title">
+            <span class="input-icon" position="left">
+            <input type="text"
+                   class="input"
+                   size="small"
+                   placeholder="搜索字段"
+                   [(ngModel)]="keyWord"
+                   inputDebounce
+                   (debounceClick)="searchInstanceChange($event)">
+            <span class="iconfont icon-ico_search_textfield"></span>
+        </span>
+        </div>
+        <div class="field-list">
+            <ul>
+                <li *ngFor="let item of fieldList" (click)="checkField(item)" [class.check]="item.check">
+                    <i class="iconfont icon-ziduanguanli"></i>
+                    <span>{{item.name}}</span>
+                </li>
+                <li *ngIf="sidePageNow < fieldList.length && fieldList.length % 50 === 0" class="get-more"><span class="link" (click)="getMoreField()">加载更多</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="right-content">
+        <table-component>
+            <div class="table-component-title">
+                <span class="title">
+                    <i class="iconfont icon-ziduanguanli mr8"></i>字段详情列表
+                </span>
+                <span class="record">共{{totalcount}}条记录</span>
+            </div>
+            <thead class="table-component-thead">
+                <tr>
+                    <th width="14%">字段名</th>
+                    <th width="23%">字段属性</th>
+                    <th width="15%">字段类型</th>
+                    <th width="10%">数据源类型</th>
+                    <th width="18%">数据源名称</th>
+                    <th width="20%">表名</th>
+                </tr>
+            </thead>
+            <tbody class="table-component-tbody">
+                <tr *ngFor="let source of sources">
+                    <td>{{checkedItem.name}}</td>
+                    <td>
+                        <p class="special" *ngIf="source.length">长度:{{source.length}}</p>
+                        <p class="special" *ngIf="source.presitionVal">精度:{{source.presitionVal}}</p>
+                        <p class="special" *ngIf="source.defValue">默认值: {{source.defValue}}</p>
+                        <p class="special" *ngIf="source.isnullable">允许为空: {{source.isnullable === 'Y' ? '允许' : '不允许'}}</p>
+                        <p class="special" *ngIf="source.partitionKey" >是否为分区主键{{source.partitionKey === 'Y' ? '是' : '否'}}</p>
+                        <p class="special" *ngIf="source.primaryKey">是否主键:{{source.primaryKey === 'Y' ? '是' : '否'}}</p>
+                        <p class="special" *ngIf="source.fieldComment">注释:{{source.fieldComment}}</p>
+                    </td>
+                    <td>{{source.dataType}}</td>
+                    <td>{{source.dsType}}</td>
+                    <td>{{source.dsName}}</td>
+                    <td>{{source.tableName}}</td>
+                </tr>
+            </tbody>
+            <tfoot class="table-component-tfoot">
+                <tr *ngIf="noData">
+                    <td colspan="6">暂无数据...</td>
+                </tr>
+            </tfoot>
+            <div class="table-component-page" *ngIf="sources && sources.length">
+                <multi-pagination-component [pagenow]="pageNow" [pagesize]="pageSize" [totalcount]="totalcount"  (onPageChange)="doPageChange($event)"></multi-pagination-component>
+            </div>
+        </table-component>
+    </div>
+</div>

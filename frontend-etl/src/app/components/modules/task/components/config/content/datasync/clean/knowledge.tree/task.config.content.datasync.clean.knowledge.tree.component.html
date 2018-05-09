@@ -1,0 +1,30 @@
+<div class="tree-container">
+    <ul #titleContainer>
+        <!--直接不显示任务类型-->
+        <li *ngFor="let tree of tress;let i = index;" [class.hidden]="tree.type === 'button'">
+            <div class="tree-title"
+                 [class.checked]="tree.checked"
+                 (click)="checkedClick(tree, $event)"
+                 [style.paddingLeft.px]="index*20 + 10"
+                 [attr.index]="i">
+                <span *ngIf="tree.type === 'menu'">
+                    <i class="iconfont icon-ico_folder_close fold" *ngIf="!tree.expand"></i>
+                    <i class="iconfont icon-ico_folder_open fold" *ngIf="tree.expand"></i>
+                </span>
+                <span *ngIf="tree.type === 'button'">
+                    <i class="iconfont fold" >&#xe655;</i>
+                </span>
+                <span>{{tree.menuName}}</span>
+                <input type="checkbox" class="checkbox" *ngIf="!(tree.pid==='0')" [(ngModel)]="tree.selected" (change)="selectedChange(tree, $event)">
+            </div>
+            <div *ngIf="tree.children&&tree.children.length&&tree.expand">
+                <task-config-content-datasync-clean-knowledge-tree-component
+                    [tress]="tree.children"
+                    [tressAll]="tressAll"
+                    [index]="index+1"
+                    [tressParent]="tree">
+                </task-config-content-datasync-clean-knowledge-tree-component>
+            </div>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,62 @@
+<div class="tree-container">
+    <ul #titleContainer>
+        <li *ngFor="let flow of flows;let i = index;">
+            <div class="tree-title"
+                 [class.checked]="flow.checked"
+                 (click)="checkedClick(flow, $event)"
+                 (dblclick)="dbCheckedClick(flow, $event)"
+                 [style.paddingLeft.px]="index*20 + 10"
+                 [attr.index]="i">
+                <!--<i class="iconfont arrow" *ngIf="flow.type === 'catalog'"-->
+                    <!--[class.expand]="flow.expand"-->
+                    <!--(click)="expandClick(flow, $event)">&#xe62f;</i>-->
+                <!--<span *ngIf="flow.type === 'catalog'" (click)="expandClick(flow, $event)">-->
+                <span *ngIf="flow.type === 'catalog'" (click)="expandClick(flow, $event)">
+                    <i class="iconfont icon-ico_folder_close icon-fold" *ngIf="!flow.expand"></i>
+                    <i class="iconfont icon-ico_folder_open icon-fold" *ngIf="flow.expand"></i>
+                </span>
+                <span *ngIf="flow.type === 'task'">
+                    <i class="iconfont icon-ico_task_point"
+                       [class.icon-work]="type==='workList'"
+                       [class.icon-node]="type==='nodeList'"></i>
+                </span>
+                <span *ngIf="flow.type === 'catalog'" (click)="expandClick(flow, $event)">{{flow.projectName}}</span>
+                <span *ngIf="flow.type === 'task'">{{flow.taskName}}</span>
+            </div>
+            <div class="child-content" *ngIf="flow.children&&flow.children.length&&flow.expand" [@slideUpDwon]>
+                <task-config-tree-component
+                    [flows]="flow.children"
+                    [index]="index+1"
+                    [type]="type"
+                    [parent]="flow">
+                </task-config-tree-component>
+            </div>
+        </li>
+    </ul>
+
+    <div *ngIf="showCatalogModal &&
+    (checkBtnAuthority('task.config.exportCataLog') ||
+     checkBtnAuthority('task.config.editCataLog') ||
+     checkBtnAuthority('task.config.deleteCataLog'))"
+         [style.left.px]="modalX"
+         [style.top.px]="modalY"
+         class="modal">
+        <!--<span>重命名</span>-->
+        <span (click)="exportCatalog()" authority="task.config.exportCataLog">导出</span>
+        <span (click)="editCatalog()" authority="task.config.editCataLog">编辑</span>
+        <span class="error" (click)="deleteCatalog()" authority="task.config.deleteCataLog">删除</span>
+    </div>
+
+    <div *ngIf="showTaskTModal &&
+    (checkBtnAuthority('task.config.exportTask') ||
+     checkBtnAuthority('task.config.editTask') ||
+      checkBtnAuthority('task.config.deleteTask'))"
+         [style.left.px]="modalX"
+         [style.top.px]="modalY"
+         class="modal">
+        <span (click)="exportCatalog()" authority="task.config.exportTask">导出</span>
+        <!--<span (click)="updateStatus()">运行</span>-->
+        <span (click)="editCatalog()" authority="task.config.editTask">编辑</span>
+        <span class="error" (click)="deleteCatalog()" authority="task.config.deleteTask">删除</span>
+    </div>
+</div>

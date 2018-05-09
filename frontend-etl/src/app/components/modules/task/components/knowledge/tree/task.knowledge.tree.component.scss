@@ -1,0 +1,70 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+
+.tree-container {
+    float: left;
+    min-width: 100%;
+    position: relative;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    ul{
+        height: auto;
+        overflow: hidden;
+        position: relative;
+    }
+    li {
+        width: 100%;
+        float: left;
+    }
+    .tree-title {
+        position: relative;
+        line-height: 30px;
+        cursor: pointer;
+        &:hover {
+            background: #F0F0F0;
+        }
+        i.iconfont {
+            color: #FFAD49;
+            font-size: 14px;
+            &.task-point {
+                color: #4499EE;
+            }
+        }
+        .delete-menu {
+            opacity: 0;
+            position: relative;
+            top: 2px;
+            transition: $transitionAll;
+            .iconfont{
+                color:red;
+            }
+        }
+        &:hover .delete-menu{
+            opacity: 1;
+        }
+        &.checked {
+            background: #C4E6FF;
+        }
+    }
+
+    .modal {
+        background: #fff;
+        border: 1px solid $borderColor;
+        position: fixed;
+        left: 0;
+        top: 0;
+        text-align: center;
+        width: 80px;
+        padding: 5px;
+        z-index: 999;
+        span {
+            display: block;
+            margin-bottom: 3px;
+            cursor: pointer;
+        }
+    }
+    .child-content {
+        overflow: hidden;
+    }
+}

@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="header-container">
+        <button class="menu-btn btn icon" (click)="addContent()" [class.disabled]="!knowledgeId" authority="task.knowledge.addContent">
+            <i class="iconfont icon-ico_task_add"></i>
+            <span>新增知识扩展</span>
+        </button>
+        <button class="menu-btn btn icon" (click)="saveTaskClick()" [class.disabled]="!knowledgeId" authority="task.knowledge.save">
+            <i class="iconfont icon-ico_save"></i>
+            <span>保存知识</span>
+        </button>
+        <button class="icon menu-btn btn" (click)="available()" [class.disabled]="!knowledgeId" authority="task.knowledge.edit">
+            <i class="iconfont icon-ico_modify"></i>
+            <span>修改知识</span>
+        </button>
+    </div>
+    <div class="task-content" #canvas>
+        <div class="content" *ngIf="knowledgeId">
+            <input type="text" class="input" maxlength="20" [class.error]="errorType === 1" *ngIf="updating" [(ngModel)]="knowledgeContent" placeholder="输入知识内容">
+            <span class="label text-overflow" *ngIf="!updating" [title]="knowledgeContent">{{knowledgeContent}}</span>
+        </div>
+
+        <div class="knowledges clearfix">
+            <div class="knowledge"
+                 *ngFor="let know of knowledges; let i = index;"
+                 >
+                <input type="text" class="input" maxlength="20" [class.error]="know.errorType===1" *ngIf="updating" [(ngModel)]="know.extContent" placeholder="输入知识扩展内容">
+                <i class="iconfont icon-ico_delete" *ngIf="updating" (click)="deleteKnowledge(i, $event)"></i>
+                <span class="label text-overflow" *ngIf="!updating" [title]="know.extContent">{{know.extContent}}</span>
+            </div>
+        </div>
+    </div>
+</div>

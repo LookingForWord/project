@@ -1,0 +1,36 @@
+<div class="tree-container">
+    <ul #titleContainer>
+        <li *ngFor="let item of list;let i = index;"  >
+            <div class="tree-title"
+                 [class.checked]="item.checked"
+                 (click)="checkedClick(item, $event)"
+                 [style.paddingLeft.px]="(index*20) + 10"
+                 [attr.index]="i"
+                >
+                <span>
+                    <!--<i class="iconfont icon-ico_arrow_down arrow"-->
+                       <!--[class.right]="!item.expand"-->
+                       <!--(click)="expandClick(item, $event)"-->
+                       <!--*ngIf="item.children && item.children.length"-->
+                    <!--&gt;</i>-->
+                     <i class="iconfont" *ngIf="item.type === 'menu'"
+                        [class.icon-ico_folder_open]="item.expand"
+                        [class.icon-ico_folder_close]="!item.expand"
+                        (click)="expandClick(item, $event)"></i>
+                </span>
+                <span class="name" *ngIf="item.type === 'menu'">{{item.menuName}}</span>
+                <i class="icon iconfont icon-ico_edit" (click)="editCatalog(item)" *ngIf="type === 'CatalogList' && item.pid !== '0' && checkBtnAuthority('task.rule.editCatalog')"></i>
+                <i class="icon iconfont icon-ico_delete" (click)="deleteCatalog(item.id)" *ngIf="type === 'CatalogList'  && item.pid !== '0' && checkBtnAuthority('task.rule.deleteCataLog')"></i>
+            </div>
+            <div class="child-content" *ngIf="item.children&&item.children.length&&item.expand" [@slideUpDwon]>
+                <task-rule-tree-component
+                    [type]='type'
+                    [index]="index+1"
+                    [parent]="item"
+                    [list]="item.children"
+                  >
+                </task-rule-tree-component>
+            </div>
+        </li>
+    </ul>
+</div>

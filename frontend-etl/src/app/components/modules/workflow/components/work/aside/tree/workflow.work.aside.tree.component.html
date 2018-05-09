@@ -1,0 +1,47 @@
+<div class="tree-container">
+    <ul #titleContainer>
+        <li *ngFor="let flow of workflows;let i = index;">
+            <div class="tree-title"
+                 [class.checked]="flow.checked"
+                 (click)="checkedClick(flow, $event)"
+                 (dblclick)="dbCheckedClick(flow, $event)"
+                 [style.paddingLeft.px]="index*20 + 10"
+                 [attr.index]="i">
+                <span *ngIf="flow.type === 'catalog'">
+                    <i class="iconfont icon-ico_folder_close icon-fold" *ngIf="!flow.expand"></i>
+                    <i class="iconfont icon-ico_folder_open icon-fold" *ngIf="flow.expand"></i>
+                </span>
+                <span *ngIf="flow.type === 'work'">
+                    <i class="iconfont icon-ico_task_work_flow icon-work"></i>
+                </span>
+                <span *ngIf="flow.type==='run.shell'">
+                    <i class="iconfont icon-ico_folder_close icon-fold" *ngIf="!flow.expand && !flow.isTask"></i>
+                    <i class="iconfont icon-ico_folder_open icon-fold" *ngIf="flow.expand  && !flow.isTask"></i>
+                    <i class="iconfont icon-ico_task_work_flow icon-work" *ngIf="flow.isTask"></i>
+                </span>
+                <span>{{flow.name}}</span>
+                <i class="iconfont icon-ico_edit" (click)="editCatalog(flow)" *ngIf="!type && checkBtnAuthority('workflow.work.edit')"></i>
+                <i class="iconfont icon-ico_delete" (click)="deleteCatalog($event,flow)" *ngIf="!type && checkBtnAuthority('workflow.work.delete')"></i>
+            </div>
+            <div class="child-content" *ngIf="flow.children&&flow.children.length&&flow.expand" [@slideUpDwon]>
+                <workflow-work-aside-tree-component
+                    [type]="type"
+                    [workflows]="flow.children"
+                    [index]="index+1"
+                    [sessionTrees]="sessionTrees"
+                    [parentWorkflows]="flow">
+                </workflow-work-aside-tree-component>
+            </div>
+        </li>
+    </ul>
+
+    <div *ngIf="showRightClick"
+         [style.left.px]="modalX"
+         [style.top.px]="modalY"
+         class="modal">
+        <span (click)="exportCatalog()">导出</span>
+        <!--<span (click)="updateStatus()">运行</span>-->
+        <span (click)="editCatalog()">编辑</span>
+        <span class="error" (click)="deleteCatalog()">删除</span>
+    </div>
+</div>

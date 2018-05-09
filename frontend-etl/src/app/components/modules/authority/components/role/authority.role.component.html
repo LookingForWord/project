@@ -1,0 +1,148 @@
+<div class="container">
+    <div class="search-bar line">
+        <button class="addDatabase btn primary line ml10 " (click)="newRole()" authority="authority.role.add">
+            <i class="icon iconfont mr5 icon-ico_add"></i><span>创建角色</span>
+        </button>
+        <button class="btn  ml4" (click)="importRoles()"  authority="authority.role.import">导入</button>
+        <button class="btn ml4" (click)="exportRoles()" authority="authority.role.export">导出</button>
+        <a [attr.href]="exportRoleTemplate()" authority="authority.role.exportModal">
+            <button class="btn ml4">导出模板</button>
+        </a>
+        <div  class="input-icon ml10" position="left">
+            <input type="text" class="input" #search [(ngModel)]="keyWord" inputDebounce (debounceClick)="searchChange($event)" placeholder="支持角色名搜索">
+            <i class="icon  iconfont icon-ico_search_textfield"></i>
+        </div>
+        <button class="back line btn ml4" (click)="getRoles(1)">搜索</button>
+    </div>
+    <div class="left-table common-table">
+
+        <div class="common-table-box">
+            <!--<div class="common-table-header">-->
+                <!--<span class="table-title">-->
+                    <!--<i class="iconfont icon icon-ico_character mr8"></i>角色列表-->
+                <!--</span>-->
+                <!--<span class="total">共{{totalcount}}条记录</span>-->
+            <!--</div>-->
+            <div class="common-table-body">
+                <table>
+                    <thead>
+                    <tr>
+                        <th style="text-align: left" width="22%">角色名</th>
+                        <!--<th>创建时间</th>-->
+                        <!--<th>创建者</th>-->
+                        <!--<th>状态</th>-->
+                        <th width="10%">
+                            <!--操作-->
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="tbody">
+                    <tr *ngFor="let role of roles"  [class.active]="roleId === role.id">
+                        <td style="text-align: left" >
+                            <a href="javascript:;" class="link "
+                               [class.hover]="roleId === role.id"
+                               (click)="roleNameClick(role.id) ">
+                                {{role.roleName}}
+                            </a>
+                        </td>
+                        <!--<td>{{role.createTime}}</td>-->
+                        <!--<td>{{role.createrCnname}}</td>-->
+                        <!--<td>{{role.status === 0 ? '正常' : '失效'}}</td>-->
+                        <td >
+                            <button class="btn icon only"  tooltip="查看" position="top" (click)="detailClick(role.id)">
+                                <i class="icon iconfont icon-ico_view"></i>
+                            </button>
+                            <button class="btn icon only"  tooltip="编辑" position="top" (click)="updateClick(role.id)" authority="authority.role.edit">
+                                <i class="icon iconfont icon-ico_edit"></i>
+                            </button>
+                            <button class="btn icon only"  tooltip="删除" position="top" (click)="deleteClick(role.id)" authority="authority.role.delete">
+                                <i class="icon iconfont icon-ico_delete"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="noDataType">
+                        <td colspan='5' >暂无数据...</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="common-table-footer">
+                <pagination-component [pagenow]="pagenow"
+                                      [pagesize]="pagesize"
+                                      [totalcount]="totalcount"
+                                      (onPageChange)="doPageChange($event)">
+                </pagination-component>
+            </div>
+        </div>
+    </div>
+    <div class="right-content" *ngIf="roleId">
+        <div class="header-container">
+            <button class="menu-btn btn icon" (click)="saveAuthorityClick()"  >
+                <i class="iconfont icon-ico_save"></i>
+                <span>保存权限</span>
+            </button>
+        </div>
+        <div class="tab clearfix">
+            <span (click)="authorityTab('menu')"
+                  [class.active]="tab === 'menu'" [class.department]="tab === 'menu'">
+                菜单权限
+            </span>
+            <span (click)="authorityTab('port')"
+                  [class.active]="tab === 'port'">
+                接口权限
+            </span>
+            <span (click)="authorityTab('dataPermission')"
+                  [class.active]="tab === 'dataPermission'">
+                数据权限
+            </span>
+            <span (click)="authorityTab('staff')"
+                  [class.active]="tab === 'staff'">
+                人员配置
+            </span>
+            <!--<span (click)="authorityTab('data')"-->
+                  <!--[class.active]="tab === 'data'">-->
+                <!--数据权限(新的)-->
+            <!--</span>-->
+        </div>
+        <div class="tree-box" [class.data]="tab === 'data'" >
+            <!--菜单权限的数据树-->
+            <span class="tree"
+                  *ngIf="tab === 'menu'">
+                <authority-role-tree-component
+                    [menuList]="departmentList"
+                    [treeType]="'department'">
+                </authority-role-tree-component>
+            </span>
+            <!--接口权限的数据树-->
+            <span class="tree" *ngIf="tab === 'port'" >
+                <authority-role-tree-component
+                    [menuList]="portList"
+                    [treeType]="'port'">
+                </authority-role-tree-component>
+            </span>
+            <!--数据权限的数据树-->
+            <span class="data-permission" *ngIf="tab === 'dataPermission'">
+                    <authority-object-data-permission-component
+                        #premission
+                        [isUser]="true"
+                        [roleId]="roleId">
+                    </authority-object-data-permission-component>
+            </span>
+            <!--人员配置的数据树-->
+            <span class="tree" *ngIf="tab === 'staff'" >
+                <authority-role-tree-component
+                    [menuList]="staffList"
+                    [treeType]="'staff'">
+                </authority-role-tree-component>
+            </span>
+
+            <!--<span class="tree" *ngIf="tab === 'data'">-->
+                <!--<authority-role-permission-tree-component-->
+                    <!--[treeType]="'role'"-->
+                    <!--[index]="0"-->
+                    <!--[dataList]="dataList">-->
+                <!--</authority-role-permission-tree-component>-->
+            <!--</span>-->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+
+.tree-container {
+    float: left;
+    min-width: 100%;
+    position: relative;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    li {
+        width: 100%;
+        float: left;
+    }
+    .tree-title {
+        position: relative;
+        padding: 3px 10px 3px 5px;
+        cursor: pointer;
+        transition: $transitionAll;
+        &:hover {
+            background: #E0E0E0;
+        }
+        &.checked {
+            background: #EEEEEE;
+        }
+        .icon-fold {
+            color: #FFAD49;
+        }
+        .icon-work {
+            color: #4499EE;
+        }
+        .icon-node {
+            color: #3EDBCE;
+        }
+    }
+
+    .modal {
+        background: #fff;
+        border: 1px solid #CCDDEE;
+        position: fixed;
+        left: 0;
+        top: 0;
+        text-align: center;
+        width: 66px;
+        z-index: 999;
+        padding: 8px 0;
+        color: #666;
+        span {
+            display: block;
+            padding: 3px;
+            cursor: pointer;
+            &:hover {
+                background: #E0E0E0;
+                color: #333;
+            }
+            &.error {
+                &:hover {
+                    color: #FF3333;
+                }
+            }
+        }
+    }
+    .child-content {
+        overflow: hidden;
+    }
+}

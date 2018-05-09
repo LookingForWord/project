@@ -1,0 +1,11 @@
+<div class="container">
+    <a [attr.href]="downLoad()">
+        <button class="btn icon only"  title="下载日志" position="top" *ngIf="status === 2 || status === 3">
+            <i class="iconfont icon-xiazai"></i>
+        </button>
+    </a>
+    <ul>
+        <li *ngFor="let item of logs;let i=index;">{{item}}</li>
+        <li *ngIf="noLog">暂无日志数据...</li>
+    </ul>
+</div>

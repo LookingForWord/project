@@ -1,0 +1,154 @@
+$borderColor: #DCE7F3;
+$deepColor: #F2F6F9;
+
+.container {
+    width: 100%;
+    position: absolute;
+    top: 40px;
+    bottom: 0;
+    .item {
+        width: 300px;
+        height: 100%;
+        float: left;
+        overflow-x: hidden;
+        &.scroll {
+            overflow: auto;
+            > div {
+                white-space: nowrap;
+            }
+        }
+        &.white-item {
+            width: 298px;
+            background: #fff;
+            border-left: 1px solid $borderColor;
+            border-right: 1px solid $borderColor;
+            .sub-item.selected {
+                background: $deepColor;
+                position: relative;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 290px;
+                display: block;
+                &:after {
+                    content: '';
+                    width: 2px;
+                    height: 100%;
+                    position: absolute;
+                    right: -1px;
+                    top: 0;
+                    background: $deepColor;
+                }
+            }
+        }
+        &.deep-item {
+            background: $deepColor;
+            .sub-item.selected {
+                background: #fff;
+                position: relative;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 290px;
+                display: block;
+                &:after {
+                    content: '';
+                    width: 2px;
+                    height: 100%;
+                    position: absolute;
+                    right: -1px;
+                    top: 0;
+                    background: #fff;
+                }
+            }
+        }
+
+        .search-item {
+            padding: 8px 0;
+            margin-left: 8px;
+            input {
+                width: 245px;
+            }
+        }
+
+        .sub-item {
+            padding: 8px;
+            cursor: default;
+            transition: all 0.3s ease;
+            .icon-checkbox_checked_hover {
+                color: #4499EE;
+            }
+            .icon-checkbox_normal {
+                color: #CCDDEE;
+            }
+        }
+    }
+}
+.fixed-width {
+    width: 30%;
+    float: left;
+    position: relative;
+    .error {
+        position: absolute;
+        font-size: 12px;
+        left: 2px;
+        top: 100%;
+        color: #FF3333;
+    }
+}
+.field-box {
+    width: 60px;
+    font-size: 14px;
+    float: left;
+    height: 26px;
+    text-align: center;
+}
+.range-item {
+    margin-left: 8px;
+    float: left;
+    position: relative;
+    input {
+        text-align: center;
+        font-size: 12px;
+        width: 60px;
+    }
+    .error {
+        position: absolute;
+        font-size: 12px;
+        left: 0;
+        top: 100%;
+        color: #FF3333;
+    }
+}
+.add {
+    width: 70px;
+    float: right;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-right: 50px;
+}
+// 修改子组件的样式
+:host ::ng-deep pagination-component  {
+    .pager {
+        padding: 20px 0;
+        text-align: center;
+        .page-items {
+            span {
+                float: none !important;
+                display: inline-block;
+                padding: 0 5px!important;
+                margin-left: 4px!important;
+            }
+        }
+        .page-jumps {
+            margin-left: 0!important;
+            input {
+                padding: 0!important;
+                margin-left: 0!important;
+            }
+            span {
+                margin-left: 0!important;
+            }
+        }
+    }
+}

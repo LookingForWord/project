@@ -1,0 +1,52 @@
+<div class="container" >
+    <div class="left-tree">
+        <div class="tree-container">
+            <governance-table-analysis-tree-container-component #aside></governance-table-analysis-tree-container-component>
+        </div>
+    </div>
+    <div class="right-table">
+        <table-component>
+            <div class="table-component-title">
+                <span class="title">
+                    <i class="iconfont icon-biaofenxibaogao mr8"></i>表分析报告列表
+                </span>
+                <span class="record">共{{totalcount}}条记录</span>
+            </div>
+            <thead class="table-component-thead">
+            <tr>
+                <th width="18%">报告名称</th>
+                <th width="18%">表名</th>
+                <th width="18%">执行时间</th>
+                <th width="18%">行数统计</th>
+                <th width="18%">操作人员</th>
+                <th width="10%">操作</th>
+            </tr>
+            </thead>
+            <tbody class="table-component-tbody">
+            <tr *ngFor="let item of reportList">
+                <td>{{item.resultName}}</td>
+                <td>{{item.tableName}}</td>
+                <td>{{item.createTime | date:'YYYY/MM/DD HH:mm:ss'}}</td>
+                <td>{{item.countResult}}</td>
+                <td>{{item.creatorName}}</td>
+                <td>
+                    <button class="btn icon only"  tooltip="查看" position="top" (click)="detailClick(item)">
+                        <i class="icon iconfont icon-ico_view"></i>
+                    </button>
+                    <button class="btn icon only"  tooltip="删除" position="top" authority="governance.tableAnalysis.delete" (click)="deleteClick(item)">
+                        <i class="icon iconfont icon-ico_delete"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot class="table-component-tfoot">
+            <tr *ngIf="noData">
+                <td colspan="6">暂无数据...</td>
+            </tr>
+            </tfoot>
+            <div class="table-component-page">
+                <multi-pagination-component [pagenow]="pageNum" [pagesize]="pageSize" [totalcount]="totalcount" (onPageChange)="doPageChange($event)"></multi-pagination-component>
+            </div>
+        </table-component>
+    </div>
+</div>

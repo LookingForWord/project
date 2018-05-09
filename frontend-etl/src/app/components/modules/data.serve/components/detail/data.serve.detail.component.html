@@ -1,0 +1,143 @@
+<div class="ontainer">
+    <div class="title">
+        <div class="title-content">
+            <span class="left" (click)="goBack()">
+                <i class="iconfont icon-leixing"></i>
+                <span>服务列表</span>
+            </span>
+            <i class="iconfont icon-ico_arrow_right jt"></i>
+            <span class="left">
+                <span>{{detailData.name||''}}</span>
+            </span>
+        </div>
+    </div>
+    <div class="content">
+        <div class="detai-top" >
+            <h5>{{detailData.name || ''}}</h5>
+            <ul>
+                <li>所属系统：{{systemName || ''}}</li>
+                <li>创建者：{{detailData.createUserCnname || ''}}</li>
+                <li>创建时间：{{detailData.createTime}}</li>
+                <li class="tag-box">标签：<span *ngFor="let tag of detailData.serveTags">{{tag['tagName']}}</span></li>
+                <li>状态：{{detailData.status ===01 ? '激活' : (detailData.status === 2 ? '失效' : '暂停')}}</li>
+                <li>访问量：{{detailData.accessCount}}</li>
+            </ul>
+        </div>
+        <div class="tab clearfix">
+            <span (click)="tabChecked('introduce')"
+                  [class.active]="tab === 'introduce'">
+                接口说明
+            </span>
+            <span (click)="tabChecked('preview')"
+                  [class.active]="tab === 'preview'">
+                数据预览
+            </span>
+            <span (click)="tabChecked('error')"
+                  [class.active]="tab === 'error'">
+                错误码说明
+            </span>
+        </div>
+        <div class="content-box">
+            <!-- 接口说明 -->
+            <div class="introduce" *ngIf="tab==='introduce'">
+                <ul>
+                    <li>接口地址：{{detailData.url}}</li>
+                    <li>支持格式：json格式</li>
+                    <li>请求方式：GET</li>
+                    <li>请求头：token - 必填，权限系统登录后返回的token</li>
+                </ul>
+                <h6>请求参数</h6>
+                <table-component>
+                    <thead class="table-component-thead">
+                        <tr>
+                            <th width="18%">参数名称</th>
+                            <th width="18%">参数类型</th>
+                            <th width="18%">是否必填</th>
+                            <th width="46%">参数说明</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-component-tbody">
+                        <tr>
+                            <td>urlId</td>
+                            <td>String</td>
+                            <td>是</td>
+                            <td>服务调用的urlId</td>
+                        </tr>
+                        <tr>
+                            <td>pageNum</td>
+                            <td>int</td>
+                            <td>否</td>
+                            <td>当前页码，默认初始值为1</td>
+                        </tr>
+                        <tr>
+                            <td>pageSize</td>
+                            <td>int</td>
+                            <td>否</td>
+                            <td>当前页每页显示的数据条数,默认初始值为10</td>
+                        </tr>
+                    </tbody>
+                </table-component>
+                <h6>返回字段</h6>
+                <table-component>
+                    <thead class="table-component-thead">
+                        <tr>
+                            <th width="33.33%">字段名称</th>
+                            <th width="33.33%">字段类型</th>
+                            <th width="33.33%">字段描述</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-component-tbody">
+                        <tr *ngFor="let item of detailData.returnColumns">
+                            <td>{{item.columnName}}</td>
+                            <td>{{item.columnName}}</td>
+                            <td>{{item.columnComment}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="table-component-tfoot">
+                        <tr *ngIf="noDataType">
+                            <td colspan="3">暂无数据...</td>
+                        </tr>
+                    </tfoot>
+                </table-component>
+            </div>
+            <!-- 数据预览 -->
+            <div class="preview" *ngIf="tab==='preview'">
+                <table-component>
+                    <thead class="table-component-thead" *ngIf="previewList && previewList.length>0">
+                        <tr>
+                            <th *ngFor="let name of titleList" [style.width]="100/titleList.length + '%'">{{name}}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-component-tbody">
+                        <tr *ngFor="let item of previewList">
+                            <td *ngFor="let name of titleList">{{item[name]}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="table-component-tfoot">
+                        <tr *ngIf="noPreview">
+                            <td colspan="7">暂无数据...</td>
+                        </tr>
+                    </tfoot>
+                </table-component>
+            </div>
+            <!-- 错误码说明 -->
+            <div class="error" *ngIf="tab==='error'">
+                <table-component>
+                    <thead class="table-component-thead">
+                    <tr>
+                        <th>错误码</th>
+                        <th>说明</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-component-tbody">
+                    <tr *ngFor="let item of errorList; let i = index">
+                        <td>{{item.name}}</td>
+                        <td>{{item.desc}}</td>
+                    </tr>
+                    </tbody>
+                </table-component>
+            </div>
+        </div>
+
+    </div>
+</div>

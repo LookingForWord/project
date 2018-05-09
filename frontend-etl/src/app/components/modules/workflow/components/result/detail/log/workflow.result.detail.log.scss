@@ -1,0 +1,22 @@
+.container {
+    width: 700px;
+    height: 400px;
+    overflow-y: auto;
+    margin: 15px 0;
+    border: 1px solid #cde;
+    border-radius: 4px;
+    .btn {
+        position: absolute;
+        top: 10px;
+        z-index: 99;
+        left: 110px;
+    }
+    ul {
+        height: auto;
+    }
+    ul li {
+        padding: 5px;
+        line-height: 30px;
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,130 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+
+.tree-container {
+    float: left;
+    min-width: 100%;
+    position: relative;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+
+    ul {
+        li {
+        width: 100%;
+        float: left;
+        font-size: 14px;
+        .bd-left{
+            border-left: 1px solid #333;
+        }
+        .test{
+            width: 1px;
+            background: #fff;
+            float: left;
+            margin-left: -1px
+        }
+        .border-line{
+            height: 1px;
+            width: 20px;
+            background: #333;
+            float: left;
+            margin-top: 15px
+        }
+        .ex{
+            width: 1px;
+            background: #fff;
+            float: left;
+            margin-left: -21px;
+            margin-top: 16px
+        }
+        ul>li:last-child.ereaser-border{
+            border-left: 0;
+            //.test {
+            //    border-left: 1px solid #333;
+            //    height: 16px;
+            //    margin-left: 0;
+            //}
+        }
+        li:first-child >.test{
+            height: 15px;
+        }
+        li:last-child >.ex{
+            height: 40px;
+        }
+    }
+    }
+    .tree-title {
+        float: left;
+        position: relative;
+        padding: 5px 0px 5px 0px;
+        cursor: pointer;
+        transition: $transitionAll;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        .main-content {
+            width: calc(100% - 10px);
+            border: 1px solid #333;
+            float: left
+        }
+        .arrow {
+            display: inline-block;
+            transition: $transitionAll;
+            transform: rotate(-90deg);
+            font-size: 12px;
+            position: relative;
+            top: -1px;
+            &.expand {
+                transform: rotate(0deg);
+            }
+        }
+        .connect-line {
+            margin-top: 10px;
+            height: 1px;
+            background: #333;
+            float: right;
+            width: 8px;
+        }
+        .iconfont {
+            color: #4499EE;
+            font-size: 14px;
+            transition: $transitionAll;
+            &.icon-ico_folder_close, &.icon-ico_folder_open {
+                color: #FFAD49;
+            }
+        }
+        .name {
+            padding-right: 5px;
+            color: #666666;
+            letter-spacing: 0.86px;
+        }
+        .context {
+            color: #999999;
+            letter-spacing: 0.86px;
+        }
+        .action-btn {
+            display: none;
+        }
+        .status {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #FF3333;
+            margin-right: 4px;
+            &.normal {
+                background: #66BB11;
+            }
+            &.error {
+                background: #FF3333;
+            }
+        }
+    }
+    .child-content {
+        float: left;
+    }
+    .common-table-footer {
+        float: left;
+        //padding-left: 30px;
+    }
+}

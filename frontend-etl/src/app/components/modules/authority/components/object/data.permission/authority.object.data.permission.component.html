@@ -1,0 +1,105 @@
+<div class="container" [style.min-width.px]="(permissions && permissions.length && permissions[permissions.length - 1].index === 4) ? 1200 : ''">
+    <div class="item white-item"
+         *ngFor="let permission of permissions;let i = index;"
+         [class.white-item]="i%2===0"
+         [class.deep-item]="i%2===1"
+         [class.scroll]="permission.index === 3">
+        <div *ngIf="permission.permission&&permission.permission.length" >
+            <span class="input-icon search-item" position="left">
+                <input type="text" class="input" placeholder="搜索内容" size="small" inputDebounce (debounceClick)="searchChange($event)" (focus)="searchFocus(permission)">
+                <span class="iconfont icon-ico_search_textfield"></span>
+            </span>
+            <div class="sub-item"
+                 *ngFor="let p of permission.permission"
+                 (click)="permissionTitleClick(permission, p)"
+                 [class.selected]="p.selected"
+                 [class.hidden]="p.show === false"> <!--根据搜索结果判定show-->
+                <span class="icon-checkbox" *ngIf="!isUser && (permission.index === 3 || permission.index === 4)">
+                    <!--<i class="iconfont icon-checkbox_partialcheck"></i>-->
+                    <i class="iconfont icon-checkbox_checked_hover" *ngIf="p.checked" (click)="permissionCheckedClick(p, permission, $event)"></i>
+                    <i class="iconfont icon-checkbox_normal" *ngIf="!p.checked" (click)="permissionCheckedClick(p, permission, $event)"></i>
+                </span>
+                <span *ngIf="permission.index === 1">{{p.systemName}}</span>
+                <span *ngIf="permission.index === 2">{{p.dsName}}</span>
+                <span *ngIf="permission.index === 3" [tooltip]="p.objName">{{p.objName}}</span>
+                <span *ngIf="permission.index === 4">{{p.fieldName}}</span>
+
+                <span *ngIf="isUser && permission.index === 3" style="display: block">
+                    <span>
+                        <i class="iconfont icon-checkbox_checked_hover" (click)="permissionUserCheckedClick(p, permission, 1, 'readRight', $event)" *ngIf="p.readChecked"></i>
+                        <i class="iconfont icon-checkbox_normal" (click)="permissionUserCheckedClick(p, permission, 1, 'readRight', $event)" *ngIf="!p.readChecked"></i>
+                        <span (click)="permissionUserCheckedClick(p, permission, 1, 'readRight', $event)">查询</span>
+                    </span>
+                    <span>
+                        <i class="iconfont icon-checkbox_checked_hover" (click)="permissionUserCheckedClick(p, permission, 1, 'writeRight', $event)" *ngIf="p.writeChecked"></i>
+                        <i class="iconfont icon-checkbox_normal" (click)="permissionUserCheckedClick(p, permission, 1, 'writeRight', $event)" *ngIf="!p.writeChecked"></i>
+                        <span (click)="permissionUserCheckedClick(p, permission, 1, 'writeRight', $event)">修改</span>
+                    </span>
+                    <span>
+                        <i class="iconfont icon-checkbox_checked_hover" (click)="permissionUserCheckedClick(p, permission, 1, 'deleteRight', $event)" *ngIf="p.deleteChecked"></i>
+                        <i class="iconfont icon-checkbox_normal" (click)="permissionUserCheckedClick(p, permission, 1, 'deleteRight', $event)" *ngIf="!p.deleteChecked"></i>
+                        <span (click)="permissionUserCheckedClick(p, permission, 1, 'deleteRight', $event)">删除</span>
+                    </span>
+
+                    <span *ngIf="p.objType === 3">
+                        <i class="iconfont icon-checkbox_checked_hover" (click)="permissionUserCheckedClick(p, permission, 1, 'excuteRight', $event)" *ngIf="p.excuteChecked"></i>
+                        <i class="iconfont icon-checkbox_normal" (click)="permissionUserCheckedClick(p, permission, 1, 'excuteRight', $event)" *ngIf="!p.excuteChecked"></i>
+                        <span (click)="permissionUserCheckedClick(p, permission, 1, 'excuteRight', $event)">执行</span>
+                    </span>
+
+                </span>
+                <span *ngIf="isUser && permission.index === 4">
+                    <span>
+                        <i class="iconfont icon-checkbox_checked_hover" (click)="permissionUserCheckedClick(p, permission, 2, 'readRight', $event)" *ngIf="p.readChecked"></i>
+                        <i class="iconfont icon-checkbox_normal" (click)="permissionUserCheckedClick(p, permission, 2, 'readRight', $event)" *ngIf="!p.readChecked"></i>
+                        <span (click)="permissionUserCheckedClick(p, permission, 2, 'readRight', $event)">查询</span>
+                        <!--<span class="add" *ngIf="p.readChecked">-->
+                            <!--<span class="link" (click)="addField()">+添加规则</span>-->
+                        <!--</span>-->
+                    </span>
+                    <!--<span>-->
+                        <!--<i class="iconfont icon-checkbox_checked_hover" (click)="permissionUserCheckedClick(p, permission, 2, 'writeRight', $event)" *ngIf="p.writeChecked"></i>-->
+                        <!--<i class="iconfont icon-checkbox_normal" (click)="permissionUserCheckedClick(p, permission, 2, 'writeRight', $event)" *ngIf="!p.writeChecked"></i>-->
+                        <!--<span (click)="permissionUserCheckedClick(p, permission, 2, 'writeRight', $event)">修改</span>-->
+                    <!--</span>-->
+                    <!--<span>-->
+                        <!--<i class="iconfont icon-checkbox_checked_hover" (click)="permissionUserCheckedClick(p, permission, 2, 'deleteRight', $event)" *ngIf="p.deleteChecked"></i>-->
+                        <!--<i class="iconfont icon-checkbox_normal" (click)="permissionUserCheckedClick(p, permission, 2, 'deleteRight', $event)" *ngIf="!p.deleteChecked"></i>-->
+                        <!--<span (click)="permissionUserCheckedClick(p, permission, 2, 'deleteRight', $event)">删除</span>-->
+                    <!--</span>-->
+
+                    <div *ngIf="p.readChecked">
+                        <div class="clearfix">
+                            <div class="fixed-width">
+                                <select-component
+                                    [placeholder]="'请选择'"
+                                    [option]="p.rule"
+                                    [options]="ruleList"
+                                    [size]="'small'"
+                                    [background]="'#fff'"
+                                    (callback)="chooseOption($event, 'rule', p)">
+                                </select-component>
+                                <span class="error" *ngIf="p.errorType === 1">{{p.error}}</span>
+                            </div>
+                            <div class="ml5 field-box">
+                                {{p.rule && p.rule.value}}
+                            </div>
+                            <div class="range-item">
+                                <input type="text" class="input" placeholder="输入范围" size="small" [(ngModel)]="p.inputValue" >
+                                <span class="error" *ngIf="p.errorType === 2">{{p.error}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div *ngIf="permission.index === 3">
+                <pagination-component [pagenow]="permission.pageNow"
+                                      [pagesize]="permission.pageSize"
+                                      [totalcount]="permission.totalCount"
+                                      (onPageChange)="permissionIndex3DoPageChange($event)">
+                </pagination-component>
+            </div>
+        </div>
+    </div>
+
+</div>

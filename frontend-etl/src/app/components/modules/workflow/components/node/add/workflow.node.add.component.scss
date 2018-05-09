@@ -1,0 +1,86 @@
+@import 'assets/styles/global.scss';
+.container {
+    width: 324px;
+    padding: 25px;
+    .row {
+        margin-bottom: 25px;
+        li {
+            display: inline-block;
+            float: left;
+            &:first-child {
+                margin-right: 10px;
+            }
+            // 必填项设置
+            .required-content {
+                width: calc(100% - 10px);
+                display: inline-block;
+                padding-left: 10px;
+                position: relative;
+                .required-red {
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    margin-top: -7px;
+                    &.invisible {
+                        visibility: hidden;
+                    }
+                }
+                .required-label {
+                    position: absolute;
+                    bottom: -18px;
+                    left: 13px;
+                    color: #FF3333;
+                }
+            }
+            > span {
+                &:first-child {
+                    display: inline-block;
+                    width: 60px;
+                    text-align: right;
+                    margin-right: 5px;
+                    color: #666666;
+                    font-size: 14px;
+                }
+            }
+            span.input-error{
+                padding-left: 14px;
+            }
+            .input {
+                width: 217px;
+            }
+            .input-error {
+                bottom: -17px;
+                font-size: 12px;
+            }
+            .check-box {
+                width: 224px;
+                min-height: 80px;
+                vertical-align: top;
+                padding: 10px 4px;
+                border: 1px solid #CCDDEE;
+                border-radius: $borderRradius;
+                .checkbox {
+                    display: inline-block;
+                    margin-right: 10px;
+                    margin-bottom: 10px;
+                    input {
+                        position: absolute;
+                        display: inherit;
+                        width: 100%;
+                        height: 100%;
+                        z-index: 999;
+                        opacity: 0;
+                        cursor: pointer;
+                    }
+                    label {
+                        vertical-align: middle;
+                        position: relative;
+                        margin-right: 4px;
+                        top: -1px;
+                    }
+
+                }
+            }
+        }
+    }
+}

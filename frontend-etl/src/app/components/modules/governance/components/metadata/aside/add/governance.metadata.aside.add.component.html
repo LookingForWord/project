@@ -1,0 +1,459 @@
+<div class="container" [class.impact-box]="status === 'impact'">
+    <div class="row clearfix" *ngIf="status=== 'addVisual' || status === 'editTable'">
+        <ul class="clearfix ">
+            <li *ngIf="status=== 'addVisual' || status === 'editTable'">
+                <span >表名</span>
+                <span class="input-container" >
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text"
+                           [class.error]="errorType===1"
+                           class="input"
+                           [(ngModel)]="tableName"
+                           [disabled] = "status === 'editTable'"
+                           placeholder="支持英文和下划线">
+                        <span class="input-error" *ngIf="errorType === 1">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+            <li *ngIf="status=== 'addVisual' || status === 'editTable' ">
+                <span >注释</span>
+                <span class="input-container" >
+                    <span class="required-content">
+                        <i class="required-red"></i>
+                        <input type="text"
+                               [class.error]="errorType===2"
+                               class="input"
+                               [(ngModel)]="chineseName"
+                               placeholder="请输入注释">
+                        <span class="input-error" *ngIf="errorType === 2">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+
+        </ul>
+    </div>
+    <div class="row clearfix" *ngIf="status === 'addSQL' || status === 'addVisual' || status === 'editTable' ">
+        <ul class="clearfix">
+            <li class="not-required" >
+                <span>所属系统</span>
+                <span class="input-container">
+                     <span class="required-content">
+                         <i class="required-red">*</i>
+                         <span class="select-box">
+                             <select-component
+                                 [placeholder]="'选择系统'"
+                                 [option]="chekcSystemName"
+                                 [options]="systemNames"
+                                 [label]="'systemName'"
+                                 [disabled]="status === 'editTable'"
+                                 [downHeight]="200"
+                                 (callback)="systemChange($event)">
+                                </select-component>
+                         </span>
+                         <span class="input-error" *ngIf="errorType === 8">{{error}}</span>
+                     </span>
+                </span>
+            </li>
+
+            <li class="not-required">
+                <span>数据源类型</span>
+                <span class="input-container">
+                     <span class="required-content">
+                         <i class="required-red">*</i>
+                         <span class="select-box">
+                             <select-component
+                                 [placeholder]="'选择数据源类型'"
+                                 [option]="dataSourceType"
+                                 [options]="dataSourceTypes"
+                                 [disabled]="status === 'editTable'"
+                                 [downHeight]="200"
+                                 (callback)="selectChange($event,'dataSourceType')">
+                                </select-component>
+                         </span>
+                         <span class="input-error" *ngIf="errorType === 3">{{error}}</span>
+                     </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row clearfix" *ngIf="status === 'addSQL' || status === 'addVisual' || status === 'editTable' ">
+        <ul class="clearfix">
+            <li class="not-required">
+                <span>数据源</span>
+                <span class="input-container">
+                     <span class="required-content">
+                         <i class="required-red">*</i>
+                         <span class="select-box">
+                             <select-component
+                                 [placeholder]="'选择数据源'"
+                                 [option]="dataSourceName"
+                                 [options]="dataSourceNames"
+                                 [label]="'dsName'"
+                                 [disabled]="status === 'editTable'"
+                                 [searchs]="dataSourceNames"
+                                 [search]="true"
+                                 [downHeight]="200"
+                                 (callback)="selectChange($event,'dataSourceName')">
+                                </select-component>
+                         </span>
+                         <span class="input-error" *ngIf="errorType === 4">{{error}}</span>
+                     </span>
+                </span>
+            </li>
+            <li class="not-required" >
+                <span >标签</span>
+                <span class="input-container" [style.verticalAlign]="'middle'">
+                    <span class="required-content">
+                        <i class="required-red"></i>
+                        <span class="select-box">
+                            <multi-select-component
+                                [option]="tags"
+                                [options]="tagArrary"
+                                [adaption]="true"
+                                (callback)="tagCheck($event)"
+                                [downHeight]="180"
+                                [placeholder]="'选择标签'">
+                            </multi-select-component>
+                        </span>
+                        <span class="input-error" *ngIf="errorType === 5">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- hive是才显示 -->
+    <div class="row clearfix" *ngIf="dataSourceType && dataSourceType.value==='hive'">
+        <ul class="clearfix">
+            <li class="not-required">
+                <span>字段分隔符</span>
+                <span class="input-container">
+                     <span class="required-content">
+                         <i class="required-red"></i>
+                         <span class="select-box">
+                             <select-component
+                                 [placeholder]="'选择字段分隔符'"
+                                 [option]="fieldDelimiter"
+                                 [options]="fieldDelimiters"
+                                 [disabled]="status === 'editTable'"
+                                 [edit]="true"
+                                 (editCallback)="fieldDelimiterInput($event)"
+                                 (callback)="selectChange($event,'fieldDelimiter')">
+                                </select-component>
+                         </span>
+                         <span class="input-error" *ngIf="errorType === 8">{{error}}</span>
+                     </span>
+                </span>
+            </li>
+            <li class="not-required">
+                <span>存储格式</span>
+                <span class="input-container">
+                     <span class="required-content">
+                         <i class="required-red"></i>
+                         <span class="select-box">
+                             <select-component
+                                 [placeholder]="'选择存储格式'"
+                                 [option]="storeAs"
+                                 [options]="storeAsArr"
+                                 [disabled]="status === 'editTable'"
+                                 (callback)="selectChange($event,'storeAs')">
+                                </select-component>
+                         </span>
+                         <span class="input-error" *ngIf="errorType === 9">{{error}}</span>
+                     </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <!-- hive是才显示 -->
+    <div class="row clearfix" *ngIf="dataSourceType && dataSourceType.value==='hive'">
+        <ul class="clearfix parent">
+            <li class="not-required choose-location" [style.width.px]="454.3">
+                <span class="required-red">是否外部表</span>
+                <span class="input-container" >
+                    <span class="required-content">
+                        <span class="line ml10 radio mr10">
+                            <radio-component [modal]="isOutside==='0' ? true : ''" [value]="isOutside==='0'" [label]="'否'" (callback)="clearStorageUrl('0')"></radio-component>
+                        </span>
+                        <span class="line radio">
+                            <radio-component [modal]="isOutside==='1' ? true : ''" [value]="isOutside==='1'" [label]="'是'"  (callback)="clearStorageUrl('1')"></radio-component>
+                        </span>
+                    </span>
+                </span>
+            </li>
+            <li class="not-required">
+                <span>存储路径</span>
+                <span class="input-container" >
+                    <span class="required-content">
+                        <i class="required-red">{{isOutside==='1' ? '*' : ''}}</i>
+                        <input class="input"  [(ngModel)]="location" [disabled]="isOutside==='0' || status==='editTable'" placeholder="路径/文件名(默认路径:/user/hive/warehouse/)">
+                        <span class="input-error" *ngIf="errorType === 10">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="clearfix row" *ngIf="status=== 'addSQL' || status === 'addVisual' || status === 'editTable'">
+        <ul class="clearfix">
+            <li class="item">
+                <span >选择目录</span>
+                <span class="input-container node-type ">
+                    <span class="required-content">
+                        <i class="required-red">{{status !== 'editTable' ? '*' : ''}}</i>
+                        <input type="text" class="input" [title]="dircPath" [(ngModel)]="dircPath" [disabled]="'true'" >
+                    </span>
+                </span>
+            </li>
+            <li class="item">
+                <span></span>
+                <div class="tree-container-parent">
+                    <div class="tree-container">
+                        <div class="inner">
+                            <governance-catalog-tree-component
+                                [list]="flows"
+                                [index]="menuIndex"
+                                [modal]="modal"
+                                [type]="status">
+                            </governance-catalog-tree-component>
+                        </div>
+                    </div>
+                    <span class="required" *ngIf="errorType === 6">{{error}}</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!--SQL语句-->
+    <div class="row clearfix" *ngIf="status === 'addSQL' || status === 'createSQL'" >
+        <ul class="clearfix parent">
+            <li class="desc-box">
+                <span>SQL语句</span>
+                <span class="input-container" >
+                    <span class="required-content">
+                        <i class="required-red" [class.invisible]="status === 'createSQL'">*</i>
+                        <textarea class="desc input"  [class.viewSQL]="status === 'createSQL'"  [readonly] = "status === 'createSQL'" [(ngModel)]="sqlLanguage" placeholder="请输入SQL语句"></textarea>
+                        <span class="input-error" *ngIf="errorType === 7">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <!--<div class="row clearfix">-->
+        <!--<ul class="clearfix parent">-->
+            <!--<li class="desc-box">-->
+                <!--<span>描述</span>-->
+                <!--<span class="input-container" >-->
+                    <!--<span class="required-content">-->
+                        <!--<i class="required-red"></i>-->
+                        <!--<textarea class="desc input"  [disabled] = "status === 'infoRule'" [(ngModel)]="remark" placeholder="注释"></textarea>-->
+                    <!--</span>-->
+                <!--</span>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>-->
+    <!--字段信息和分区信息-->
+    <div class="field-information-box" *ngIf="status === 'addVisual' || status === 'editTable'">
+        <div class="row">
+            <div class="head">
+                <span>字段信息</span>
+            </div>
+            <div>
+                <ul>
+                    <li class="cell" *ngIf="fieldData && fieldData.length>0" >
+                        <span [class.hiveType]="sourceType === 'hive'">名称</span>
+                        <span [class.hiveType]="sourceType === 'hive'">类型</span>
+                        <span class="length length-title" [class.hiveType]="sourceType === 'hive'">长度</span>
+                        <span *ngIf="sourceType && sourceType !== 'hive'" class="length length-title">精度</span>
+                        <span *ngIf="sourceType !== 'hive'" class="other">允许空值</span>
+                        <span *ngIf="sourceType !== 'hive'" class="primaryKey">主键</span>
+                        <span *ngIf="sourceType !== 'hive'">默认值</span>
+                        <span  [class.hiveType]="sourceType === 'hive'">字段备注</span>
+                        <span>操作</span>
+                    </li>
+                    <li class="cell"  *ngFor="let fields of fieldData;let i = index;">
+                        <span class="input-container" [class.hiveType]="sourceType === 'hive'">
+                            <span class="required-content">
+                                <i class="required-red">*</i>
+                                <span class="required-label" *ngIf="fields.errorType===5">请输字段名称</span>
+                                <span class="required-label" *ngIf="fields.errorType===1">格式不正确</span>
+                                <input type="text" class="input" size="small" [disabled]="fields.edit" [(ngModel)]="fields.clName" maxlength="40" placeholder="字段名称" >
+                            </span>
+                        </span>
+                        <span class="input-container select-box" [class.hiveType]="sourceType === 'hive'">
+                            <span class="required-content">
+                                <i class="required-red">*</i>
+                                <span class="required-label" *ngIf="fields.errorType===2">请选择字段类型</span>
+                                <select-component
+                                    [option]="fields.type"
+                                    [options]="fieldTypes"
+                                    [index]="i"
+                                    (callback)="fieldTypesChecked($event, fields)"
+                                    [type]="'field'"
+                                    [search]="true"
+                                    [size]="'small'"
+                                    [downHeight]="240"
+                                    [searchs]="fieldTypes"
+                                    [placeholder]="'字段信息'"
+                                    [position]="'top'"
+                                    [disabled]="fields.edit"
+                                ></select-component>
+                            </span>
+                            <!--<input type="text" class="input" [(ngModel)]="fields.type" placeholder="字段类型">-->
+                        </span>
+
+                        <span class="input-container length" [class.hiveType]="sourceType === 'hive'">
+                            <span class="required-content">
+                                <i class="required-red">{{fields.requiredLength ? '*' : ''}}</i>
+                                <span class="required-label" *ngIf="fields.errorType===3">请填数字</span>
+                                <input type="text" class="input" size="small"
+                                       [(ngModel)]="fields.length"
+                                       [disabled]="!fields.hasFieldLength || fields.edit"
+                                       [placeholder]="fields.hasFieldLength ? '数字' : ''"  maxlength="11">
+                            </span>
+                        </span>
+
+                        <span class="input-container length" *ngIf="sourceType && sourceType !== 'hive'">
+                            <span class="required-content">
+                                <i class="required-red"></i>
+                                <span class="required-label" *ngIf="fields.errorType===4">请填数字</span>
+                                <input type="text" class="input" size="small"
+                                       [(ngModel)]="fields.scale"
+                                       [disabled]="!fields.hasFieldPrecision || fields.edit" [placeholder]="fields.hasFieldPrecision ? '数字' : ''" maxlength="11">
+                            </span>
+                        </span>
+
+                        <!-- 允许空值 -->
+                        <span class="input-container select-box other" *ngIf="sourceType !== 'hive'">
+                            <span class="required-content">
+                                <i class="required-red">*</i>
+                                <span class="required-label" *ngIf="fields.errorType===6">请选择</span>
+                                <span class="required-label" *ngIf="fields.errorType===7">不允许空值</span>
+                                <select-component
+                                    [option]="fields.nullCheck"
+                                    [options]="nullValues"
+                                    [index]="i"
+                                    (callback)="nullValueCheck($event, fields)"
+                                    [type]="'field'"
+                                    [disabled]="fields.radio || fields.edit"
+                                    [downHeight]="200"
+                                    [size]="'small'"
+                                    [placeholder]="'请选择'"
+                                    [position]="'top'"
+                                ></select-component>
+                            </span>
+                        </span>
+                        <!--<span class="input-container primaryKey" *ngIf="sourceType === 'mysql'">-->
+                            <!--<radio-component [modal]="fields.radio ? true : ''" [value]="fields.radio" [label]="fields.radio ? '是' : '否'" [type]="fields.radio" (callback)="onRadioCallback($event, fields)"></radio-component>-->
+                        <!--</span>-->
+                        <span class="checkbox input-container primaryKey" *ngIf="sourceType !== 'hive'" [class.disabled]="fields.edit">
+                                <input class="check-input" type="checkbox" (click)="checkedChange(fields, $event)"  [checked]="fields.radio === true ? true : false">
+                                <label></label>{{fields.radio === true ? '是' : '否'}}
+                        </span>
+                        <span class="input-container" *ngIf="sourceType !== 'hive'">
+                            <span class="required-content">
+                                <i class="required-red"></i>
+                                <input type="text" class="input"
+                                       [disabled]="fields.radio || (sourceType=== 'mysql' && (fields.type['value'] === 'text' || fields.type['value'] === 'longtext')) || fields.edit"
+                                       size="small"
+                                       [(ngModel)]="fields.defValue" placeholder="默认值" max="40">
+                                <span class="required-label" *ngIf="fields.errorType===8">请输入默认值</span>
+                            </span>
+                        </span>
+                        <span class="input-container" [class.hiveType]="sourceType === 'hive'">
+                            <input type="text" class="input" size="small" [(ngModel)]="fields.content" placeholder="字段备注">
+                        </span>
+                        <span class="input-container" >
+                            <button class="btn icon only"  title="删除" (click)="deleteField(i,fields)" [class.disabled]="fields.edit">
+                                <i class="icon iconfont icon-ico_delete"></i>
+                            </button>
+                            <!--<a  class="link"  (click)="deleteField(i)">-->
+                            <!--<i class="icon iconfont icon-ico_delete"></i>-->
+                            <!--</a>-->
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="add" [class.nodata]="!(fieldData && fieldData.length>0)">
+                <span class="link ml12" (click)="addField()">+添加字段</span>
+            </div>
+        </div>
+        <!--<div class="row mt20">-->
+            <!--<div class="head">-->
+                <!--<span>分区信息</span>-->
+                <!--&lt;!&ndash;<a class="link" >添加分区字段</a>&ndash;&gt;-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<ul>-->
+                    <!--<li class="cell partitions" *ngIf="partitions && partitions.length>0">-->
+                        <!--<span>名称</span>-->
+                        <!--<span>类型</span>-->
+                    <!--</li>-->
+                    <!--<li class="cell partitions" *ngFor="let partitions of partitions;let i = index;">-->
+                        <!--<span class="input-container">-->
+                            <!--<span class="required-content">-->
+                                <!--<i class="required-red">*</i>-->
+                                <!--<span class="required-label" *ngIf="partitions.errorType===1">请填写分区名称</span>-->
+                                <!--<input type="text" class="input" size="small" placeholder="数字或字母，且不能以数字开头" [(ngModel)]="partitions.partionName">-->
+                            <!--</span>-->
+                        <!--</span>-->
+                        <!--<span class="input-container partition-types">-->
+                             <!--<span class="required-content">-->
+                                 <!--<i class="required-red">*</i>-->
+                                 <!--<span class="required-label" *ngIf="partitions.errorType===2">请选择分区类型</span>-->
+                                 <!--<select-component-->
+                                     <!--[option]="partitions.type"-->
+                                     <!--[options]="partitionTypes"-->
+                                     <!--[index]="i"-->
+                                     <!--(callback)="partionTypesChecked($event)"-->
+                                     <!--[position]="'top'"-->
+                                     <!--[size]="'small'"-->
+                                     <!--[placeholder]="'分区信息'">-->
+                                 <!--</select-component>-->
+                             <!--</span>-->
+                        <!--</span>-->
+                        <!--<span class="input-container">-->
+                             <!--<button class="btn icon only"  tooltip="删除" position="top" (click)="deletePartition(i)">-->
+                                <!--<i class="icon iconfont icon-ico_delete"></i>-->
+                            <!--</button>-->
+                            <!--&lt;!&ndash;<a  class="link" (click)="deletePartition(i)" >删除</a>&ndash;&gt;-->
+                        <!--</span>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--<div class="add">-->
+                <!--<span class="link" (click)="addPartition()">+添加分区字段</span>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+
+    <!-- 影响分析(去向分析) -->
+    <div class="common-table" *ngIf="status === 'impact'">
+        <div class="common-table-box">
+            <div class="common-table-body">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>表名</th>
+                        <!--<th>数据源</th>-->
+                        <th>创建人</th>
+                        <th>创建时间</th>
+                    </tr>
+                    </thead>
+                    <tbody class="tbody">
+                    <tr *ngFor="let item of list">
+                        <td>{{item.tableName}}</td>
+                        <!--<td>{{item.pid}}</td>-->
+                        <td>{{item.createUser}}</td>
+                        <td>{{item.createTime | date}}</td>
+                    </tr>
+                    <tr *ngIf="noData">
+                        <td colspan='3' [style.textAlign]="'center'">暂无数据...</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

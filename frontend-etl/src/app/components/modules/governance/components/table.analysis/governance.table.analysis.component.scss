@@ -1,0 +1,42 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+.container {
+    height: 100%;
+    position: relative;
+    min-width: 1200px;
+    .left-tree {
+        float: left;
+        width: 272px;
+        height: 100% ;
+        padding: 0 0 10px 0;
+        border-right: 1px solid #CCDDEE;
+        .header-container {
+            //width: auto;
+            height: 43px;
+            background: #F5F5F5;
+            border-bottom: 1px solid #CCDDEE;
+        }
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        .tree-container {
+            height: 100%;
+            margin-top: 5px;
+            overflow: auto;
+            .iconfont {
+                color: #4499EE;
+            }
+            > div {
+                height: 100%;
+            }
+        }
+    }
+    .right-table {
+        margin-left:10px;
+        height: 100% ;
+        overflow: auto;
+    }
+}
+:host ::ng-deep table-component div.container {
+    padding: 0 20px;
+}

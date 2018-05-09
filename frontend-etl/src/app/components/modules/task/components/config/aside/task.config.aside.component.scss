@@ -1,0 +1,85 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+
+.container {
+    position: relative;
+    height: 100%;
+    .title {
+        padding: 4px;
+        background: #F5F5F5;
+        border-bottom: 1px solid #CCDDEE;
+        .new-folder {
+            padding: 0 3px;
+            cursor: pointer;
+            i {
+                color: #FFAD49;
+            }
+        }
+        .input {
+            width: 204px;
+        }
+        .search-btn {
+            padding: 0 8px;
+        }
+    }
+    .types {
+        border-bottom: 1px solid #CCDDEE;
+        height: 43px;
+        background: #F5F5F5;
+        .task-work-flow, .task-point {
+            width: 50%;
+            height: 100%;
+            float: left;
+            text-align: center;
+            line-height: 36px;
+            cursor: pointer;
+            border-top: 2px solid transparent;
+            &.checked {
+                border-top-color: #4499EE;
+                background: #fff;
+                cursor: default;
+                span {
+                    color: #333;
+                }
+            }
+            span {
+                color: #666;
+            }
+        }
+        .task-work-flow {
+            i {
+                color: #4499EE;
+            }
+        }
+        .task-point {
+            position: relative;
+            &:after {
+                width: 1px;
+                background: #CCDDEE;
+                content: '';
+                position: absolute;
+                left: 0;
+                top: -2px;
+                bottom: 1px;
+            }
+            i {
+                color: #3EDBCE;
+            }
+        }
+    }
+    .tree-container {
+        position: absolute;
+        left: 0;
+        //top: 79px;
+        top: 34px;
+        bottom: 0;
+        right: 0;
+        overflow: auto;
+        .inner {
+            width:auto;
+            display: inline;
+            min-width: 100%;
+            white-space: nowrap;
+        }
+    }
+}

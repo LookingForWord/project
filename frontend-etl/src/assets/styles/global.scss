@@ -1,0 +1,479 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+
+body {
+    background-color: $bodyBackground;
+    overflow: hidden;
+    letter-spacing: 1px;
+}
+
+// 拖动对象
+.drag-item {
+    display: inline-block;
+    padding: 5px 0;
+    cursor: move;
+    position: absolute;
+    text-align: center;
+    background: #FFFFFF;
+    border: 1px solid #4499EE;
+    box-shadow: 0 2px 2px 0 rgba(206, 211, 223, .6);
+    border-radius: 4px;
+    width: 86px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    &.rhombus {
+        height: 50px;
+        width: 50px;
+        padding: 0;
+        transform: rotate(45deg);
+        > div {
+            transform: rotate(-45deg);
+            line-height: 50px;
+        }
+    }
+    .delete {
+        position: absolute;
+        right: 2px;
+        top: 6px;
+        cursor: pointer;
+        display: none;
+        font-size: 12px;
+        &.show {
+            display: block;
+            &:hover {
+                color: #FF3333;
+            }
+        }
+    }
+    &.drag-item-blood-analysis {
+        border-radius: 0;
+        height: auto;
+        z-index: 3;
+        width: 140px;
+        border-color: #FF7C5C;
+        padding: 0;
+        .t {
+            background: #FF7C5C;
+            color: #fff;
+        }
+        .delete {
+            top: 2px;
+        }
+    }
+    &.workflow-now {
+        border-color: #0000FF;
+    }
+
+    &.drag-item-headers {
+        border-radius: 0;
+        height: 20px;
+        z-index: 3;
+    }
+    &.drag-item-datasync {
+        border-radius: 0;
+        line-height: 47px;
+        height: 30px;
+        z-index: 3;
+        .drag-item-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            line-height: 18px;
+            color: #fff;
+        }
+        .delete {
+            line-height: 18px;
+            top: 0;
+        }
+    }
+    &.first {
+        border-radius: 0;
+        border-color: $jsplumbFisrt;
+        .drag-item-header {
+            background: $jsplumbFisrt;
+        }
+    }
+    &.second {
+        border-radius: 0;
+        border-color: $jsplumbSecond;
+        .drag-item-header {
+            background: $jsplumbSecond;
+        }
+    }
+    &.third {
+        border-radius: 0;
+        border-color: $jsplumbThird;
+        .drag-item-header {
+            background: $jsplumbThird;
+        }
+    }
+    &.forth {
+        border-radius: 0;
+        border-color: $jsplumbFourth;
+        .drag-item-header {
+            background: $jsplumbFourth;
+        }
+    }
+}
+
+.drag-target-headers {
+    .jtk-drag, .jtk-hover, .jtk-endpoint-connected, .jtk-endpoint-drop-allowed {
+        circle {
+            cursor: crosshair;
+            fill: #fff;
+            stroke: #CCDDEE;
+        }
+    }
+    .jtk-endpoint-connected {
+        z-index: 2;
+        circle {
+            cursor: crosshair;
+            fill: #108EE9;
+            stroke: #CCDDEE;
+        }
+    }
+    .jtk-connector-outline {
+        z-index: -1;
+    }
+}
+
+// 数据资产 血缘分析
+.drag-target-blood-analysis {
+    .jtk-drag, .jtk-hover, .jtk-endpoint-connected, .jtk-endpoint-drop-allowed {
+        circle {
+            cursor: crosshair;
+            fill: #fff;
+            stroke: #33CCDD;
+        }
+    }
+    .jtk-endpoint-connected {
+        z-index: 2;
+        circle {
+            cursor: crosshair;
+            fill: #33CCDD;
+            stroke: transparent;
+        }
+    }
+    .jtk-connector-outline {
+        z-index: -1;
+    }
+    svg.jtk-hover {
+        z-index: 3;
+    }
+
+    &.drag-item-datasync {
+        border-radius: 0;
+        line-height: 47px;
+        height: 30px;
+        z-index: 3;
+        .drag-item-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            line-height: 18px;
+            color: #fff;
+        }
+        .delete {
+            line-height: 18px;
+            top: 0;
+        }
+    }
+
+    &.first {
+        border-radius: 0;
+        border-color: $jsplumbFisrt;
+        .drag-item-header {
+            background: $jsplumbFisrt;
+        }
+    }
+    &.second {
+        border-radius: 0;
+        border-color: $jsplumbSecond;
+        .drag-item-header {
+            background: $jsplumbSecond;
+        }
+    }
+    &.third {
+        border-radius: 0;
+        border-color: $jsplumbThird;
+        .drag-item-header {
+            background: $jsplumbThird;
+        }
+    }
+    &.forth {
+        border-radius: 0;
+        border-color: $jsplumbFourth;
+        .drag-item-header {
+            background: $jsplumbFourth;
+        }
+    }
+}
+
+// 数据汇聚
+.drag-item.converge-drag-item {
+    background: #FFFFFF;
+    border: 1px solid #CCDDEE;
+    box-shadow: 0 2px 2px 0 rgba(206,211,223,0.60);
+    border-radius: 4px;
+    font-size: 12px;
+    color: #333333;
+    letter-spacing: 0.86px;
+    width: 138px;
+    height: 34px;
+    line-height: 34px;
+    display: inline-block;
+    text-align: center;
+    padding:0 5px;
+    position: relative;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+// 数据治理血缘分析
+.analysis-item.drag-item {
+    width: 140px;
+}
+
+// 数据汇聚
+.converge-item {
+    position: absolute;
+    width: 258px;
+    padding: 0;
+    background: #FFFFFF;
+    border: 1px solid #CCDDEE;
+    box-shadow: 0 2px 2px 0 rgba(206,211,223,0.60);
+    border-radius: 4px;
+    font-size: 12px;
+    color: #333333;
+    letter-spacing: 0.86px;
+    * {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    h4 {
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        height: 20px;
+        line-height: 20px;
+        font-size: 12px;
+        border-bottom: 1px solid #CCDDEE;
+        cursor: move;
+        padding: 0 20px;
+    }
+    h5 {
+        background: #F5F5F5;
+        height: 20px;
+        line-height: 21px;
+        span {
+            display: inline-block;
+            width: 50%;
+            font-size: 12px;
+            text-align: center;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            color: #666666;
+            cursor: move;
+            padding: 0 5px;
+        }
+    }
+    p {
+        height: 21px;
+        line-height: 21px;
+        span{
+            display: inline-block;
+            width: 50%;
+            font-size: 12px;
+            color: #333333;
+            text-align: center;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            padding: 0 5px;
+        }
+    }
+    .delete {
+        position: absolute;
+        right: 4px;
+        top: 2px;
+        cursor: pointer;
+        display: none;
+        font-size: 12px;
+        &.show {
+            display: block;
+        }
+        &:hover {
+            color: #FF3333;
+        }
+    }
+}
+
+// 数据稽核
+.data-audit-item.drag-item {
+    position: static;
+    border: 0;
+    display: block;
+    padding: 3px 10px 3px 5px;
+    box-shadow: none;
+    text-align: left;
+    cursor: move;
+    border-radius: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 250px;
+    &:hover {
+        background: #E0E0E0;
+    }
+    i.iconfont {
+        color: #3EDBCE;
+    }
+    &.jtk-drag {
+        width: 86px;
+        background: #fff;
+        border: 1px solid #4499EE;
+        padding: 5px 0 !important;
+        border-radius: $borderRradius;
+        i.iconfont {
+            color: #4499EE;
+        }
+    }
+}
+
+// 删除连线对象
+.drag-delete-line {
+    position: absolute;
+    padding: 3px 10px;
+    border: 1px solid $backgroundColor;
+    border-radius: $borderRradius;
+    display: inline-block;
+    color: rgba(0, 0, 0, .65);
+    cursor: pointer;
+    background: #fff;
+    z-index: 100;
+}
+// 一些连线样式
+.jsplumb-overlay {
+    font-size: 10px;
+    cursor: default;
+    &.combine {
+        color: #CC5B58;
+    }
+    &.split {
+        color: #108EE9;
+    }
+    &.mapping {
+        color: #2E3131;
+    }
+}
+.jsplumb-dot-css {
+    opacity: 0;
+}
+.jsplumb-dot-hover {
+    opacity: 1;
+}
+
+// 这里修改一下系统拖动作发生的时候，修改拖动元素的填充颜色
+.jtk-dragging, .jtk-drag {
+    circle {
+        fill: #108EE9;
+    }
+}
+
+// 工作流
+.drag-item.workflow-item {
+    text-align: left;
+    width: 90px;
+    padding: 0 5px;
+    .iconfont:first-child {
+        font-size: 26px;
+        //display: block;
+        //text-align: center;
+        //border-radius: $borderRradius;
+    }
+    &[pid='4'] {
+        .iconfont:first-child {
+            color: #DDAA33;
+        }
+    }
+    &[pid='5'] {
+        .iconfont:first-child {
+            color: #DDAA33;
+        }
+    }
+    > .iconfont.delete {
+        position: absolute;
+        right: 2px;
+        top: 2px;
+        cursor: pointer;
+        display: none;
+        font-size: 12px;
+        color: #333333;
+        &.show {
+            display: block;
+            &:hover {
+                color: #FF3333;
+            }
+        }
+    }
+}
+
+// 必填字段的那个星星
+.required-red {
+    color: $redColor;
+    position: relative;
+    top: 2px;
+    &.invisible {
+        visibility: hidden;
+    }
+}
+
+// 必填项设置
+.required-content {
+    width: calc(100% - 18px);
+    display: inline-block;
+    padding-left: 10px;
+    position: relative;
+    .required-red {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin-top: -7px;
+        &.invisible {
+            visibility: hidden;
+        }
+    }
+    .required-label {
+        position: absolute;
+        bottom: -18px;
+        left: 13px;
+        font-size: 12px;
+        color: $redColor;
+    }
+}
+
+
+
+// 数字字体
+.font-number {
+    font-family: 'iosevka-extralight';
+}
+
+body {
+    background: #fff;
+}
+body.isHome {
+    background: url('/assets/images/BI_bg.jpg') no-repeat center;
+    background-size: cover;
+}
+
+// 禁止文本框可自由拖动大小
+textarea {
+    resize: none;
+}

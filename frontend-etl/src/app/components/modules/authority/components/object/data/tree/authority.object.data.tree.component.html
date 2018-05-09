@@ -1,0 +1,83 @@
+<div class="tree-container" >
+    <ul #titleContainer  >
+        <li *ngFor="let flow of menuList;let i = index;"
+            class="bd-left"
+            [class.ereaser-border]="flow.expand">
+            <div class="test"></div>
+            <div class="border-line" *ngIf="flow.type !== 'system'"></div>
+            <div class="ex"></div>
+            <div class="tree-title"
+                 [class.checked]="flow.checked"
+                 [style.width]="flow.index*20 + 20 + '%'"
+                 [attr.index]="i"
+              >
+                <div class="main-content">
+                    <i class="iconfont ml5"
+                       [class.icon-checkbox_normal]="!flow.checked"
+                       [class.icon-checkbox_checked_hover]="flow.checked"
+                       (click)="checkedClick(flow, $event)" *ngIf="type !== 'roleData' && flow.objType"></i>
+                    <i class="icon iconfont icon-ico_arrow_down arrow ml5"
+                       [class.expand]="flow.expand"
+                       (click)="expandClick(flow, $event)"
+                       *ngIf=" flow.type === 'system'|| flow.children || flow.dsType === 'mysql' || flow.fields"></i>
+                    <span [class.ml5]="!(flow.type === 'system'|| flow.children || flow.dsType === 'mysql' || flow.fields)">{{flow.systemName}}</span>
+                    <span *ngIf="!flow.systemName">{{flow.dsName}}</span>
+                    <span *ngIf="flow.tableName">{{flow.tableName}}</span>
+                    <span *ngIf="flow.fieldName">{{flow.fieldName}}</span>
+                    <span *ngIf="(type === 'roleData') && ((flow.objType === 2) || (flow.objType === 1))" style="display: block;" >
+                        <i class="iconfont ml5"
+                           [class.icon-checkbox_normal]="!flow.queryChecked "
+                           [class.icon-checkbox_checked_hover]="flow.queryChecked"
+                           (click)="searchClick(flow, $event)"></i>
+                        <span *ngIf="flow.objType !== 3">查询</span>
+                        <span *ngIf="flow.objType === 3">读写</span>
+                        <i class="iconfont ml5"
+                           [class.icon-checkbox_normal]="!flow.editChecked "
+                           [class.icon-checkbox_checked_hover]="flow.editChecked"
+                           (click)="editClick(flow, $event)" *ngIf="flow.objType === 1 || flow.objType === 3 " ></i>
+                        <span *ngIf="flow.objType === 1">修改</span>
+                        <span *ngIf="flow.objType === 3">写</span>
+                        <i class="iconfont ml5"
+                           [class.icon-checkbox_normal]="!flow.deleteChecked "
+                           [class.icon-checkbox_checked_hover]="flow.deleteChecked"
+                           (click)="deleteClick(flow, $event)" *ngIf="flow.objType === 1 || flow.objType === 3 "></i>
+                        <span *ngIf="flow.objType === 1">删除</span>
+                        <span *ngIf="flow.objType === 3">执行</span>
+                        <!--暂时不要-->
+                        <!--<i class="iconfont ml5"-->
+                           <!--[class.icon-checkbox_normal]="!flow.addChecked "-->
+                           <!--[class.icon-checkbox_checked_hover]="flow.addChecked"-->
+                           <!--[class.icon-checkbox_partialcheck]="flow.some && !flow.addChecked "-->
+                           <!--(click)="addClick(flow, $event)" *ngIf="flow.objType === 1"></i>-->
+                        <!--<span *ngIf="flow.objType === 1">新增</span>-->
+                    </span>
+                </div>
+                <span class="connect-line" *ngIf="flow.expand"></span>
+            </div>
+            <div class="child-content" [style.width]="70 - flow.index*20  + '%'" *ngIf="flow.children&&flow.children.length&&flow.expand" [@slideUpDwon]>
+                <authority-object-data-tree-component
+                    [menuList]="flow.children"
+                    [index]="index+1"
+                    [type]="type"
+                    [parent]="flow"
+                    [menuAll]="menuAll"
+                    [dataAuthority] = "dataAuthority"
+                    [roleId] = "roleId">
+                </authority-object-data-tree-component>
+                <div class="common-table-footer" *ngIf="totalcount">
+                    <pagination-component [pagenow]="pagenow"
+                                          [pagesize]="pagesize"
+                                          [totalcount]="totalcount"
+                                          (onPageChange)="doPageChange(flow,$event)">
+                    </pagination-component>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+
+
+
+

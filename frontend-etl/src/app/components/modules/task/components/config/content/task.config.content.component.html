@@ -1,0 +1,55 @@
+<div class="container">
+    <div class="header-container">
+        <ul class="clearfix">
+            <li (click)="addTask()" authority="task.config.addTask">
+                <i class="iconfont icon-ico_task_add"></i>
+                <span>新建</span>
+            </li>
+            <li (click)="saveTaskClick($event)" authority="task.config.saveTask">
+                <i class="iconfont icon-ico_save"></i>
+                <span>保存</span>
+            </li>
+            <li (click)="submitTaskClick()" authority="task.config.submitTask">
+                <i class="iconfont icon-ico_submit"></i>
+                <span>提交</span>
+            </li>
+            <li (click)="importClick()" authority="task.config.import">
+                <i class="iconfont icon-ico_import"></i>
+                <span>导入</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tabbar" *ngIf="tasks&&tasks.length">
+        <ul class="clearfix">
+            <li *ngFor="let task of tasks; let i = index;"
+                (click)="toggleCheckedTask(task)"
+                [class.checked]="task.checked">
+                <i class="iconfont icon-ico_task_work_flow icon-project-work" *ngIf="task.flow.projectType === 'work'"></i>
+                <i class="iconfont icon-ico_task_point icon-project-node" *ngIf="task.flow.projectType === 'node'"></i>
+                <span class="text-overflow" [title]="task.flow.taskName">{{task.flow.taskName}}</span>
+                <i class="iconfont icon-delete icon-ico_tab_close" (click)="deleteTask(task, i)" *ngIf="!task.updating"></i>
+                <i class="iconfont icon-delete updating" (click)="deleteTask(task, i, true)" *ngIf="task.updating"></i>
+            </li>
+        </ul>
+        <div class="border-bottom"></div>
+    </div>
+
+    <!--内容 start-->
+    <div class="task-content" *ngIf="tasks&&tasks.length">
+        <div *ngFor="let task of tasks" [class.hidden]="!task.checked">
+            <div #tasktabs></div>
+        </div>
+    </div>
+    <!--内容 end-->
+
+    <!--配置调度 start-->
+    <task-config-content-schedule-component
+        #configPanel
+        [showPanel]="showPanel"
+        [checkedTask]="tcs.checkedTask"
+        (showPanelCallback)="onShowPanelCallback($event)">
+    </task-config-content-schedule-component>
+    <!--配置调度 end-->
+
+</div>

@@ -1,0 +1,69 @@
+@import 'frontend-common/assets/styles/variable.scss';
+@import 'assets/styles/variable.scss';
+
+.container {
+    width: 700px;
+    padding: 25px 0;
+    .row {
+        margin-bottom: 20px;
+        &:first-child {
+            line-height: 34px;
+        }
+        .table-title {
+            font-size: 14px;
+        }
+        .title {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            float: right;
+        }
+        ul li {
+            padding-left: 2em;
+        }
+    }
+    .check-box {
+        position: relative;
+        .required-red {
+            font-size: 12px;
+            position: absolute;
+            top: 100%;
+            left: 0;
+        }
+    }
+    .checkbox {
+        display: inline-block;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        input {
+            position: absolute;
+            display: inherit;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            opacity: 0;
+            cursor: pointer;
+        }
+        label {
+            vertical-align: middle;
+            position: relative;
+            margin-right: 4px;
+            top: -1px;
+        }
+
+    }
+
+
+    .log{
+        height: 100px;
+        border: 1px solid $borderColor;
+        border-radius: $borderRradius;
+        overflow-y: auto;
+        ul li {
+            line-height: 26px;
+            text-indent: 2em;
+            padding-left: 0;
+        }
+    }
+}

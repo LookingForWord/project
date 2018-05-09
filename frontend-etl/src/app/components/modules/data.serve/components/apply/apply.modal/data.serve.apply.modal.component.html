@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row clearfix">
+        <ul>
+            <li class="item">
+                <span>过期日期</span>
+                <span class="input-container required-content">
+                    <i class="required-red">*</i>
+                    <span class="input-icon" position="right">
+                        <input type="text" class="input" datepicker [options]="customOptions" placeholder="请选择日期" [(ngModel)]="expireDate">
+                        <i class="iconfont icon-ico_datapick"></i>
+                    </span>
+                    <span class="input-error" *ngIf="errorType===1">{{error}}</span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row clearfix">
+        <ul>
+            <li class="item">
+                <span>申请理由</span>
+                <span class="input-container required-content">
+                    <textarea class="input" [(ngModel)]="applyDesc" maxlength="220" placeholder="申请理由"></textarea>
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

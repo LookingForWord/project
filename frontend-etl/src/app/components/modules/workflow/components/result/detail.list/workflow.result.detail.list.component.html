@@ -1,0 +1,76 @@
+<div class="container">
+    <table-component>
+        <div class="table-component-search search-bar line">
+            <button class="back btn mr20 ml10" (click)="goBack()">
+                <i class="icon iconfont icon-ico_back"></i><span>返回</span>
+            </button>
+            <div class="date-box">
+                <span class="mr4">开始时间</span>
+                <input type="text" class="input startTime"
+                [(ngModel)]="startTime"
+                placeholder="选择开始时间"
+                datepicker
+                [options]="customOptions"
+                >
+                <i class="iconfont icon-ico_arrow_down"></i>
+            </div>
+            <div class="date-box ml14">
+                <span class="mr4">结束时间</span>
+                <input type="text" class="input endTime" [(ngModel)]="endTime" placeholder="选择结束时间" datepicker [options]="customOptions">
+                <i class="iconfont icon-ico_arrow_down"></i>
+                <span class="error" *ngIf="errorType===1">结束时间早于开始时间</span>
+            </div>
+            <div class="ml14 select">
+                <span  class="mr4">状态</span>
+                <span class="select-box">
+                    <select-component
+                    [option]="flowStatus"
+                    [options]="flowStatusArr"
+                    (callback)="flowStatusChange($event)"
+                    ></select-component>
+                </span>
+            </div>
+            <button class="back line btn ml14" (click)="getDetailList(1)">
+            搜索
+            </button>
+        </div>
+        <div class="table-component-title">
+            <span class="title">
+                <i class="iconfont mr8 icon-ico_running_result"></i>{{flowName}}运行结果列表
+            </span>
+            <span class="record">共{{totalcount}}条记录</span>
+        </div>
+        <thead class="table-component-thead">
+        <tr>
+            <th width="18%">开始时间</th>
+            <th width="18%">结束时间</th>
+            <th width="9%">状态</th>
+            <th width="9%">运行时长</th>
+            <th width="9%">总任务</th>
+            <th width="9%">任务成功数</th>
+            <th width="9%">任务失败数</th>
+            <th width="18%">触发器状态</th>
+        </tr>
+        </thead>
+        <tbody class="table-component-tbody">
+            <tr *ngFor="let item of detailList; let i = index">
+                <td><span (click)="bannerClick(item)" class="link">{{item.startTime}}</span></td>
+                <td>{{item.endTime}}</td>
+                <td>{{changeRunStatus(item.status)}}</td>
+                <td>{{item.duration}}</td>
+                <td>{{item.totalCount}}</td>
+                <td>{{item.successCount}}</td>
+                <td>{{item.failCount}}</td>
+                <td>{{getTriggerType(item.triggerType)}}</td>
+            </tr>
+        </tbody>
+        <tfoot class="table-component-tfoot">
+        <tr *ngIf="noDataType || totalcount === 0">
+            <td colspan="8">暂无数据...</td>
+        </tr>
+        </tfoot>
+        <div class="table-component-page">
+            <multi-pagination-component [pagenow]="pageNow" [pagesize]="pageSize" [totalcount]="totalcount" (onPageChange)="doPageChange($event)"></multi-pagination-component>
+        </div>
+    </table-component>
+</div>

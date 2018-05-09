@@ -1,0 +1,107 @@
+@import 'frontend-common/assets/styles/variable';
+@import 'assets/styles/variable.scss';
+.container {
+    overflow: auto;
+    overflow-x: hidden;
+    height: 100%;
+    .header-container {
+        border-bottom: 1px solid #CCDDEE;
+        background: #F5F5F5;
+        margin-bottom: 10px;
+        li {
+            float: left;
+            display: inline-block;
+            line-height: 33px;
+            cursor: pointer;
+            transition: $transitionAll;
+            padding: 0 10px;
+            &:hover {
+                background: #E0E0E0;
+            }
+            i {
+                color: #4499EE;
+            }
+            span {
+                color: #666;
+            }
+        }
+    }
+    .item {
+        margin-bottom: 20px;
+        padding: 0 5px;
+        .item-col {
+            margin-bottom: 20px;
+            color: #666;
+            >span {
+                display: inline-block;
+                &:first-child {
+                    width: 60px;
+                    text-align: right;
+                }
+                &.required-content {
+                    width: auto;
+                    &.textarea {
+                        vertical-align: top;
+                        textarea {
+                            height: 70px;
+                            resize: none;
+                        }
+                    }
+                }
+                &.checked-select {
+                    width: 206px;
+                }
+                >span {
+                    &.checked-select {
+                        width: 206px;
+                    }
+                }
+            }
+            .input {
+                width: 190px;
+            }
+            textarea {
+                vertical-align: top;
+            }
+            .common-table {
+                width: 280px;
+            }
+            &.log-btn-box {
+                text-align: center;
+                display: block;
+                .btn {
+                    margin-right: 10px;
+                }
+
+            }
+            .input-error {
+                position: absolute;
+                top: 100%;
+                left: 10px;
+                font-size: 12px;
+                color: red;
+            }
+            .upload-content {
+                .uploadPath {
+                    width: 130px;
+                }
+                .btn {
+                    position: relative;
+                    height: 26px;
+                    line-height: 26px;
+                    text-align: center;
+                    cursor: pointer;
+                    font-size: 12px;
+                    padding: 0 10px;
+                    input {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        opacity: 0;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}

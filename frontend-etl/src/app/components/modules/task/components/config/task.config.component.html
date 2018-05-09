@@ -1,0 +1,16 @@
+<div class="container"
+     [class.min]="leftState===1"
+     [class.normal]="leftState===2"
+     [class.mixMax]="leftState===3"
+     [class.max]="leftState===4">
+    <div class="inner">
+        <div class="content-container">
+            <div class="aside">
+                <task-config-aside-component></task-config-aside-component>
+            </div>
+            <div class="content">
+                <task-config-content-component></task-config-content-component>
+            </div>
+        </div>
+    </div>
+</div>

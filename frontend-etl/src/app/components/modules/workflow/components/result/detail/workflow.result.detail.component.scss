@@ -1,0 +1,235 @@
+@import 'frontend-common/assets/styles/variable.scss';
+@import 'assets/styles/variable.scss';
+
+.container {
+    height: 100%;
+    overflow: auto;
+    min-width: 1160px;
+    .content {
+        height: 100%;
+    }
+    .header-container {
+        border-bottom: 1px solid #CCDDEE;
+        background: #F5F5F5;
+        text-align: center;
+        li {
+            display: inline-block;
+            line-height: 33px;
+            cursor: pointer;
+            transition: $transitionAll;
+            padding: 0 10px;
+            &:hover {
+                background: #E0E0E0;
+            }
+            .iconfont {
+                font-size: 12px;
+                color: #4499EE;
+            }
+            span {
+                color: #666;
+            }
+        }
+    }
+
+    .middle-box {
+        height: calc(100% - 195px);
+    }
+    .left-canvas {
+        float: left;
+        width: 60%;
+        height: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        position: relative;
+
+        .drag-target-container {
+            overflow: hidden;
+            position: absolute;
+            border: 1px solid $borderColor;
+            top: 10px;
+            right: 0;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, .3);
+            .drag-target {
+                position: absolute;
+                background: #fff;
+            }
+            .drag-view {
+                position: absolute;
+                right: 15px;
+                top: 5px;
+                color: #666;
+                i {
+                    cursor: pointer;
+                }
+            }
+        }
+        .canvas-content {
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            position: absolute;
+            background: #fff;
+            border: 1px solid $borderColor;
+            .task-node{
+                width: 80px;
+                height: 30px;
+                cursor: pointer;
+                font-size: 12px;
+                text-align: center;
+                line-height: 30px;
+                margin: 50px;
+                float: left;
+            }
+        }
+        .drag-view {
+            position: absolute;
+            right: 15px;
+            top: 5px;
+            color: #666;
+            i {
+                cursor: pointer;
+            }
+        }
+    }
+    .right-table {
+        float: left;
+        width: 40%;
+        height: 100%;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        .common-table .common-table-box {
+            .table-title{
+                font-size: 16px;
+            }
+            .common-table-header{
+                border: 0;
+            }
+            tr {
+                th:first-child, td:first-child {
+                    padding-left: 0;
+                    text-align: center;
+                }
+                td {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    .iconfont {
+                        font-size: 16px;
+                    }
+                    .btn .iconfont {
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+
+        .common-table.task-table {
+            .common-table-header {
+                padding-top: 0;
+            }
+            tr th {
+                width: 21%;
+                &:last-child {
+                    width: 16%;
+                }
+            }
+        }
+    }
+    .right-panel, .trigger {
+        position: fixed;
+        top: 94px;
+        bottom: -10px;
+        right: -100%;
+        width: 300px;
+        background: #fff;
+        z-index: 8;
+        transition: $workflowTransitionAll;
+        opacity:0;
+        box-shadow: -2px 0 2px 0 rgba(206,211,223,.6);
+        &.show {
+            right: 0;
+            opacity: 1;
+            filter: alpha(opacity(1));
+        }
+    }
+    .success-color {
+        color: #1DCE6C;
+    }
+    .new-color {
+        color:  #F2C500;
+    }
+    .waiting-color {
+        color: #2E97DE;
+    }
+    .fail-color {
+        color: #E94C36;
+    }
+    .pause-color {
+        color: #9B56B7;
+    }
+    .running-color {
+        color: #00BD9C;
+    }
+    .dispatch-error-color {
+        color: #E94C36;
+    }
+    .parameter-error-color {
+        color: #E94C36;
+    }
+    .send-error-color {
+        color: #E94C36;
+    }
+    .worker-error-color {
+        color: #E94C36;
+    }
+    .cancle-color {
+        color: #999;
+    }
+
+    // 立即运行日志
+    .runlog {
+        width: 100%;
+        height: 300px;
+        position: absolute;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        //background: #fff;
+        background: rgba(0, 0, 0, .8);
+        border-top: 1px solid $borderColor;
+        overflow-y: auto;
+        box-shadow: -2px 0 2px 0 rgba(206, 211, 223, 0.60);
+        .log-header {
+            height: 30px;
+            line-height: 30px;
+            text-align: right;
+            span {
+                float: left;
+                color: #fff;
+                margin-left: 14px;
+                font-size: 14px;
+            }
+            i {
+                font-size: 18px;
+                color: #FF3333;
+                margin-right: 14px;
+                cursor: pointer;
+            }
+        }
+        ul {
+            height: calc(100% - 35px);
+            overflow-y: auto;
+            li {
+                line-height: 26px;
+                padding-left: 15px;
+                color: #fff;
+            }
+        }
+    }
+}

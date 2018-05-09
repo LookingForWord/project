@@ -1,0 +1,21 @@
+<div class="container">
+    <!-- contents 组件 -->
+    <div class="inner">
+        <div *ngFor="let content of contents" [class.hidden]="!content.checked">
+            <div #cons></div>
+        </div>
+    </div>
+
+    <!--asides 组件-->
+    <div class="asides" [class.show]="showAsides" (click)="asidesPanelClick($event)">
+        <div *ngFor="let aside of asides" [class.hidden]="!aside.checked">
+            <div #asis></div>
+        </div>
+    </div>
+
+    <!--trigger组件-->
+    <!--<div class="trigger" [class.show]="showTrigger" (click)="triggerPanelClick($event)">-->
+        <!--<governance-data-audit-content-items-trigger-component (close)="closeTrigger($event)" [task]="task"></governance-data-audit-content-items-trigger-component>-->
+    <!--</div>-->
+
+</div>

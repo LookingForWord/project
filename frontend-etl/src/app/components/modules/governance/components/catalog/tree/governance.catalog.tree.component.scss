@@ -1,0 +1,89 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+
+.tree-container {
+    float: left;
+    min-width: 100%;
+    position: relative;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    li {
+        min-width: 100%;
+        float: left;
+        overflow-x: auto;
+    }
+    .tree-title {
+        position: relative;
+        padding: 4px 10px 4px 5px;
+        cursor: pointer;
+        transition: $transitionAll;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        white-space: nowrap;
+        >span {
+            i {
+               color: #ffad49;
+            }
+            .special {
+                color: #4499EE;
+            }
+        }
+        .iconfont {
+            color: #4499EE;
+            font-size: 14px;
+            transition: $transitionAll;
+            transform: rotate(0deg);
+            &.icon-ico_delete {
+                color: #FF3333;
+            }
+        }
+        .icon-ico_delete, .icon-ico_edit{
+            opacity: 0;
+            transition: $transitionAll;
+        }
+        &.checked {
+            background: #EEEEEE;
+        }
+        &:hover {
+            .icon-ico_delete, .icon-ico_edit{
+                opacity: 1;
+            }
+            background: #E0E0E0;
+        }
+        .icon-ico_company {
+            color: #4499EE;
+        }
+        .right.iconfont{
+            transform: rotate(-90deg);
+        }
+    }
+
+    .modal {
+        background: #fff;
+        border: 1px solid $borderColor;
+        position: fixed;
+        left: 0;
+        top: 0;
+        text-align: center;
+        width: 0px;
+        z-index: 999;
+        width: 120px;
+        span {
+            display: block;
+            padding: 3px;
+            cursor: pointer;
+            &:hover {
+                background: #C4E6FF;
+            }
+            &:last-child:hover {
+                background: #fff;
+                color: #FF3333;
+            }
+        }
+    }
+    .child-content {
+        overflow: hidden;
+    }
+}

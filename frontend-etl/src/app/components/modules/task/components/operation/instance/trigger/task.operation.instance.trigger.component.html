@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="task-panel-title clearfix">
+        <div class="tab">
+            <span [class.checked]="tabId==='0'" (click)="togglePanelTab('0', $event)">基本信息</span>
+            <!--<span [class.checked]="tabId==='1'" (click)="togglePanelTab('1',$event)">操作日志</span>-->
+        </div>
+        <div class="close" (click)="hideRightPannel($event)">
+            <i class="iconfont icon-ico_tab_close"></i>
+        </div>
+    </div>
+    <div class="task-panel-attribute">
+        <ul *ngIf="tabId === '0'" >
+            <li>任务名称：{{task['flowName']}}</li>
+            <li>任务类型：{{getTaskType(task.nodeType)}}</li>
+            <li>创建时间：{{task.createTime ? (task.createTime | date:'YYYY/MM/DD HH:mm:ss') : '--'}}</li>
+            <li>状态：{{task.flowStatus === 'open' ? '开启' : '关闭'}}</li>
+        </ul>
+        <div *ngIf="tabId === '0'" class="chart-box">
+            <div>
+                <div class="chart-header">
+                    <span class="mr12 title">实时监控</span>
+                    <span class="select mr6" >
+                        <select-component
+                            [option]="present"
+                            [options]="presentTimes"
+                            [size]="'small'"
+                            (callback)="timeChange($event)">
+                        </select-component>
+                    </span>
+                </div>
+                <div class="chart">
+                    <div echarts [options]="chartOption"  class="chart-box" ></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="tabId === '1'" class="task-panel-attribute runLog">
+        <ul *ngIf="runLog.length && !noLog">
+            <li *ngFor="let item of runLog, let i = index">({{i + 1}})：{{item}}</li>
+        </ul>
+        <p *ngIf="noLog">暂无数据...</p>
+    </div>
+</div>

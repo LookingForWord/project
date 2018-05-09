@@ -1,0 +1,38 @@
+<div class="tree-container">
+    <ul #titleContainer>
+        <li *ngFor="let flow of workflows;let i = index;">
+            <div class="tree-title"
+                 [class.drag-item]="type==='run.shell' && flow.type==='task'" [class.origin]="'run.shell' && flow.type==='task'"
+                 [class.checked]="flow.checked"
+                 (click)="checkedClick(flow, $event)"
+                 (dblclick)="dbCheckedClick(flow, $event)"
+                 [style.paddingLeft.px]="index*20 + 10"
+                 [attr.index]="i">
+                <span *ngIf="flow.type === 'catalog'">
+                    <i class="iconfont icon-ico_folder_close icon-fold" *ngIf="!flow.expand"></i>
+                    <i class="iconfont icon-ico_folder_open icon-fold" *ngIf="flow.expand"></i>
+                </span>
+                <span *ngIf="flow.type === 'task'">
+                    <i class="iconfont icon-ico_task_work_flow icon-work"></i>
+                </span>
+                <span *ngIf="flow.type==='run.shell'">
+                    <i class="iconfont icon-ico_folder_close icon-fold" *ngIf="!flow.expand && !flow.isTask"></i>
+                    <i class="iconfont icon-ico_folder_open icon-fold" *ngIf="flow.expand  && !flow.isTask"></i>
+                    <i class="iconfont icon-ico_task_work_flow icon-work" *ngIf="flow.isTask"></i>
+                </span>
+                <span>{{flow.name}}</span>
+                <i class="iconfont icon-ico_edit" (click)="editCatalog(flow)" *ngIf="!type && flow.parentId !== '0' && checkBtnAuthority('governance.normAudit.edit')"></i>
+                <i class="iconfont icon-ico_delete" (click)="deleteCatalog($event,flow)" *ngIf="!type && flow.parentId !== '0' && checkBtnAuthority('governance.normAudit.delete')"></i>
+            </div>
+            <div class="child-content" *ngIf="flow.children&&flow.children.length&&flow.expand" [@slideUpDwon]>
+                <governance-norm-audit-aside-tree-component
+                    [type]="type"
+                    [workflows]="flow.children"
+                    [index]="index+1"
+                    [allWorkflows]="allWorkflows"
+                    [parentWorkflows]="flow">
+                </governance-norm-audit-aside-tree-component>
+            </div>
+        </li>
+    </ul>
+</div>

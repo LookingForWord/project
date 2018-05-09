@@ -1,0 +1,22 @@
+@import 'assets/styles/variable.scss';
+
+.drag-target-headers {
+    .jtk-drag, .jtk-hover, .jtk-endpoint-connected, .jtk-endpoint-drop-allowed {
+        circle {
+            cursor: crosshair;
+            fill: #fff;
+            stroke: #CCDDEE;
+        }
+    }
+    .jtk-endpoint-connected {
+        z-index: 2;
+        circle {
+            cursor: crosshair;
+            fill: #108EE9;
+            stroke: #CCDDEE;
+        }
+    }
+    .jtk-connector-outline {
+        z-index: -1;
+    }
+}

@@ -1,0 +1,129 @@
+<div class="container">
+    <div>
+        <table-component>
+        <div class="table-component-search line">
+            <div  class="input-icon" position="left">
+                <input type="text" class="input" #search inputDebounce (debounceClick)="searchChange($event)" [(ngModel)]="keyWord" (keyup.enter)="getMissionList(1)" placeholder="支持任务名和调度名搜索">
+                <i class="icon iconfont icon-ico_search_textfield"></i>
+            </div>
+            <button class="back line btn ml10" (click)="getMissionList(1)">
+                搜索
+            </button>
+        </div>
+        <div class="table-component-title">
+        <span class="title">
+            <i class="iconfont mr8 icon-ico_periodic_task"></i>任务运维列表
+        </span>
+            <span class="record">共{{totalcount}}条记录</span>
+        </div>
+        <thead class="table-component-thead">
+            <tr>
+                <th width="10%">任务名称</th>
+                <th width="10%" class="task-name">调度名称</th>
+                <th width="70px">任务类型</th>
+                <th width="150px">任务执行时间</th>
+                <th width="150px">任务结束时间</th>
+                <th width="60px">执行状态</th>
+                <th>责任人</th>
+                <th>输入数据</th>
+                <th>输出数据</th>
+                <th width="100px">操作</th>
+            </tr>
+        </thead>
+        <tbody class="table-component-tbody">
+            <tr *ngFor="let task of tasks;let i = index">
+                <td [class.child]="task.pid!==undefined">
+                                    <span class="line">
+                                    <i class="iconfont icon-ico_arrow_down"
+                                       *ngIf="task.firstLevel"
+                                       [class.expand]="task.expand"
+                                       (click)="expandClick(task,i,$event)"></i>
+                                    <a class="link" [style.marginLeft.px]="!task.childTask? '0':'30'"
+                                       (click)="showPanelClick(i,task,$event)"
+                                       [attr.title]="task.taskName"
+                                    >{{task.taskName}}</a>
+                                    </span>
+                </td>
+                <td [attr.title]="task.flowName">{{task.flowName}}</td>
+                <td>{{getTaskType(task.taskType)}}</td>
+                <td>{{task.startTime ? (task.startTime | date:'YYYY/MM/DD HH:mm:ss') : '--'}}</td>
+                <td>{{task.endTime ? (task.endTime | date:'YYYY/MM/DD HH:mm:ss') : '--'}}</td>
+                <td>{{getTaskStatus(task.taskStatus)}}</td>
+                <td>{{task.userName}}</td>
+                <td>{{task.inputCount}}</td>
+                <td>{{task.outputCount}}</td>
+                <td>
+                    <button
+                        class="btn icon only"
+                        tooltip="查看"
+                        position="top"
+                        (click)="viewDetails(task,$event)"
+                        *ngIf="!task.childTask"
+                    >
+                        <i class="icon iconfont icon-ico_view"></i>
+                    </button>
+
+                    <button
+                        [style.marginLeft.px]="task.childTask ? 30 : 0"
+                        class="btn icon only"
+                        tooltip="数据检查"
+                        position="top"
+                        (click)="openBottomPanel(task,$event)"
+                    >
+                        <i class="icon iconfont icon-ic_data_check"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot class="table-component-tfoot">
+            <tr *ngIf="noDataType || totalcount === 0">
+                <td colspan='10' [style.textAlign]="'center'">暂无数据...</td>
+            </tr>
+        </tfoot>
+        <div class="table-component-page">
+            <multi-pagination-component [pagenow]="pageNow"
+                                  [pagesize]="pageSize"
+                                  [totalcount]="totalcount"
+                                  (onPageChange)="doPageChange($event)">
+            </multi-pagination-component>
+        </div>
+    </table-component>
+    </div>
+    <!-- 侧边弹出框 -->
+    <div class="task-panel" [@slideLeft]  (click)="stopPanelClick($event)" *ngIf="isShowPanel">
+        <div class="task-panel-title clearfix">
+            <div class="tab">
+                <span [class.checked]="tabId==='0'" (click)="togglePanelTab('0', $event)">属性</span>
+                <span [class.checked]="tabId==='1'" (click)="togglePanelTab('1',$event)" *ngIf="childTask">操作日志</span>
+            </div>
+            <div class="close" (click)="hideRightPannel()">
+                <i class="iconfont icon-ico_tab_close"></i>
+            </div>
+        </div>
+        <ul *ngIf="tabId === '0'" class="task-panel-attribute">
+            <li>任务编号：{{tasks[pannelId].recordNo}}</li>
+            <li>调度名称：{{tasks[pannelId].flowName}}</li>
+            <li>任务名称：{{tasks[pannelId].taskName}}</li>
+            <li>任务类型：{{tasks[pannelId].taskType=="node"?"节点任务":"工作流任务"}}</li>
+            <li>创建时间：{{tasks[pannelId].createTime ? (tasks[pannelId].createTime | date:'YYYY/MM/DD HH:mm:ss') : null}}</li>
+            <li>开始时间：{{tasks[pannelId].startTime ? (tasks[pannelId].startTime | date:'YYYY/MM/DD HH:mm:ss') : null}}</li>
+            <li>结束时间：{{tasks[pannelId].endTime ? (tasks[pannelId].endTime | date:'YYYY/MM/DD HH:mm:ss') : null}}</li>
+            <li>执行状态：{{getTaskStatus(tasks[pannelId].taskStatus)}}</li>
+            <li>责任人：{{tasks[pannelId].userName}}</li>
+            <li>输入数据：{{tasks[pannelId].inputCount}}</li>
+            <li>输出数据：{{tasks[pannelId].outputCount}}</li>
+        </ul>
+        <div *ngIf="tabId === '1'" class="task-panel-attribute runLog">
+            <ul *ngIf="runLog.length && !noLog">
+                <li *ngFor="let item of runLog, let i = index">({{i + 1}})：{{item}}</li>
+            </ul>
+            <p *ngIf="noLog">暂无数据...</p>
+        </div>
+    </div>
+
+    <!-- 底部弹出的弹框 -->
+    <div class="bottom-panel" [@slideBottom] [class.show]="showBottomPanel" (click)="stopPanelClick($event)">
+        <task-operation-maintenance-data-check-component (closeBottomPanel)="hideRightPannel($event)" [checkTask]="checkTask"></task-operation-maintenance-data-check-component>
+    </div>
+
+</div>

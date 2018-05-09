@@ -1,0 +1,47 @@
+.container {
+    .change-display {
+        float: right;
+        margin-right: 44px;
+        height: 30px;
+        line-height: 31px;
+        width: 30px;
+        background-image: linear-gradient(-180deg, #EEF7FF 0%, #E1F0FF 96%);
+        border: 1px solid #CCDDEE;
+        border-radius: 4px;
+        text-align: center;
+        .iconfont {
+            cursor: pointer;
+            font-size: 20px;
+            color: #6688AA;
+        }
+    }
+    .menu-tree {
+        padding: 10px 20px;
+        > div {
+            padding-top: 10px;
+            border-top: 1px solid #cde;
+        }
+        > div.table-component-search {
+            height: 37px;
+            border-top: 0;
+            padding: 10px 10px 20px 10px;
+        }
+    }
+    :host ::ng-deep .table-component-tbody {
+        td {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: normal;
+            .normal,.disable {
+                display: inline-block;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: #FF3333;
+            }
+            .normal {
+                background: #66BB11;
+            }
+        }
+    }
+}

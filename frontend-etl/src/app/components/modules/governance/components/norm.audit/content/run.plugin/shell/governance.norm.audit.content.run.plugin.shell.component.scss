@@ -1,0 +1,75 @@
+@import 'frontend-common/assets/styles/variable';
+@import 'assets/styles/variable.scss';
+.container {
+    .header-container {
+        border-bottom: 1px solid #CCDDEE;
+        background: #F5F5F5;
+        margin-bottom: 10px;
+        height: 34px;
+        text-align: center;
+        ul {
+            display: inline-block;
+        }
+        li {
+            float: left;
+            display: inline-block;
+            line-height: 33px;
+            cursor: pointer;
+            transition: $transitionAll;
+            padding: 0 10px;
+            &:hover {
+                background: #E0E0E0;
+            }
+            i {
+                color: #4499EE;
+            }
+            span {
+                color: #666;
+            }
+        }
+    }
+    .content {
+        .item {
+            margin-bottom: 20px;
+            padding: 0 5px;
+            .item-col {
+                margin-bottom: 20px;
+                color: #666;
+                &.info {
+                    margin-bottom: 10px;
+                }
+                >span {
+                    display: inline-block;
+                    &:first-child {
+                        width: 60px;
+                        text-align: right;
+                    }
+                    &.required-content {
+                        width: auto;
+                        &.textarea {
+                            vertical-align: top;
+                            textarea {
+                                height: 170px;
+                                resize: none;
+                            }
+                        }
+                    }
+                    &.checked-select {
+                        width: 196px;
+                    }
+                    >span {
+                        &.checked-select {
+                            width: 196px;
+                        }
+                    }
+                }
+                .input {
+                    width: 180px;
+                }
+                &.text {
+                    padding:0 6px;
+                }
+            }
+        }
+    }
+}

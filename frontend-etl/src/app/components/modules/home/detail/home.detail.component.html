@@ -1,0 +1,60 @@
+<div class="container">
+    <table-component>
+        <div class="table-component-search line">
+            <button class="back line btn" (click)="back()">
+                <i class="icon iconfont icon-ico_back"></i><span> 返回</span>
+            </button>
+        </div>
+        <div class="table-component-title">
+                <span class="title">
+                    <i class="icon iconfont icon-ico_datasource mr8"></i>{{categoryName}}{{type==='set'?'数据集':'数据项'}}列表
+                </span>
+            <span class="record">共{{totalCount}}条记录</span>
+        </div>
+        <thead class="table-component-thead">
+            <tr *ngIf="type==='item'">
+                <th width="25%">表名</th>
+                <th width="25%">表注释</th>
+                <th width="25%">创建人</th>
+                <th width="25%">创建时间</th>
+            </tr>
+            <tr *ngIf="type==='set'">
+                <th width="25%">名称</th>
+                <th width="25%">表描述</th>
+                <th width="25%">创建人</th>
+                <th width="25%">创建时间</th>
+            </tr>
+        </thead>
+
+        <tbody class="table-component-tbody" *ngIf="type==='item'">
+            <tr *ngFor="let databaseTables of dataList" >
+                <td>{{databaseTables.tableName}}</td>
+                <td>{{databaseTables.tableComment}}</td>
+                <td>{{databaseTables.createUser}}</td>
+                <td>{{databaseTables.createTime | date}}</td>
+            </tr>
+        </tbody>
+
+        <tbody class="table-component-tbody" *ngIf="type==='set'">
+            <tr *ngFor="let databaseTables of dataList">
+                <td>{{databaseTables.name}}</td>
+                <td>{{databaseTables.description}}</td>
+                <td>{{databaseTables.createUser}}</td>
+                <td>{{databaseTables.createTime | date}}</td>
+            </tr>
+        </tbody>
+
+        <tfoot class="table-component-tfoot" >
+            <tr *ngIf="noDataType">
+                <td colspan="4">暂无数据...</td>
+            </tr>
+        </tfoot>
+        <div class="table-component-page" *ngIf="type === 'item'">
+            <multi-pagination-component [pagenow]="pageNum"
+                                  [pagesize]="pageSize"
+                                  [totalcount]="totalCount"
+                                  (onPageChange)="doPageChange($event)">
+            </multi-pagination-component>
+        </div>
+    </table-component>
+</div>

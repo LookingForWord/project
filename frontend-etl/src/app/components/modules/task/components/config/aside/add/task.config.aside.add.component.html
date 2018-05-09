@@ -1,0 +1,91 @@
+<div class="container">
+    <div class="mb24 clearfix" *ngIf="newType !== 'updateStatus' && newType!=='import'">
+        <ul>
+            <li class="item">
+                <span *ngIf="newType === 'newCatalog' || newType === 'editCatalog'">目录</span>
+                <span *ngIf="newType === 'node' || (type === 'node' && newType === 'editTask')">任务名称</span>
+                <span class="input-container required-content">
+                    <i class="required-red">*</i>
+                    <span class="required-label" *ngIf="errorType===1">{{error}}</span>
+                    <input type="text" class="input" [(ngModel)]="dircName" *ngIf="newType === 'newCatalog' || newType === 'editCatalog'" maxlength="40" placeholder="目录名称">
+                    <input type="text" class="input" [(ngModel)]="dircName" *ngIf="newType === 'work' ||newType === 'node' || newType === 'editTask'" maxlength="40" placeholder="任务名称">
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="mb24 clearfix" *ngIf="newType === 'node' || newType === 'work' || newType === 'editTask'">
+        <ul>
+            <li class="item line" >
+                <span class="title firsrt">描述</span>
+                <span class="input-container required-content">
+                    <i class="required-red invisible">*</i>
+                    <textarea class="desc input"  [(ngModel)]="taskDescription"></textarea>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="mb24 clearfix" *ngIf="newType === 'import'">
+        <ul>
+            <li class="item line" >
+                <span class="title firsrt">文件选择</span>
+                <span class="input-container required-content">
+                    <i class="required-red">*</i>
+                    <span class="required-label" *ngIf="errorType===3">{{error}}</span>
+                    <a class="btn primary file-btn">
+                        <input type="file" #uploaderRef ng2FileSelect [uploader]="uploader" accept=".xml">
+                        <span>浏览...</span>
+                    </a>
+                    <span *ngIf="uploader&&uploader.queue.length>0" [title]="uploader.queue[0].file.name">{{uploader.queue[0].file.name | substr}}</span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="clearfix" *ngIf="newType === 'newCatalog' || newType === 'work' || newType === 'node' || newType === 'import'">
+        <ul>
+            <li class="item">
+                <span *ngIf="newType === 'newCatalog'">上级目录</span>
+                <span *ngIf="newType === 'work' || newType === 'node' || newType === 'import'">选择目录</span>
+                <span class="input-container required-content">
+                    <i class="required-red">*</i>
+                    <input type="text" class="input" [(ngModel)]="dircPath" [disabled]="'true'" >
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="clearfix" *ngIf="newType === 'newCatalog' || newType === 'work' || newType === 'node' || newType === 'import'">
+        <ul>
+            <li class="item">
+                <span>&nbsp;</span>
+                <div class="tree-container-parent">
+                    <div class="tree-container">
+                        <div class="inner">
+                            <task-config-tree-component
+                                [flows]="flows"
+                                [index]="flowIndex"
+                                [type]="flowType">
+                            </task-config-tree-component>
+                        </div>
+                    </div>
+                    <div class="required" *ngIf="errorType===2">{{error}}</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="row" *ngIf="newType === 'updateStatus'">
+        <span class="line taskStatus">
+            <span class="radio">
+                <input type="radio" id="taskOpen" value="open" name="run" [(ngModel)]="taskStatus">
+                <label for="taskOpen"></label>
+            </span>
+            <label for="taskOpen">开启</label>
+        </span>
+
+        <span class="line taskStatus">
+            <span class="radio">
+                <input type="radio" id="taskClose" value="close" name="run" [(ngModel)]="taskStatus">
+                <label for="taskClose"></label>
+            </span>
+             <label for="taskClose">关闭</label>
+        </span>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="common-table">
+        <div class="search-bar line">
+            <button class="addDatabase btn line primary ml10 mr14" (click)="newDataSource()">
+                <i class="icon iconfont mr5 icon-ico_add"></i><span>创建数据源</span>
+            </button>
+            <div class="input-icon" position="left">
+                <input type="text" class="input" #search [(ngModel)]="keyWord" (keyup.enter)="getSource(1)"  placeholder="支持数据源名和数据源类型搜索">
+                <i class="icon iconfont icon-ico_search_textfield"></i>
+            </div>
+            <button class="back line btn ml4" (click)="getSource(1)">搜索</button>
+        </div>
+        <div class="common-table-box">
+            <div class="common-table-header">
+               <span class="table-title">
+                    <i class="icon iconfont icon-ico_dstitle mr8"></i>数据源列表
+                </span>
+                <span class="total">共{{totalcount}}条记录</span>
+            </div>
+            <div class="common-table-body">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>数据源名称</th>
+                        <th>数据源类型</th>
+                        <th>创建者</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody class="tbody">
+                        <tr *ngFor="let source of sources">
+                            <td>{{source.dsName}}</td>
+                            <td>{{source.dsType}}</td>
+                            <td>{{source.creatorName}}</td>
+                            <td>{{source.createTime | date}}</td>
+                            <td>
+                                <button class="btn icon only" tooltip="查看" position="top" (click)="detailClick(source.id)">
+                                    <i class="icon iconfont icon-ico_view"></i>
+                                </button>
+                                <button class="btn icon only"  tooltip="编辑" position="top" (click)="updateClick(source.id)">
+                                    <i class="icon iconfont icon-ico_edit"></i>
+                                </button>
+                                <button class="btn icon only" tooltip="删除" position="top" (click)="deleteClick(source)">
+                                    <i class="icon iconfont icon-ico_delete"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="noDataType">
+                            <td colspan='5'>暂无数据...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="common-table-footer">
+                <pagination-component [pagenow]="pagenow"
+                                      [pagesize]="pagesize"
+                                      [totalcount]="totalcount"
+                                      (onPageChange)="doPageChange($event)">
+                </pagination-component>
+            </div>
+        </div>
+    </div>
+</div>

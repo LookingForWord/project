@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row">
+        <span class="table-title">表名：{{source.tableName}}</span>
+        <button class="btn primary" (click)="startCheck()">开始检查</button>
+    </div>
+    <div class="row " *ngIf="ruleList && ruleList.length > 0">
+        <div class="title">检查规则：</div>
+        <ul>
+           <li>
+               <span class="checkbox">
+                    <input type="checkbox" [id]="allChecked" [checked]="allChecked" (click)="chooseAll()">
+                    <label [for]="allChecked"></label>全选
+               </span>
+           </li>
+           <li>
+               <div class="check-box">
+                    <span *ngFor="let idx of ruleList, let i=index" class="checkbox">
+                        <input type="checkbox"  [checked]="idx.checked" [id]="i" (click)="shoose(idx)">
+                        <label [for]="i"></label>{{idx.name}}
+                    </span>
+                   <span class="required-red" *ngIf="errorType===1">请至少选择一个规则</span>
+               </div>
+           </li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="title">检查结果：</div>
+        <div class="log">
+            <ul>
+                <li *ngFor="let item of resultList">
+                    {{item}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

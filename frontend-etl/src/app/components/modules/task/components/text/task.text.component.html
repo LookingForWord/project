@@ -1,0 +1,145 @@
+<div class="container">
+    <div class="common-table">
+        <div class="search-bar line">
+            <div class="select-box input-box">
+                <span class="input-container ml5">
+                <select-component
+                    [options]="messageTypes"
+                    [option]="messageType"
+                    [placeholder]="'支持内容搜索'"
+                    (callback)="sourceTypeCheck($event)">
+                </select-component>
+                </span>
+            </div>
+            <span class="input-icon ml4" position="right">
+                <input type="text" class="input input-box ml6"
+                       ngx-mydatepicker
+                       [(ngModel)]="dateTime"
+                       [options]="dataOption"
+                       #dpStart="ngx-mydatepicker"
+                       (click)="dpStart.openCalendar()"
+                       placeholder="请选择日期" >
+                <span class="icon iconfont icon-ico_datapick " (click)="dpStart.openCalendar()"></span>
+            </span>
+            <button class="back line btn ml4" (click)="getList(1)">
+                搜索
+            </button>
+        </div>
+        <div class="common-table-box">
+
+            <div class="common-table-header">
+                <span class="table-title line" >
+                    <i class="iconfont icon icon-ico_online_user mr8"></i><span>原文</span>
+                </span>
+            </div>
+            <div class="input-container" >
+                <span class="required-content">
+                    <i class="required-red"></i>
+                    <div class="desc input" [innerHTML]="oriTextShow"></div>
+                </span>
+            </div>
+            <div class="common-table-header">
+                <span class="table-title line" >
+                    <i class="iconfont icon icon-ico_online_user mr8"></i><span>文本提取列表</span>
+                </span>
+                <span class="total">共{{extractInfosCount}}条记录</span>
+            </div>
+            <button class="addDatabase btn line primary mb6 mt2" (click)="addAction()">
+                <span>新增</span>
+            </button>
+            <button class="addDatabase btn line primary mb6 mt2" (click)="deleteAction()">
+                <span>删除</span>
+            </button>
+            <button class="addDatabase btn line primary mb6 mt2" (click)="saveActions()">
+                <span>保存</span>
+            </button>
+
+            <i class="iconfont icon icon-ico_back mr8" style="float:right" tooltip="快捷键展示" (click)="showPanelClick($event)"></i>
+            <div class="common-table-body">
+                <table class="background-ereaser">
+                    <thead>
+                    <tr>
+                        <th>info</th>
+                        <th>目标名称</th>
+                        <th style="width:5%">类型</th>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
+                        <th>出发地</th>
+                        <th>目的地</th>
+                        <th>经纬度</th>
+                        <th>注册号</th>
+                        <th>呼号</th>
+                        <th>国别</th>
+                        <th>隶属</th>
+                    </tr>
+                    </thead>
+                    <tbody class="tbody" id="tbody">
+                    <tr *ngFor="let currAction of currActions; let i=index">
+                        <td *ngIf="i===0" [attr.rowspan]="currActions.length" class="input-info">{{currExtractInfo}}</td>
+                        <td><input id = "target{{i}}" class="input-content" type="text" [(ngModel)]="currAction.target" (click)="getActionIndex(i)" (change)="changeText()" (keydown)="keyboardsFormat($event)"></td>
+                        <td><input class="input-content" type="text" [(ngModel)]="currAction.type" (click)="getActionIndex(i)" (change)="changeText()"></td>
+                        <td><input class="input-content" type="text" [(ngModel)]="currAction.startTime" (click)="getActionIndex(i)" (change)="changeText()"></td>
+                        <td><input class="input-content" type="text" [(ngModel)]="currAction.endtTime" (click)="getActionIndex(i)" (change)="changeText()"></td>
+                        <td><input class="input-content" type="text" [(ngModel)]="currAction.fromAddress" (click)="getActionIndex(i)" (change)="changeText()"></td>
+                        <td><input class="input-content" type="text" [(ngModel)]="currAction.toAddress" (click)="getActionIndex(i)" (change)="changeText()"></td>
+                        <td><input class="input-content" type="text" [(ngModel)]="currAction.point" (click)="getActionIndex(i)" (change)="changeText()"></td>
+                        <td><input class="input-content" type="text" [(ngModel)]="currAction.registID" (click)="getActionIndex(i)" (change)="changeText()"></td>
+                        <td><input class="input-content" type="text" [(ngModel)]="currAction.callID"  (click)="getActionIndex(i)" (change)="changeText()"></td>
+                        <td><input class="input-content" type="text" [(ngModel)]="currAction.country" (click)="getActionIndex(i)" (change)="changeText()"></td>
+                        <td><input class="input-content" type="text" [(ngModel)]="currAction.belongOrg" (click)="getActionIndex(i)" (change)="changeText()"></td>
+                    </tr>
+                    <tr *ngIf="noDataType">
+                        <td colspan='12' >暂无数据...</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="common-table-footer">
+                <pagination-component [pagenow]="pagenow"
+                                      [pagesize]="pagesize"
+                                      [totalcount]="extractInfosCount"
+                                      (onPageChange)="doPageChange($event)">
+                </pagination-component>
+            </div>
+        </div>
+    </div>
+    <!-- [@slider]scss变量 -->
+    <div class="task-panel" [@slideLeft]   *ngIf="isShowPanel">
+        <div class="task-panel-title clearfix">
+            <div class="tab">
+                <span >快捷键展示</span>
+            </div>
+            <div class="close" (click)="hideRightPannel()">
+                <i class="iconfont icon-ico_tab_close"></i>
+            </div>
+        </div>
+        <button class="addDatabase btn line primary mb6 mt2" (click)="addKey()">
+            <span>新增</span>
+        </button>
+        <button class="addDatabase btn line primary mb6 mt2" (click)="deleteKey()">
+            <span>删除</span>
+        </button>
+        <button class="addDatabase btn line primary mb6 mt2" (click)="saveKeys()">
+            <span>保存</span>
+        </button>
+        <div class="common-table-body">
+            <table >
+                <thead>
+                <tr>
+                    <th>快捷键</th>
+                    <th>内容说明</th>
+                </tr>
+                </thead>
+                <tbody class="tbody">
+                <tr *ngFor="let keyboard of keyboards;let a = index">
+                    <td class="middle"><input id = "key{{a}}" class="input-content" (click)="getKeyIndex(a)" type="text" [(ngModel)]="keyboard.keyInfo"(keydown)="showKeyInfo($event)" readonly></td>
+                    <td class="middle"><input class="input-content" (click)="getKeyIndex(a)" type="text" [(ngModel)]="keyboard.valueInfo"></td>
+                </tr>
+                <tr *ngIf="noDataType">
+                    <td colspan='2' >暂无数据...</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+
+.container {
+    height: 100%;
+    .aside {
+        width: 280px;
+        height: 100%;
+        display: inline-block;
+        float: left;
+        border-right: 1px solid #CCDDEE;
+        .input-icon {
+            margin-left: 18px;
+        }
+        .title {
+            padding: 4px;
+            background: #F5F5F5;
+            border-bottom: 1px solid $borderColor;
+            .input {
+                width: 200px;
+            }
+        }
+        .field-list {
+            height: calc(100% - 36px);
+            overflow-y: auto;
+            li {
+                height: 34px;
+                line-height: 34px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                padding: 0 8px;
+                cursor: pointer;
+                i.iconfont {
+                    color: #4499EE;
+                }
+                &:hover {
+                    background: #E0E0E0;
+                }
+                &.check {
+                    background: #EEEEEE;
+                }
+                &.get-more {
+                    text-align: center;
+                }
+            }
+        }
+    }
+    .right-content {
+        float: left;
+        width: calc(100% - 281px);
+        height: 100%;
+        overflow-y: auto;
+        .table-component-tbody {
+            tr {
+                td {
+                    .special {
+                        color: #008000;
+                        padding: 3px 0;
+                    }
+                    &:first-child {
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,97 @@
+<div class="container">
+    <div class="common-table">
+        <div class="search-bar line">
+            <button class="addDatabase btn primary line ml10 " (click)="newUser()" authority="authority.user.addUser" >
+                <i class="icon iconfont mr5 icon-ico_add"></i><span>创建用户</span>
+            </button>
+            <button class="btn  ml4" (click)="importUsers()" authority="authority.user.import">
+                导入
+            </button>
+
+            <button class="btn ml4" (click)="exportUsers()" authority="authority.user.export">
+                导出
+            </button>
+            <a [attr.href]="exportUsersTemplate()" authority="authority.user.exportModal">
+                <button class="btn ml4">
+                    导出模板
+                </button>
+            </a>
+
+            <div  class="input-icon ml10" position="left">
+                <input type="text" class="input" [(ngModel)]="keyWord" inputDebounce (debounceClick)="searchChange($event)" placeholder="支持姓名、用户名、部门名称、角色名称搜索">
+                <i class="icon iconfont icon-ico_search_textfield"></i>
+            </div>
+            <button class="back line btn ml4" (click)="getUsers(1)">
+                搜索
+            </button>
+        </div>
+        <div class="common-table-box">
+            <div class="common-table-header">
+                <span class="table-title">
+                    <i class="iconfont mr8 icon-ico_user"></i>用户列表
+                </span>
+                <span class="total">共{{totalcount}}条记录</span>
+            </div>
+            <div class="common-table-body">
+                <table>
+                    <thead>
+                    <tr>
+                        <th width="11%">用户姓名</th>
+                        <th width="11%">用户名</th>
+                        <th width="11%">工号</th>
+                        <th width="11%">手机号码</th>
+                        <th width="11%">邮箱</th>
+                        <th width="11%" >部门</th>
+                        <th width="14%" class="remark">角色</th>
+                        <th width="7.5%" class="status">状态</th>
+                        <!--<th>创建时间</th>-->
+                        <th width="140px">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody class="tbody">
+                    <tr *ngFor="let user of users;let i=index;">
+                        <td>{{user.userCnname}}</td>
+                        <td>{{user.userName}}</td>
+                        <td>{{user.workNo}}</td>
+                        <td>{{user.phone}}</td>
+                        <td>{{user.email}}</td>
+                        <td >{{user.orgName}}</td>
+                        <td class="remark">
+                            {{user.roleName}}
+                        </td>
+                        <td class="status">
+                            {{user.status === 0 ? '正常' : '注销'}}
+                        </td>
+                        <!--<td>{{user.createTime | date}}</td>-->
+                        <td>
+                            <button class="btn icon only" tooltip="查看" position="top" (click)="detailClick(user.id)">
+                                <i class="icon iconfont icon-ico_view"></i>
+                            </button>
+                            <button class="btn icon only" tooltip="编辑" position="top" (click)="updateClick(user.id)" authority="authority.user.editUser">
+                                <i class="icon iconfont icon-ico_edit"></i>
+                            </button>
+                            <button class="btn icon only" tooltip="删除" position="top" (click)="deleteClick(user.id)" authority="authority.user.deleteUser">
+                                <i class="icon iconfont icon-ico_delete"></i>
+                            </button>
+                            <button class="btn icon only" tooltip="修改密码" position="top" (click)="updatePsw(user.id)" authority="authority.user.editPsd">
+                                <i class="icon iconfont icon-ico_reset_password"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="noDataType">
+                        <td colspan='9' >暂无数据...</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="common-table-footer">
+                <multi-pagination-component [pagenow]="pagenow"
+                                      [pagesize]="pagesize"
+                                      [totalcount]="totalcount"
+                                      (onPageChange)="doPageChange($event)">
+                </multi-pagination-component>
+            </div>
+        </div>
+    </div>
+</div>
+

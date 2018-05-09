@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="clearfix row">
+        <ul class="clearfix">
+            <li class="item">
+                <span >选择任务</span>
+                <span class="input-container node-type ">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" [title]="dircPath" [(ngModel)]="dircPath" [disabled]="'true'" >
+                    </span>
+                </span>
+            </li>
+            <li class="item">
+                <span></span>
+                <div class="tree-container-parent">
+                    <div class="tree-container">
+                        <div class="inner">
+                            <workflow-work-aside-tree-component
+                                [type]="'run.shell'"
+                                [workflows]="tasks"></workflow-work-aside-tree-component>
+                        </div>
+                    </div>
+                    <span class="required" *ngIf="errorType === 1">请选择任务</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

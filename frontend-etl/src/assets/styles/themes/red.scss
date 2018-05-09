@@ -1,0 +1,109 @@
+@import 'frontend-common/assets/styles/variable.scss';
+
+$basic: #C4411B;
+$hover: #EEEEEE;
+
+body.isHome.theme-red {
+    background: #F4F4F4 !important;
+}
+
+.theme-red {
+    .theme-header {
+        background: #fff !important;
+        box-shadow: 0 1px 10px rgba(0, 0, 0, .2) !important;
+        z-index: 3;
+        .logo {
+            background: #fff !important;
+        }
+        .navi {
+            > ul {
+                > li {
+                    color: $textNormalColor !important;
+                    &.checked {
+                        color: $basic !important;
+                        background: transparent !important;
+                        border-color: transparent !important;
+                    }
+                    &:hover {
+                        color: $basic !important;
+                        background: transparent !important;
+                    }
+                    i {
+                        display: none !important;
+                    }
+                }
+            }
+        }
+        .user {
+            color: $textNormalColor !important;
+            &.show {
+                background: #fff !important;
+            }
+            .split {
+                display: none !important;
+            }
+            .content {
+                background: #fff !important;
+                color: $textNormalColor !important;
+                li {
+                    transition: $transitionAll;
+                    &:hover {
+                        background: $hover !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .theme-sidebar {
+        .side-child {
+            background: #fff !important;
+            box-shadow: 1px 0 10px rgba(0, 0, 0, .1) !important;
+        }
+        .shrink {
+            border-top-color: transparent !important;
+            border-bottom-color: #DCDCDC !important;
+            color: $textNormalColor !important;
+        }
+        .navi {
+            li {
+                > span {
+                    color: $textNormalColor !important;
+                    &.checked {
+                        background-color: $hover !important;
+                        color: $basic !important;
+                    }
+                    &:hover {
+                        background-color: rgba($hover, 0.6) !important;
+                        color: $basic !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .theme-home {
+        .title-box > div, .time {
+            color: $textNormalColor !important;
+        }
+        .total-data > div {
+            color: $textNormalColor !important;
+            .font-number {
+                color: $basic !important;
+            }
+        }
+        .row .col-3 .item {
+            background: #fff !important;
+            box-shadow: 1px 1px 10px rgba(0, 0, 0, .2) !important;
+            .title, .detail .name {
+                color: $textNormalColor !important;
+            }
+            .font-number {
+                color: $basic !important;
+            }
+            .top-left, .top-right, .bottom-left, .bottom-right {
+                display: none;
+            }
+        }
+    }
+}

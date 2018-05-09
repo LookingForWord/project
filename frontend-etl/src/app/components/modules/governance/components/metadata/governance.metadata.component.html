@@ -1,0 +1,118 @@
+<div class="container" >
+
+    <div class="left-tree" *ngIf="rightType !== 'sourceAnalysis'">
+        <div class="header-container ">
+            <div  class="tag line" (click)="tabClick('tag')" [class.checked]="tabType==='tag'">
+                <span>标签</span>
+            </div>
+            <div class="file line" (click)="tabClick('folder')" [class.checked]="tabType==='folder'">
+                <span>文件夹</span>
+            </div>
+        </div>
+        <div class="tree-container">
+            <div *ngIf="tabType==='folder'">
+                <governance-metadata-aside-component #aside ></governance-metadata-aside-component>
+                <!--这里是一个所有组织机构的树形结构-->
+            </div>
+            <div *ngIf="tabType==='tag'" class="tag-box">
+                <span *ngFor="let item of tags"
+                      class="text-overflow items"
+                      (click)="tabCheck(item.id)"
+                      [class.all]="item.id === '0'"
+                      [class.undistributed]="item.id === 'undistributedTags'"
+                      [class.checked]="item.checked"
+                      title="{{item.name}}">
+                    {{item.name}}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="right-table " *ngIf="rightType !== 'sourceAnalysis'">
+        <!--元数据列表-->
+        <table-component>
+            <div class="table-component-search line">
+                <button class="line btn mr6 primary" (click)="newTable('addSQL')"  authority="governance.metadata.addSQL">
+                    <i class="iconfont mr5 icon-ico_add"></i><span>SQL建表</span>
+                </button>
+                <button class="line btn mr6 primary" (click)="newTable('addVisual')" authority="governance.metadata.addVisual">
+                    <i class="iconfont mr5 icon-ico_add"></i><span>可视化建表</span>
+                </button>
+                <span class="datasource mr6" >
+                    <select-component
+                        [option]="sourceName"
+                        [options]="sourceNames"
+                        [label]="'dsName'"
+                        (callback)="sourceNameChecked($event)">
+                    </select-component>
+                </span>
+                <div class="input-icon mr6" position="left">
+                    <input type="text" class="input"  [(ngModel)]="keyWord" inputDebounce (debounceClick)="searchChange($event)"  placeholder="支持表名搜索">
+                    <i class="icon iconfont icon-ico_search_textfield"></i>
+                </div>
+                <button class="back line btn" (click)="getTableList(0)">
+                    搜索
+                </button>
+            </div>
+            <div class="table-component-title">
+                <span class="title">
+                    <i class="iconfont icon-ico_sheet_manage mr8"></i>表列表
+                </span>
+                <span class="record">共{{totalcount}}条记录</span>
+            </div>
+            <thead class="table-component-thead">
+                <tr>
+                    <th width="15%">表名</th>
+                    <th width="10%">数据源类型</th>
+                    <th width="10%">数据源</th>
+                    <th width="15%">注释</th>
+                    <th width="10%">所属系统</th>
+                    <th width="10%">创建人</th>
+                    <th width="10%">创建时间</th>
+                    <th width="20%">操作</th>
+                </tr>
+            </thead>
+            <tbody class="table-component-tbody">
+                <tr *ngFor="let item of list">
+                    <td>{{item.tableName}}</td>
+                    <td>{{item.dsType}}</td>
+                    <td>{{item.dsName}}</td>
+                    <td>{{item.tableComment}}</td>
+                    <td>{{item.systemName}}</td>
+                    <td>{{item.createUser}}</td>
+                    <td>{{item.createTime | date}}</td>
+                    <td>
+                        <button class="btn icon only"  tooltip="编辑" position="top" authority="governance.metadata.edit" (click)="manageClick(item, 'editTable')">
+                            <i class="icon iconfont icon-ico_edit"></i>
+                        </button>
+                        <button class="btn icon only"  tooltip="生成SQL" position="top" authority="governance.metadata.impact" (click)="manageClick(item, 'createSQL')">
+                            <i class="icon iconfont icon-ico_generating_sql"></i>
+                        </button>
+                        <button class="btn icon only" tooltip="表分析"[class.disabled]="item.dsType==='oracle'||item.dsType==='sqlserver'" authority="governance.metadata.table.analysis" [disabled]="item.dsType==='oracle'||item.dsType==='sqlserver'?true:false" position="top" (click)="turnToTableAnalysis(item)" >
+                            <i class="icon iconfont icon-ico_source_analysis"></i>
+                        </button>
+                        <button class="btn icon only"  tooltip="删除" position="top" authority="governance.metadata.delete" (click)="deleteClick(item.id)">
+                            <i class="icon iconfont icon-ico_delete"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot class="table-component-tfoot">
+                <tr *ngIf="noData">
+                    <td colspan='8' [style.textAlign]="'center'">暂无数据...</td>
+                </tr>
+            </tfoot>
+            <div class="table-component-page">
+                <multi-pagination-component [pagenow]="pageNum"
+                                      [pagesize]="pageSize"
+                                      [totalcount]="totalcount"
+                                      (onPageChange)="doPageChange($event)">
+                </multi-pagination-component>
+            </div>
+        </table-component>
+
+    </div>
+    <!-- 来源分析 -->
+    <div [class.show]="rightType === 'sourceAnalysis'" class="analysis-box" *ngIf="rightType === 'sourceAnalysis'">
+        <governance-metadata-sourceAnalysis-component (back)="back()" [tableName]="checkedTableName" [tableId]="tableId"></governance-metadata-sourceAnalysis-component>
+    </div>
+</div>

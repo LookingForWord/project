@@ -1,0 +1,44 @@
+<div class="tree-container" >
+    <ul #titleContainer  >
+        <li *ngFor="let flow of menuList;let i = index;" >
+            <div class="tree-title"
+                 [style.paddingLeft.px]="index*20 + 10"
+                 [class.checked] = 'flow.checked'
+                 [attr.index]="i">
+                <i class="icon iconfont "
+                   [class.icon-checkbox_normal]="!flow.checked "
+                   [class.icon-checkbox_checked_hover]="flow.checked "
+                   [class.icon-checkbox_partialcheck]="flow.some && !flow.checked "
+                   [class.disabled]="actionType === 'infoRole'"
+                   *ngIf="(flow.type === 1 &&treeType === 'port') || (treeType === 'staff' && flow.type === 0) || (treeType === 'department')"
+                   (click)="checkedClick(flow, $event)"
+                ></i>
+                <i class="icon iconfont icon-ico_arrow_down arrow"
+                [class.expand]="flow.expand"
+                (click)="expandClick(flow, $event)"
+                *ngIf="((flow.type !== 0 && treeType === 'staff') || (flow.type !== 2 && treeType === 'department')) && flow.children && flow.children.length!==0 || (flow.type === 0 &&treeType === 'port')"></i>
+                <i class="iconfont icon-ico_menu_object logo" *ngIf="flow.type === 1 && treeType === 'department'"></i>
+                <i class="iconfont icon-ico_btn_object logo" *ngIf="flow.type === 2 && treeType === 'department'"></i>
+                <i class="iconfont icon-ico_company logo" *ngIf="treeType === 'staff' && flow.type === 1"></i>
+                <i class="iconfont icon-ico_department logo" *ngIf="treeType === 'staff' && flow.type === 2"></i>
+                <i class="iconfont icon-ico_department1 logo" *ngIf="treeType === 'staff' && flow.type === 0"></i>
+                <!--<span *ngIf="flow.type === 0 && treeType === 'staff'" [style.paddingLeft.px]="18">{{getName(flow)}}</span>-->
+                <span (click)="expandClick(flow, $event)">{{getName(flow)}}</span>
+                <a href="javascript:;" class="link " *ngIf="treeType === 'staff' && flow.type !== 0 && flow.children &&flow.children.length " (click)="staffCheck(flow, $event)">
+                    <span *ngIf="!flow.checked">全选</span>
+                    <span *ngIf="flow.checked">取消全选</span>
+                </a>
+            </div>
+            <div class="child-content" *ngIf="flow.children&&flow.children.length&&flow.expand" [@slideUpDwon]>
+                <authority-role-tree-component
+                    [menuList]="flow.children"
+                    [index]="index+1"
+                    [actionType]="actionType"
+                    [parent]="flow"
+                    [flows]="flows"
+                    [treeType]="treeType">
+                </authority-role-tree-component>
+            </div>
+        </li>
+    </ul>
+</div>

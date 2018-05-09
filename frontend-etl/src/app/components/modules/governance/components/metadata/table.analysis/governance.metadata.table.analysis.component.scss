@@ -1,0 +1,334 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+//@import 'assets/styles/global.scss';
+.container {
+    height: 100%;
+    position: relative;
+    .aside {
+        width: 280px;
+        height: 100%;
+        display: inline-block;
+        float: left;
+        border-right: 1px solid #CCDDEE;
+        .title {
+            padding: 5px;
+            background: #F5F5F5;
+            border-bottom: 1px solid $borderColor;
+            .input-icon {
+                margin-left: 5px;
+            }
+            .input {
+                width: 220px;
+            }
+        }
+        .field-list {
+            li {
+                height: 34px;
+                line-height: 34px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                padding: 0 5px;
+                cursor: pointer;
+                i.iconfont {
+                    color: #3EDBCE;
+                }
+                &:hover {
+                    background: #E0E0E0;
+                    i.delete {
+                        display: inline-block;
+                        &:hover {
+                            color: #FF3333;
+                        }
+                    }
+                }
+                &.check {
+                    background: #EEEEEE;
+                }
+                i.delete {
+                    color: #4499EE;
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .right-content {
+        float: left;
+        width: calc(100% - 281px);
+        .header-container {
+            border-bottom: 1px solid #CCDDEE;
+            background: #F5F5F5;
+            margin-bottom: 10px;
+            text-align: left;
+            height: 34px;
+            ul {
+                display: inline-block;
+            }
+            li {
+                float: left;
+                display: inline-block;
+                line-height: 33px;
+                cursor: pointer;
+                transition: $transitionAll;
+                padding: 0 10px;
+                min-width: 60px;
+                text-align: center;
+                &:hover {
+                    background: #E0E0E0;
+                }
+                i {
+                    color: #4499EE;
+                }
+                span {
+                    color: #666;
+                }
+            }
+        }
+        .context {
+            > ul {
+                padding: 0 20px;
+                li {
+                    float: left;
+                    width: 33.3%;
+                    line-height: 34px;
+                    font-size: 14px;
+                }
+                &.filter {
+                    li {
+                        min-width: 100px;
+                        max-width: 220px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    li:first-child {
+                        width: auto;
+                    }
+                }
+            }
+        }
+
+
+        .table-analysis {
+            //  新建
+            .add-content {
+                .add-title {
+                    padding: 0 10px;
+                    margin-bottom: 10px;
+                    > span {
+                        font-size: 20px;
+                        font-weight: 600;
+                        display: inline-block;
+                        max-width: 400px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    //.btn {
+                    //    float: right;
+                    //}
+                }
+                .row{
+                    padding: 8px 10px;
+                    .row-name {
+                        margin-bottom: 10px;
+                        width: 60px;
+                        display: inline-block;
+                        font-size: 14px;
+                    }
+                    .input-container {
+                        width: 176px;
+                        .input {
+                            width: 138px;
+                        }
+                    }
+                    &.filter {
+                        .filter-list {
+                            li {
+                                padding: 8px;
+                                .btn.icon.only .iconfont {
+                                    font-size: 16px;
+                                }
+                                .input-container:last-child {
+                                    bottom: 2px;
+                                }
+                                .btn.icon.only {
+                                    &:disabled {
+                                        .iconfont {
+                                            color: #ddd;
+                                        }
+                                        &:hover {
+                                            cursor: not-allowed;
+                                            .iconfont {
+                                                color: #ddd !important;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .between {
+                                    .input-container {
+                                        width: 100px;
+                                        .input {
+                                            width: 70px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .checkbox-group {
+                    .input-container {
+                        width: 90px;
+                        .input {
+                            width: 62px;
+                        }
+                    }
+                    ul li {
+                        margin-bottom: 15px;
+                        span.name {
+                            display: inline-block;
+                            width: 100px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            vertical-align: middle;
+                        }
+                        span.area {
+                            //float: right;
+                            position: relative;
+                            bottom: -2px;
+                            margin-left: 40px;
+                        }
+                    }
+                }
+                .check-box {
+                    display: inline-block;
+                    max-width: 330px;
+                    vertical-align: middle;
+                }
+                .checkbox {
+                    position: relative;
+                    .check-input {
+                        position: absolute;
+                        display: inherit;
+                        width: 100%;
+                        height:100%;
+                        z-index: 999;
+                        opacity: 0;
+                        margin-right: 10px
+                    }
+                    label {
+                        vertical-align: middle;
+                        position: relative;
+                        margin-right: 4px;
+                        top: -1px;
+                    }
+                }
+                .line.row {
+                    margin-bottom: 16px;
+                    li {
+                        display: inline-block;
+                        float: left;
+                        margin-right: 10px;
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                        // 必填项设置
+                        .required-content {
+                            width: calc(100% - 10px);
+                            display: inline-block;
+                            padding-left: 10px;
+                            position: relative;
+                            .required-red {
+                                position: absolute;
+                                left: 0;
+                                top: 50%;
+                                margin-top: -7px;
+                                &.invisible {
+                                    visibility: hidden;
+                                }
+                            }
+                            .required-label {
+                                position: absolute;
+                                bottom: -18px;
+                                left: 13px;
+                                color: $redColor;
+                            }
+                        }
+                        .corn.input-container {
+                            .required-content {
+                                width: 218px;
+                            }
+                        }
+                        .input-container {
+                            width: 190px;
+                            .input {
+                                width: 164px;
+                            }
+
+                        }
+                        > span {
+                            &:first-child {
+                                display:inline-block;
+                                width: 60px;
+                                font-size: 14px;
+                                text-align: right;
+                            }
+                            &.task-type {
+                                width: 190px;
+                            }
+                        }
+
+                    }
+                    // 周期任务
+                    &.corn {
+                        li span.required-content {
+                            width: 88px;
+                            &.multi-select {
+                                width: 180px;
+                                vertical-align: middle;
+                            }
+                        }
+                    }
+                }
+            }
+            .input-container {
+                span.input-error {
+                    bottom: -16px;
+                    left: 10px;
+                }
+            }
+        }
+    }
+    .history-box {
+        position: absolute;
+        left: 281px;
+        right: 0;
+        height: 400px;
+        bottom: 0;
+        background: #fff;
+        .history-top-title {
+            span {
+                border: 1px solid #CCDDEE;
+                display: inline-block;
+                line-height: 33px;
+                cursor: pointer;
+                transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+                padding: 0 10px;
+                min-width: 80px;
+                text-align: center;
+                position: relative;
+                top: 1px;
+                border-bottom: 0;
+                border-left: 0;
+                background: #fff;
+            }
+        }
+        .history-content {
+            border-top: 1px solid #CCDDEE;
+        }
+    }
+}

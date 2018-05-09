@@ -1,0 +1,48 @@
+<div class="container">
+    <table class="table" *ngIf="headers&&headers.length">
+        <thead>
+            <tr>
+                <th>字段名称</th>
+                <th>类型</th>
+                <th [class.hidden]="type===collectDatabaseEnum.FILE">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let header of headers; let i = index;">
+                <td>
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <span class="required-label" *ngIf="header.errorType===1">请输入字段名称</span>
+                        <input type="text"
+                               class="input"
+                               size="small"
+                               [(ngModel)]="header.fieldName"
+                               placeholder="字段名称"
+                               [attr.disabled]="type===collectDatabaseEnum.FILE?true:null">
+                    </span>
+                </td>
+                <td>
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <span class="required-label" *ngIf="header.errorType===2">请选择字段类型</span>
+                        <select-component
+                            [option]="header.dataType"
+                            [options]="dataTypes"
+                            (callback)="dataTypeChecked($event)"
+                            [index]="i"
+                            [placeholder]="'字段类型'"
+                            [size]="'small'"
+                            [disabled]="type===collectDatabaseEnum.FILE">
+                            </select-component>
+                    </span>
+                </td>
+                <td [class.hidden]="type===collectDatabaseEnum.FILE">
+                    <i class="link iconfont icon-ico_delete" (click)="deleteClick(i)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="pl20 pb20" [class.mt10]="!headers || !headers.length" [class.hidden]="type===collectDatabaseEnum.FILE">
+        <a class="link" (click)="addClick()">+ 添加header</a>
+    </div>
+</div>

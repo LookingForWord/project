@@ -1,0 +1,33 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+.container {
+    height: 100%;
+    * {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+    }
+    .left-tree {
+        float: left;
+        width: 282px;
+        overflow: auto;
+        height: 100%;
+        padding: 0 0 10px 0;
+        border-right: 1px solid #CCDDEE;
+        .tree-container {
+            height: 100%;
+            overflow: auto;
+            .iconfont {
+                color: #4499EE;
+            }
+        }
+    }
+    .right-table {
+        overflow: auto;
+    }
+    :host ::ng-deep table-component {
+        .container {
+            padding-top: 0;
+        }
+    }
+}

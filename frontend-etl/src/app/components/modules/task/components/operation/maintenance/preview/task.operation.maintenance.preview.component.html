@@ -1,0 +1,36 @@
+<div class="task-pannel-bottom container">
+    <div class="common-table">
+        <div class="common-table-box">
+            <div class="common-table-body">
+                <h3 class="panel-title">源表</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th *ngFor="let value of dataSourceTitle" [style.width]="value === 'id' ? '40px' : ''">{{value}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let item of dataSourceArr">
+                        <td *ngFor="let value of dataSourceTitle">{{item[value] || ''}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="common-table-body">
+                <h3 class="panel-title">目标表</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th *ngFor="let value of targetSourceTitle" [style.width]="value === 'id' ? '40px' : ''">{{value}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let item of dataTargetArr">
+                        <td *ngFor="let value of targetSourceTitle">{{item[value] || ''}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

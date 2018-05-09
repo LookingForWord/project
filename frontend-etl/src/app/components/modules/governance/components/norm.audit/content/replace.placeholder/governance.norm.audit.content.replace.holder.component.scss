@@ -1,0 +1,62 @@
+@import 'assets/styles/global.scss';
+
+.container {
+    width: 700px;
+    padding: 25px 0;
+    font-size: 14px;
+    max-height: 450px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    .row {
+        margin-bottom: 25px;
+        li {
+            display: inline-block;
+            float: left;
+            margin-bottom: 25px;
+            // 必填项设置
+            .required-content {
+                width: calc(100% - 10px);
+                display: inline-block;
+                padding-left: 10px;
+                position: relative;
+                .required-red {
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    margin-top: -7px;
+                    &.invisible {
+                        visibility: hidden;
+                    }
+                }
+                .required-label {
+                    position: absolute;
+                    bottom: -16px;
+                    left: 13px;
+                    color: $redColor;
+                }
+            }
+            &:first-child {
+                margin-right: 9px;
+            }
+            .input-container {
+                .input {
+                    width: 202px;
+                }
+
+            }
+            > span {
+                &:first-child {
+                    display:inline-block;
+                    width: 100px;
+                    color: #666;
+                    text-align: right;
+                    margin-right: 3px;
+                }
+            }
+        }
+    }
+    h5 {
+        margin-bottom: 10px;
+    }
+}
+

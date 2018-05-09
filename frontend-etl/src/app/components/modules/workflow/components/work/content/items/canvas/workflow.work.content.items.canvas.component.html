@@ -1,0 +1,48 @@
+<div class="aside" #dragOrigin>
+    <ul class="child-box clearfix item" [@slideUpDwon]>
+        <li *ngFor="let config of configs" class="drag-item origin forth"
+            [attr.pid]="config.id"
+            [attr.cid]="config.cid"
+            [attr.treeUrl]="config.treeUrl"
+        >
+            <i [class]="'iconfont icon-' + config.icon" [class.icon]="true" [title]="config.name"></i>
+            {{config.name}}
+        </li>
+    </ul>
+    <!--<ul>-->
+        <!--<li class="item" *ngFor="let config of configs; let i = index" >-->
+            <!--<span class="title" (click)="configClick(config)">-->
+                <!--<i class="iconfont icon-ico_arrow_down" [class.expand]="config.expand"></i>-->
+                <!--{{config.name}}-->
+            <!--</span>-->
+            <!--<ul [class.show]="config.expand" class="child-box clearfix" [@slideUpDwon]>-->
+                <!--<li *ngFor="let child of config.children" class="drag-item origin"-->
+                    <!--[class.first]="i===0"-->
+                    <!--[class.second]="i===1"-->
+                    <!--[class.third]="i===2"-->
+                    <!--[class.forth]="i===3"-->
+                    <!--[attr.pid]="config.id"-->
+                    <!--[attr.cid]="child.cid"-->
+                    <!--[attr.treeUrl]="child.treeUrl"-->
+                <!--&gt;-->
+                    <!--<i [class]="'iconfont icon-' + child.icon" [class.icon]="true" [title]="child.name"></i>-->
+                    <!--{{child.name}}-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</li>-->
+    <!--</ul>-->
+</div>
+
+<div class="drag-target-container">
+    <div class="drag-target"
+         #dragTarget
+         [style.transform]="dragTargetPosition"
+         [style.width.px]="dragTargetOption.width"
+         [style.height.px]="dragTargetOption.height"></div>
+    <div class="drag-view">
+        <i class="iconfont icon-ico_array mr10" (click)="positionClick()"></i>
+        <i class="iconfont icon-ico_enlarge" (click)="scaleClick('+')"></i>
+        <span>{{getScaleView()}}</span>
+        <i class="iconfont icon-ico_narrow" (click)="scaleClick('-')"></i>
+    </div>
+</div>

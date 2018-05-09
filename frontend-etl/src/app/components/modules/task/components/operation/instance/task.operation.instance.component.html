@@ -1,0 +1,154 @@
+<div class="container">
+    <div class="tabs clearfix">
+        <span (click)="tabClick('node')" [class.checked]="tabType==='node'">节点任务</span>
+        <span (click)="tabClick('workflow')" [class.checked]="tabType==='workflow'">流式任务</span>
+    </div>
+    <!-- 节点任务 -->
+    <table-component *ngIf="tabType === 'node'">
+        <div class="table-component-search line">
+            <div  class="input-icon" position="left">
+                <input type="text" class="input"  inputDebounce (debounceClick)="searchInstanceChange($event)" [(ngModel)]="keyWord" (keyup.enter)="getInstanceList(1)" placeholder="支持名称搜索">
+                <i class="icon iconfont icon-ico_search_textfield"></i>
+            </div>
+            <button class="back line btn ml10" (click)="getInstanceList(1)">
+                搜索
+            </button>
+        </div>
+        <div class="table-component-title">
+            <span class="title">
+                    <i class="iconfont mr8 icon-ico_field_manage"></i>节点任务列表
+                </span>
+            <span class="record">共{{totalcount}}条记录</span>
+        </div>
+        <thead class="table-component-thead">
+        <tr>
+            <th width="18%">名称</th>
+            <th width="18%">节点类型</th>
+            <th width="18%">任务类型</th>
+            <th width="18%">创建时间</th>
+            <th width="18%">状态</th>
+            <th width="10%">操作</th>
+        </tr>
+        </thead>
+        <tbody class="table-component-tbody">
+        <tr *ngFor="let task of instanceList;let i = index">
+            <td [attr.title]="task.flowName">{{task.flowName}}</td>
+            <td>{{getTaskType(task.nodeType)}}</td>
+            <td>{{getTaskType(task.projectType)}}</td>
+            <td>{{task.createTime ? (task.createTime | date:'YYYY/MM/DD HH:mm:ss') : '--'}}</td>
+            <td>{{task.flowStatus === 'open' ? '开启' : '关闭'}}</td>
+            <td>
+                <button
+                    *ngIf="task.flowStatus === 'close' && checkBtnAuthority('task.operation.instance.close')"
+                    class="btn icon only"
+                    tooltip="开启"
+                    position="top"
+                    (click)="openOrClose(task, 'node')"
+                >
+                    <i class="icon iconfont icon-ico_start"></i>
+                </button>
+                <button
+                    *ngIf="task.flowStatus === 'open'  && checkBtnAuthority('task.operation.instance.close')"
+                    class="btn icon only"
+                    tooltip="关闭"
+                    position="top"
+                    (click)="openOrClose(task, 'node')"
+                >
+                    <i class="iconfont icon-ico_block"></i>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot class="table-component-tfoot">
+            <tr *ngIf="noDataType">
+                <td colspan='6' [style.textAlign]="'center'">暂无数据...</td>
+            </tr>
+        </tfoot>
+        <div class="table-component-page">
+            <multi-pagination-component [pagenow]="pageNow"
+                                  [pagesize]="pageSize"
+                                  [totalcount]="totalcount"
+                                  (onPageChange)="doPageChange($event)">
+            </multi-pagination-component>
+        </div>
+    </table-component>
+
+    <!-- 流式任务 -->
+    <table-component *ngIf="tabType==='workflow'">
+        <div class="table-component-search line">
+            <div  class="input-icon" position="left">
+                <input type="text" class="input" inputDebounce (debounceClick)="searchFlowChange($event)" [(ngModel)]="workflowKeyWord" placeholder="支持名称搜索">
+                <i class="icon iconfont icon-ico_search_textfield"></i>
+            </div>
+            <button class="back line btn ml10" (click)="getworkflowList(1)">
+                搜索
+            </button>
+        </div>
+        <div class="table-component-title">
+            <span class="title">
+                    <i class="iconfont mr8 icon-ico_field_manage"></i>流式任务列表
+                </span>
+            <span class="record">共{{workTotal}}条记录</span>
+        </div>
+        <thead class="table-component-thead">
+        <tr>
+            <th width="15%">名称</th>
+            <th width="15%">节点类型</th>
+            <th width="15%">任务类型</th>
+            <th width="15%">创建时间</th>
+            <th width="15%">创建人</th>
+            <th width="15%">状态</th>
+            <th width="8%">操作</th>
+        </tr>
+        </thead>
+        <tbody class="table-component-tbody">
+        <tr *ngFor="let task of workList;let i = index">
+            <td><a class="link"
+                   (click)="showPanelClick(task,$event)"
+                   [title]="task.taskName"
+            >{{task.flowName}}</a></td>
+            <td>{{getTaskType(task.nodeType)}}</td>
+            <td>{{getTaskType(task.projectType)}}</td>
+            <td>{{task.createTime ? (task.createTime | date:'YYYY/MM/DD HH:mm:ss') : '--'}}</td>
+            <td>{{task.createUserId}}</td>
+            <td>{{task.flowStatus === 'open' ? '开启' : '关闭'}}</td>
+            <td>
+                <button
+                    *ngIf="task.flowStatus === 'close' && checkBtnAuthority('task.operation.instance.close')"
+                    class="btn icon only"
+                    tooltip="开启"
+                    position="top"
+                    (click)="openOrClose(task, 'workflow')"
+                >
+                    <i class="icon iconfont icon-ico_start"></i>
+                </button>
+                <button
+                    *ngIf="task.flowStatus === 'open'  && checkBtnAuthority('task.operation.instance.close')"
+                    class="btn icon only"
+                    tooltip="关闭"
+                    position="top"
+                    (click)="openOrClose(task, 'workflow')"
+                >
+                    <i class="iconfont icon-ico_block"></i>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot class="table-component-tfoot">
+            <tr *ngIf="noWorkData">
+                <td colspan='7' [style.textAlign]="'center'">暂无数据...</td>
+            </tr>
+        </tfoot>
+        <div class="table-component-page">
+            <pagination-component [pagenow]="workPage"
+                                  [pagesize]="workSize"
+                                  [totalcount]="workTotal"
+                                  (onPageChange)="workPageChange($event)">
+            </pagination-component>
+        </div>
+    </table-component>
+
+    <div class="task-panel" [@slideLeft]  (click)="stopPanelClick($event)" *ngIf="isShowPanel" >
+        <task-operation-instance-trigger-component [task]="checkTask" (closePanel)="hidePanelEvent($event)"></task-operation-instance-trigger-component >
+    </div>
+</div>

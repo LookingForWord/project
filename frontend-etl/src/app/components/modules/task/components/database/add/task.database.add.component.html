@@ -1,0 +1,128 @@
+<div class="container">
+    <div class="row line" *ngIf="status !== 1">
+        <ul>
+            <li>
+                <span>数据源名称</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" maxlength="30" [class.error]="errorType===1" [(ngModel)]="sourceName" placeholder="名称" [disabled]="status === 0">
+                        <span class="required-label" *ngIf="errorType===1">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+            <li class="line">
+                <span>数据源类型</span>
+                <span class="input-container source-type">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                         <select-component
+                             [option]="sourceType"
+                             [options]="sourceTypes"
+                             [disabled]="status === 0"
+                             [downHeight]="180"
+                             (callback)="sourceTypeChecked($event)">
+                         </select-component>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row line" *ngIf="status === 1">
+        <ul>
+            <li>
+                <span>数据源类型</span>
+                <span class="input-container source-type">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                         <select-component
+                             [option]="sourceType"
+                             [options]="sourceTypes"
+                             [disabled]="status === 0"
+                             [downHeight]="180"
+                             (callback)="selectChange($event,'sourceType')">
+                         </select-component>
+                        <span class="required-label" *ngIf="errorType===14">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+            <li class="line">
+                <span>数据源名称</span>
+                <span class="input-container source-type">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+
+                         <select-component
+                             [placeholder]="'选择数据源'"
+                             [option]="dataSourceName"
+                             [options]="dataSourceNames"
+                             [label]="'dsName'"
+                             [disabled]="status === 'editTable'"
+                             [searchs]="dataSourceNames"
+                             [search]="true"
+                             (callback)="selectChange($event,'dataSourceName')">
+                             </select-component>
+                        <span class="required-label" *ngIf="errorType===15">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row line" *ngIf="status !== 1">
+        <ul>
+            <li class="datasource-url-box">
+                <span>数据源Url</span>
+                <span class="input-container">
+                    <span class="required-content">
+                         <i class="required-red">*</i>
+                        <!--<input type="text" class="input datasource-url" [class.error]="errorType===2" [(ngModel)]="url" placeholder="请输入数据源Url" [disabled]="status === 0">-->
+                        <!--url 不能编辑-->
+                        <input type="text" class="input datasource-url" [class.error]="errorType===2" [(ngModel)]="url" placeholder="请输入数据源Url" [disabled]="true">
+                        <span class="required-label" *ngIf="errorType===2">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row" *ngIf="status !== 1">
+        <ul>
+            <li>
+                <span>用户名</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <!--hdfs类型 用户名非必传-->
+                        <i class="required-red" [class.invisible]="sourceType&&sourceType['value']===collectDatabaseEnum.HDFS">*</i>
+                        <input type="text" class="input" maxlength="30" [class.error]="errorType===4" [(ngModel)]="username" placeholder="输入用户名" [disabled]="status === 0">
+                        <span class="required-label" *ngIf="errorType===4">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+            <li>
+                <span>密码</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <!--hdfs类型 密码非必传-->
+                        <i class="required-red" [class.invisible]="sourceType&&sourceType['value']===collectDatabaseEnum.HDFS">*</i>
+                        <input type="text" class="input" [class.error]="errorType===5" [(ngModel)]="password" minlength="6" maxlength="20" placeholder="输入密码" *ngIf="status === 1" >
+                        <input type="password" class="input" [class.error]="errorType===5" [(ngModel)]="password" (keyup)="updatePassword=true" minlength="6" maxlength="20" placeholder="输入密码"  *ngIf="status !== 1" [disabled]="status === 0">
+                        <span class="required-label" *ngIf="errorType===5">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row" *ngIf="status !== 1">
+        <ul>
+            <li class="desc-box">
+                <span class="des">描述</span>
+                <span class="input-container" >
+                    <span class="required-content">
+                        <i class="required-red"></i>
+                        <textarea class="desc input datasource-des"  [disabled] = "status === 0" [(ngModel)]="sourceDsec" placeholder="描述"></textarea>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,322 @@
+<div class="container">
+    <div class="back">
+        <a class="link" (click)="backClick()">
+            <i class="iconfont icon-ico_back"></i><span>返回</span>
+        </a>
+    </div>
+
+    <div class="row mb24 mt24" *ngFor="let input of inputs">
+        <div class="col-4 line">
+            <span class="name">采集源类型</span>
+            <span class="desc text-overflow">
+                {{input.gatherBankType&&input.gatherBankType['name'] || '&nbsp;'}}
+                <i class="iconfont icon-ico_arrow_down"></i>
+            </span>
+        </div>
+        <div class="col-4 line">
+            <span class="name">采集源</span>
+            <span class="desc text-overflow">
+                {{input.gatherSource&&input.gatherSource['dsName'] || '&nbsp;'}}
+                <i class="iconfont icon-ico_arrow_down"></i>
+            </span>
+        </div>
+        <div class="col-4 line" *ngIf="input.gatherBankType&&(input.gatherBankType['type']===collectDatabaseEnum.MYSQL||input.gatherBankType['type']===collectDatabaseEnum.ORACLE||input.gatherBankType['type']===collectDatabaseEnum.HIVE)">
+            <span class="name">采集源表</span>
+            <span class="desc text-overflow">
+                {{input.gatherSourceTable&&input.gatherSourceTable['tableName'] || '&nbsp;'}}
+                <i class="iconfont icon-ico_arrow_down"></i>
+            </span>
+        </div>
+    </div>
+
+    <!--字段合并 start-->
+    <div class="mt20" *ngIf="status===statusEnum.MERGE">
+        <div class="table-title">
+            <ul class="clearfix">
+                <li [class.checked]="types===typesEnum.TABLE" (click)="changeTypes(typesEnum.TABLE)">表格编辑</li>
+                <li [class.checked]="types===typesEnum.LINE" (click)="changeTypes(typesEnum.LINE)">连线编辑</li>
+            </ul>
+        </div>
+        <div [class.no-show-types]="!(types===typesEnum.TABLE)">
+            <table class="table merge" *ngIf="mergeFieldData&&mergeFieldData.length">
+                <thead>
+                    <tr>
+                        <th>原表字段</th>
+                        <th>目标字段</th>
+                        <th>目标字段类型</th>
+                        <th>合并符</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let fields of mergeFieldData;let i = index;">
+                        <td>
+                            <span class="required-content field-origin">
+                                <i class="required-red">*</i>
+                                <span class="required-label" *ngIf="fields.errorType===1">请选择原表字段</span>
+                                <multi-select-component
+                                    [option]="fields.oldMessage"
+                                    [options]="sourceFiles"
+                                    [index]="i"
+                                    [position]="i<5?'bottom':'top'"
+                                    [type]="'mergeField'"
+                                    [label]="'fieldName'"
+                                    [placeholder]="'原表字段'"
+                                    (callback)="sourceFileChecked($event)"
+                                    [size]="'small'"
+                                    [adaption]="true">
+                                </multi-select-component>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="required-content field-type">
+                                <i class="required-red">*</i>
+                                <span class="required-label" *ngIf="fields.errorType===2">请输入目标表字段</span>
+                                <input type="text" class="input field-type" size="small" [(ngModel)]="fields.targetField">
+                            </span>
+                        </td>
+                        <td>
+                            <input type="text" class="input field-type" size="small" [(ngModel)]="fields.targetFieldType">
+                        </td>
+                        <td>
+                            <input type="text" class="input field-type" size="small" [(ngModel)]="fields.combineSymbol" (keyup)="markupUpdating()">
+                        </td>
+                        <td>
+                            <i class="link iconfont icon-ico_delete" (click)="deleteField(i, dataCleanEnum.MERGE)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="mt10 mb10 pl25">
+                <a class="link" (click)="addRowClick(dataCleanEnum.MERGE)">+ 添加字段</a>
+            </div>
+        </div>
+        <div class="jsPlumb-container row drag-target-headers mt30" [class.no-show-types]="!(types===typesEnum.LINE)" #jsplumbContainer>
+            <div class="col-6">
+                <div class="items">
+                    <div class="item-title text-overflow">{{getSourcesNickname()}}</div>
+                    <div class="item-content deep">
+                        <span>源表字段</span>
+                        <span>类型</span>
+                    </div>
+                    <div class="item-content drag-line source"
+                         *ngFor="let field of sourceFiles"
+                         [attr.fieldName]="field.fieldName"
+                         [attr.dataType]="field.dataType"
+                         [attr.uuid]="field.uuid">
+                        <span class="text-overflow field-name" [title]="field.fieldName">{{field.fieldName}}</span>
+                        <span class="text-overflow">{{field.dataType}}</span>
+                        <i class="iconfont icon-ico_tab_close"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="items">
+                    <div class="item-title">{{nickname}}</div>
+                    <div class="item-content deep merge">
+                        <span>目标表字段</span>
+                        <span>类型</span>
+                        <span>合并符</span>
+                    </div>
+                    <div class="item-content drag-line merge target"
+                         *ngFor="let field of mergeFieldData;let i = index;"
+                         [attr.uuid]="field.uuid"
+                         [attr.index]="i"
+                         (mouseenter)="showDel(true, i)"
+                         (mouseleave)="showDel(false, i)">
+                        <span class="text-overflow" [title]="field.targetField">
+                            <input type="text" class="target-field" [(ngModel)]="field.targetField" size="small">
+                        </span>
+                        <span class="text-overflow" [title]="field.targetFieldType">
+                            <input type="text" [(ngModel)]="field.targetFieldType" size="small">
+                        </span>
+                        <span class="text-overflow">
+                            <input type="text" [(ngModel)]="field.combineSymbol" size="small">
+                        </span>
+                        <i class="iconfont icon-ico_tab_close"
+                           [class.show]="field.del"
+                           (click)="delClick(i)"></i>
+                    </div>
+                    <div class="item-content item-add">
+                        <a class="link" (click)="addOutputClick()">新增字段</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--字段合并 start-->
+
+    <!--字段拆分 start-->
+    <div class="mt20" *ngIf="status===statusEnum.SPLIT">
+        <div class="table-title">
+            <ul class="clearfix">
+                <li [class.checked]="types===typesEnum.TABLE" (click)="changeTypes(typesEnum.TABLE)">表格编辑</li>
+                <li [class.checked]="types===typesEnum.LINE" (click)="changeTypes(typesEnum.LINE)">连线编辑</li>
+            </ul>
+        </div>
+        <div [class.no-show-types]="!(types===typesEnum.TABLE)">
+            <table class="table split" *ngIf="splitFieldData&&splitFieldData.length">
+                <thead>
+                    <tr>
+                        <th>源表字段</th>
+                        <th>源表字段类型</th>
+                        <th>目标字段</th>
+                        <th>目标字段类型</th>
+                        <th>拆分类型</th>
+                        <th>拆分符</th>
+                        <th>取位</th>
+                        <th>截取位置</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let fields of splitFieldData;let i = index;">
+                    <td>
+                        <span class="required-content field-name">
+                            <i class="required-red">*</i>
+                            <span class="required-label" *ngIf="fields.errorType===1">请选择原表字段</span>
+                            <select-component
+                                [option]="fields.oldMessage"
+                                [options]="sourceFiles"
+                                (callback)="sourceFileChecked($event)"
+                                [index]="i"
+                                [type]="'splitField'"
+                                [label]="'fieldName'"
+                                [position]="i<5?'bottom':'top'"
+                                [search]="true"
+                                [placeholder]="'原字段名称'"
+                                [size]="'small'">
+                            </select-component>
+                        </span>
+                    </td>
+                    <td>
+                        <input type="text" class="input all field-type" size="small" [(ngModel)]="fields.oldMessage['dataType']" disabled>
+                    </td>
+                    <td>
+                        <span class="required-content field-name">
+                            <i class="required-red">*</i>
+                            <span class="required-label" *ngIf="fields.errorType===2">请输入目标表字段</span>
+                            <input type="text" class="input all field-type" size="small" [(ngModel)]="fields.targetField">
+                        </span>
+                    </td>
+                    <td>
+                        <input type="text" class="input all field-type" size="small" [(ngModel)]="fields.targetFieldType">
+                    </td>
+                    <td>
+                        <span class="required-content field-split-type">
+                            <select-component
+                                [option]="fields.splitType"
+                                [options]="splitTypes"
+                                (callback)="sourceFileChecked($event)"
+                                [index]="i"
+                                [type]="'splitType'"
+                                [placeholder]="'拆分类型'"
+                                [size]="'small'"
+                                [position]="i<5?'bottom':'top'">
+                            </select-component>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="required-content field-split-symbol">
+                            <i class="required-red">*</i>
+                            <span class="required-label" *ngIf="fields.errorType===3">输入拆分符号</span>
+                            <input type="text" class="input all" size="small" [(ngModel)]="fields.splitSymbol" placeholder="输入拆分符" (keyup)="markupUpdating();" [attr.disabled]="fields.splitType.value==='split'?null:'disabled'">
+                        </span>
+                    </td>
+                    <td>
+                        <span class="required-content field-split-symbol">
+                            <i class="required-red">*</i>
+                            <span class="required-label" *ngIf="fields.errorType===4">输入取位值</span>
+                            <input type="text" class="input all" size="small" [(ngModel)]="fields.splitBit" placeholder="输入取位值" (keyup)="markupUpdating();" [attr.disabled]="fields.splitType.value==='split'?null:'disabled'">
+                        </span>
+                    </td>
+                    <td>
+                        <span class="required-content field-substr">
+                            <i class="required-red">*</i>
+                            <span class="required-label" *ngIf="fields.errorType===5">截取开始位置</span>
+                            <span class="required-label" *ngIf="fields.errorType===6">截取结束位置</span>
+                            <input type="text" size="small" placeholder="开始" class="input substr-input" [(ngModel)]="fields.substrStart" (keyup)="markupUpdating();" [attr.disabled]="fields.splitType.value==='substr'?null:'disabled'">
+                            <input type="text" size="small" placeholder="结束" class="input substr-input" [(ngModel)]="fields.substrEnd" (keyup)="markupUpdating();" [attr.disabled]="fields.splitType.value==='substr'?null:'disabled'">
+                        </span>
+                    </td>
+                    <td>
+                        <i class="link iconfont icon-ico_delete" (click)="deleteField(i, dataCleanEnum.SPLIT)"></i>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="mt10 mb10 pl25">
+                <a class="link" (click)="addRowClick(dataCleanEnum.SPLIT)">+ 添加字段</a>
+            </div>
+        </div>
+
+        <div class="jsPlumb-container row drag-target-headers mt30" [class.no-show-types]="!(types===typesEnum.LINE)" #jsplumbContainer>
+            <div class="col-6">
+                <div class="items">
+                    <div class="item-title text-overflow">{{getSourcesNickname()}}</div>
+                    <div class="item-content deep">
+                        <span>源表字段</span>
+                        <span>类型</span>
+                    </div>
+                    <div class="item-content drag-line source"
+                         *ngFor="let field of sourceFiles"
+                         [attr.fieldName]="field.fieldName"
+                         [attr.dataType]="field.dataType"
+                         [attr.uuid]="field.uuid">
+                        <span class="text-overflow field-name" [title]="field.fieldName">{{field.fieldName}}</span>
+                        <span class="text-overflow">{{field.dataType}}</span>
+                        <i class="iconfont icon-ico_tab_close"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="items split">
+                    <div class="item-title">{{nickname}}</div>
+                    <div class="item-content deep split">
+                        <span>目标表字段</span>
+                        <span>类型</span>
+                        <span>拆分类型</span>
+                        <span>拆分符</span>
+                        <span>取位</span>
+                        <span>截取位置</span>
+                    </div>
+                    <div class="item-content drag-line split target"
+                         *ngFor="let field of splitFieldData;let i = index;"
+                         [attr.uuid]="field.uuid"
+                         [attr.fieldName]="field.oldMessage.fieldName"
+                         [attr.index]="i"
+                         (mouseenter)="showDel(true, i)"
+                         (mouseleave)="showDel(false, i)">
+                        <span class="text-overflow" [title]="field.targetField">
+                            <input type="text" class="target-field" [(ngModel)]="field.targetField" size="small">
+                        </span>
+                        <span class="text-overflow" [title]="field.targetFieldType">
+                            <input type="text" [(ngModel)]="field.targetFieldType" size="small">
+                        </span>
+                        <span class="text-overflow">
+                            <a class="link" [class.checked]="field.splitType.value==='split'" (click)="splitTypeClick('split', i)">拆分</a> /
+                            <a class="link" [class.checked]="field.splitType.value==='substr'" (click)="splitTypeClick('substr', i)">截取</a>
+                        </span>
+                        <span class="text-overflow">
+                            <input type="text" [(ngModel)]="field.splitSymbol" size="small" [attr.disabled]="field.splitType.value==='split'?null:'disabled'">
+                        </span>
+                        <span class="text-overflow">
+                            <input type="text" [(ngModel)]="field.splitBit" size="small" [attr.disabled]="field.splitType.value==='split'?null:'disabled'">
+                        </span>
+                        <span class="text-overflow">
+                            <input type="text" class="half" [(ngModel)]="field.substrStart" size="small" placeholder="开始" [attr.disabled]="field.splitType.value==='substr'?null:'disabled'">
+                            <input type="text" class="half" [(ngModel)]="field.substrEnd" size="small" placeholder="结束" [attr.disabled]="field.splitType.value==='substr'?null:'disabled'">
+                        </span>
+                        <i class="iconfont icon-ico_tab_close"
+                           [class.show]="field.del"
+                           (click)="delClick(i)"></i>
+                    </div>
+                    <div class="item-content item-add">
+                        <a class="link" (click)="addOutputClick()">新增字段</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--字段拆分 start-->
+</div>

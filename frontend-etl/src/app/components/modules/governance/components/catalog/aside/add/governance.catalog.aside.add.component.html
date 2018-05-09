@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="row clearfix">
+        <ul class="clearfix ">
+            <li>
+                <span>目录名称</span>
+                <span class="input-container" >
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text"
+                           [class.error]="errorType===1"
+                           class="input"
+                           [(ngModel)]="name"
+                           [disabled] = "status === 'detail'"
+                           maxLength="22"
+                           placeholder="目录名称">
+                        <span class="input-error" *ngIf="errorType === 1">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+            <!--<li class="not-required" *ngIf="status === 'addCatalog'">-->
+                <!--<span>类型</span>-->
+                <!--<span class="input-container">-->
+                    <!--<span class="select-box">-->
+                        <!--<select-component-->
+                            <!--[placeholder]="'类型'"-->
+                            <!--[option]="leader"-->
+                            <!--[options]="leaderArr"-->
+                            <!--(callback)="selectChange($event,'leader')">-->
+                        <!--</select-component>-->
+                    <!--</span>-->
+                <!--</span>-->
+            <!--</li>-->
+        </ul>
+    </div>
+    <div class="row clearfix" >
+        <ul class="clearfix parent">
+            <li class="desc-box">
+                <span>目录描述</span>
+                <span class="input-container" >
+                    <span class="required-content">
+                        <i class="required-red"></i>
+                        <textarea class="desc input"  [disabled] = "status === 'detail'" [(ngModel)]="description" placeholder="目录描述"></textarea>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row clearfix">
+        <ul>
+            <li class="item">
+                <span >上级目录</span>
+                <span class="input-container node-type ">
+                    <span class="required-content">
+                        <i class="required-red">{{status==='edit'?'':'*'}}</i>
+                        <input type="text" class="input" [title]="dircPath || oldDircPath" [(ngModel)]="dircPath || oldDircPath" [disabled]="'true'" >
+                    </span>
+                </span>
+            </li>
+            <li class="item" *ngIf="status === 'add' || status === 'edit'">
+                <span>&nbsp;</span>
+                <div class="tree-container-parent">
+                    <div class="tree-container">
+                        <div class="inner">
+                            <governance-catalog-tree-component
+                                [list]="flows"
+                                [modal]="'modal'"
+                                [type]="status">
+                            </governance-catalog-tree-component>
+                        </div>
+                    </div>
+                    <div class="tree-required" *ngIf="errorType===2"><span class="required">{{error}}</span></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

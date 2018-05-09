@@ -1,0 +1,51 @@
+<div class="container">
+    <table-component>
+        <div class="table-component-search line">
+            <div  class="input-icon" position="left">
+                <input type="text" class="input" #search inputDebounce (debounceClick)="searchChange($event)" [(ngModel)]="keyword" (keyup.enter)="getLogs(1)" placeholder="支持名称和模块搜索">
+                <i class="icon iconfont icon-ico_search_textfield"></i>
+            </div>
+            <button class="back line btn ml10" (click)="getLogs(1)">
+                搜索
+            </button>
+        </div>
+        <div class="table-component-title">
+                <span class="title">
+                    <i class="iconfont mr8 icon-ico_modify"></i>操作日志
+                </span>
+            <span class="record">共{{totalcount}}条记录</span>
+        </div>
+        <thead class="table-component-thead">
+            <tr>
+                <th width="20%">名称</th>
+                <th width="14%">所属模块</th>
+                <th width="18%">操作人</th>
+                <th width="18%">操作时间</th>
+                <th width="30%">操作记录</th>
+            </tr>
+        </thead>
+        <tbody class="table-component-tbody">
+            <tr *ngFor="let item of actionLogs;let i = index">
+                <td>{{item.operated}}</td>
+                <td>{{item.module}}</td>
+                <td>{{item.operater}}</td>
+                <td>{{item.operateTime ? (item.operateTime | date:'YYYY/MM/DD HH:mm:ss') : '--'}}</td>
+                <td>{{item.content}}</td>
+            </tr>
+        </tbody>
+        <tfoot class="table-component-tfoot">
+            <tr *ngIf="noDataType">
+                <td colspan='5' [style.textAlign]="'center'">暂无数据...</td>
+            </tr>
+        </tfoot>
+        <div class="table-component-page">
+            <multi-pagination-component [pagenow]="pageNow"
+                                  [pagesize]="pageSize"
+                                  [totalcount]="totalcount"
+                                  (onPageChange)="doPageChange($event)">
+            </multi-pagination-component>
+        </div>
+    </table-component>
+
+</div>
+

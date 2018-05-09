@@ -1,0 +1,35 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+
+.container {
+    position: relative;
+    height: 100%;
+    .search-box {
+        width: 100%;
+        //padding-bottom: 5px;
+        //padding-left: 6px;
+        padding-top: 5px;
+        border-bottom: 1px solid #CCDDEE;
+        &.btn-group:first-child {
+            height: 29px;
+            width: 100%;
+            background: #F5F5F5;
+            text-align: center;
+            border-bottom: 1px solid #CCDDEE;
+            //.btn {
+            //    margin-top: 5px;
+            //}
+        }
+        i {
+            color: #ffad49;
+            cursor: pointer;
+        }
+    }
+    .tree-container {
+        height: 100%;
+        .inner {
+            height: calc(100% - 37px);
+            overflow: auto;
+        }
+    }
+}

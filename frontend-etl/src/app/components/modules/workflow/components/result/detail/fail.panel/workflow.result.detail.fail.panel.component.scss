@@ -1,0 +1,93 @@
+@import 'frontend-common/assets/styles/variable';
+@import 'assets/styles/variable.scss';
+.container {
+    overflow: auto;
+    overflow-x: hidden;
+    .header-container {
+        border-bottom: 1px solid #CCDDEE;
+        background: #F5F5F5;
+        margin-bottom: 10px;
+        li {
+            float: left;
+            display: inline-block;
+            line-height: 33px;
+            cursor: pointer;
+            transition: $transitionAll;
+            padding: 0 10px;
+            &:hover {
+                background: #E0E0E0;
+            }
+            i {
+                color: #4499EE;
+            }
+            span {
+                color: #666;
+            }
+        }
+    }
+    .item {
+            margin-bottom: 20px;
+            padding: 0 5px;
+            .item-col {
+                margin-bottom: 20px;
+                color: #666;
+                &.info {
+                    margin-bottom: 10px;
+                }
+                >span {
+                    display: inline-block;
+                    &:first-child {
+                        width: 70px;
+                        text-align: right;
+                    }
+                    &.required-content {
+                        width: auto;
+                        &.textarea {
+                            vertical-align: top;
+                            textarea {
+                                height: 70px;
+                            }
+                        }
+                    }
+                    &.checked-select {
+                        width: 196px;
+                    }
+                    >span {
+                        &.checked-select {
+                            width: 196px;
+                        }
+                    }
+                }
+                .input {
+                    width: 180px;
+                }
+                .common-table {
+                    width: 100%;
+                }
+                .btn-box {
+                    text-align: center;
+                    display: block;
+                    .btn {
+                        margin-right: 10px;
+                    }
+
+                }
+                .sql {
+                    position: relative;
+                    padding: 10px;
+                    font-size: 12px;
+                    textarea {
+                        font-size: 12px;
+                        width: 254px;
+                        height: 70px;
+                    }
+                    .required-label {
+                        position: absolute;
+                        color: #FF3333;
+                        bottom: -3px;
+                        left: 11px;
+                    }
+                }
+            }
+        }
+}

@@ -1,0 +1,337 @@
+<div class="container" *ngIf="showContent">
+    <div class="header-container">
+        <ul class="clearfix">
+            <li (click)="getRunHistory()" authority="governance.dataAudit.runHistory">
+                <i class="iconfont icon-ico_btn_object"></i>
+                <span>运行历史</span>
+            </li>
+            <li (click)="saveTaskClick($event)" authority="governance.dataAudit.save">
+                <i class="iconfont icon-ico_save"></i>
+                <span>保存</span>
+            </li>
+            <li (click)="runWorkflow()" authority="governance.dataAudit.submit">
+                <i class="iconfont icon-ico_run"></i>
+                <span>提交</span>
+            </li>
+        </ul>
+    </div>
+    <!-- 内容 -->
+    <div class="content">
+        <!--<div class="row clearfix" *ngIf="checkedTask">-->
+            <!--<ul class="clearfix">-->
+                <!--<li>-->
+                    <!--<span>任务状态:</span>-->
+                    <!--<span class="input-container">-->
+                        <!--<span class="required-content">-->
+                            <!--<i class="required-red"></i>-->
+                            <!--<span>{{checkedTask}}</span>-->
+                        <!--</span>-->
+                    <!--</span>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <div class="row clearfix">
+            <ul class="clearfix">
+                <li>
+                    <span>执行类型:</span>
+                    <span class="input-container select-box">
+                        <span class="required-content">
+                            <i class="required-red">*</i>
+                            <select-component
+                                [option]="runType"
+                                [options]="runTypes"
+                                (callback)="checkRunType($event)"
+                                [position]="'bottom'"
+                                [size]="'small'"
+                                [class.error]="errorType===1">
+                            </select-component>
+                            <span class="input-error" *ngIf="errorType === 1">{{error}}</span>
+                        </span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="row clearfix" *ngIf="runType && runType.value==='0'">
+            <ul class="clearfix">
+                <li>
+                    <span>执行时间:</span>
+                    <span class="input-container">
+                        <span class="required-content">
+                            <i class="required-red">*</i>
+                            <span class="input-icon" position="right">
+                                <input type="text" class="input" datepicker [options]="customOptions" placeholder="请选择执行时间" [(ngModel)]="runTime">
+                                <i class="iconfont icon-ico_datapick"></i>
+                            </span>
+                            <span class="input-error" *ngIf="errorType === 2">{{error}}</span>
+                        </span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="runType && runType.value==='1'">
+            <div class="item-col line">
+                <span class="s" style="width: 80px;text-align: right">频率</span>
+                <span class="checked-select required-content">
+                    <i class="required-red">*</i>
+                    <select-component
+                        [option]="checkedDispatch"
+                        [options]="dispatchs"
+                        (callback)="checkedDispatchCallback($event)"
+                        [size]="'small'"
+                        [position]="'bottom'"></select-component>
+                </span>
+            </div>
+            <div class="item-col line" *ngIf="checkedDispatch&&checkedDispatch.value==='week'">
+                <span class="s" style="width: 80px;text-align: right">每周</span>
+                <span class="checked-select required-content">
+                    <i class="required-red">*</i>
+                    <span class="required-label" *ngIf="errorType===3">请选择具体周</span>
+                    <multi-select-component
+                        [option]="checkedWeek"
+                        [options]="weeks"
+                        (callback)="checkedTimeCallback($event, 'checkedWeek')"
+                        [position]="'bottom'"
+                        [size]="'small'"
+                        [placeholder]="'选择周'">
+                    </multi-select-component>
+                </span>
+            </div>
+            <div class="item-col line" *ngIf="checkedDispatch&&checkedDispatch.value==='month'">
+                <span class="s" style="width: 80px;text-align: right">每月</span>
+                <span class="checked-select required-content">
+                    <i class="required-red">*</i>
+                    <span class="required-label" *ngIf="errorType===4">请选择具体月</span>
+                    <multi-select-component
+                        [option]="checkedMonth"
+                        [options]="months"
+                        (callback)="checkedTimeCallback($event, 'checkedMonth')"
+                        [position]="'bottom'"
+                        [size]="'small'"
+                        [placeholder]="'选择月'">
+                    </multi-select-component>
+                </span>
+            </div>
+            <div class="item-col" *ngIf="checkedDispatch&&(checkedDispatch.value==='day'||checkedDispatch.value==='week'||checkedDispatch.value==='month')">
+                <span class="s" style="width: 80px;text-align: right">时间</span>
+                <span class="line">
+                    <span class="number required-content">
+                        <i class="required-red">*</i>
+                        <span class="required-label" *ngIf="errorType===5">选择小时</span>
+                        <select-component
+                            [option]="checkedHour"
+                            [options]="hours"
+                            (callback)="checkedTimeCallback($event, 'checkedHour')"
+                            [position]="'bottom'"
+                            [size]="'small'"
+                            [placeholder]="'小时'"></select-component>
+                    </span>
+                    <span class="desc">时</span>
+                    <span class="number required-content">
+                        <i class="required-red">*</i>
+                        <span class="required-label" *ngIf="errorType===6">选择分钟</span>
+                        <select-component
+                            [option]="checkedMinute"
+                            [options]="minutes"
+                            (callback)="checkedTimeCallback($event, 'checkedMinute')"
+                            [position]="'bottom'"
+                            [size]="'small'"
+                            [placeholder]="'分钟'"></select-component>
+                    </span>
+                    <span class="desc">分</span>
+                </span>
+            </div>
+            <div class="item-col" *ngIf="checkedDispatch&&checkedDispatch.value==='hour'">
+                <span class="s" style="width: 80px;text-align: right">开始</span>
+                <span class="line">
+                    <span class="number required-content">
+                        <i class="required-red">*</i>
+                        <span class="required-label" *ngIf="errorType===7">选择小时</span>
+                        <select-component
+                            [option]="checkedStartHour"
+                            [options]="startHours"
+                            (callback)="checkedStartHourCallback($event)"
+                            [position]="'bottom'"
+                            [size]="'small'"
+                            [placeholder]="'小时'"></select-component>
+                    </span>
+                    <span class="desc">时</span>
+                    <span class="number required-content">
+                        <i class="required-red">*</i>
+                        <select-component
+                            [option]="checkedStartMinute"
+                            [options]="startMinutes"
+                            [disabled]="true"
+                            [position]="'bottom'"
+                            [size]="'small'"
+                            [placeholder]="'分钟'"></select-component>
+                    </span>
+                    <span class="desc">分</span>
+                </span>
+            </div>
+            <div class="item-col" *ngIf="checkedDispatch&&checkedDispatch.value==='hour'">
+                <span class="s" style="width: 80px;text-align: right">结束</span>
+                <span class="line" [style.position]="'relative'">
+                    <span class="number required-content">
+                        <i class="required-red">*</i>
+                        <span class="required-label" *ngIf="errorType===8">选择小时</span>
+                        <select-component
+                            [option]="checkedEndHour"
+                            [options]="endHours"
+                            (callback)="checkedEndHourCallback($event)"
+                            [position]="'bottom'"
+                            [size]="'small'"
+                            [placeholder]="'小时'"></select-component>
+                    </span>
+                    <span class="desc">时</span>
+                    <span class="number required-content">
+                        <i class="required-red">*</i>
+                        <select-component
+                            [option]="checkedEndMinute"
+                            [options]="endMinutes"
+                            [disabled]="true"
+                            [position]="'bottom'"
+                            [size]="'small'"
+                            [placeholder]="'分钟'"></select-component>
+                    </span>
+                    <span class="desc">分</span>
+                    <span class="time-error" *ngIf="errorType===9">结束时间不能早于开始时间</span>
+                </span>
+            </div>
+            <div class="item-col" *ngIf="checkedDispatch&&checkedDispatch.value==='hour'">
+                <span class="s" style="width: 80px;text-align: right">间隔</span>
+                <span class="line ">
+                    <span class="checked-select required-content">
+                        <i class="required-red">*</i>
+                        <span class="required-label" *ngIf="errorType===10">请选择间隔时间</span>
+                        <select-component
+                            [option]="checkedIntervalHour"
+                            [options]="intervalHours"
+                            (callback)="checkedIntervalCallback($event, 'checkedIntervalHour')"
+                            [position]="'bottom'"
+                            [size]="'small'"
+                            [placeholder]="'间隔时间'"></select-component>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <!-- 添加表 -->
+        <div class="add-table">
+            <span class="add-table-content">
+                <!-- 选择表-->
+                <div class="row clearfix">
+                    <ul class="clearfix">
+                        <li>
+                            <span>数据源类型:</span>
+                            <span class="input-container select-box">
+                                <span class="required-content">
+                                    <i class="required-red">*</i>
+                                    <select-component
+                                        [option]="checkedSourceType"
+                                        [options]="sourceTypeList"
+                                        [placeholder]="'选择数据源类型'"
+                                        [class.error]="errorType===11"
+                                        [size]="'small'"
+                                        (callback)="selectChange($event, 'checkedSourceType')"></select-component>
+                                    <span class="input-error" *ngIf="errorType === 11" style="padding-left: 0">{{error}}</span>
+                                </span>
+                            </span>
+                        </li>
+                        <li>
+                            <span>数据源名称:</span>
+                            <span class="input-container select-box">
+                                <span class="required-content">
+                                    <i class="required-red">*</i>
+                                    <select-component
+                                        [options]="dataSourceList"
+                                        [option]="checkedSource"
+                                        [position]="'bottom'"
+                                        [placeholder]="'选择数据源'"
+                                        [class.error]="errorType===12"
+                                        [size]="'small'"
+                                        [disabled]="!checkedSourceType"
+                                        (callback)="selectChange($event, 'checkedSource')"></select-component>
+                                    <span class="input-error" *ngIf="errorType === 12" style="padding-left: 0">{{error}}</span>
+                                </span>
+                            </span>
+                        </li>
+                        <li>
+                            <span>数据表:</span>
+                            <span class="input-container select-box">
+                                <span class="required-content">
+                                    <i class="required-red">*</i>
+                                    <select-component
+                                        [option]="checkedTable"
+                                        [options]="tableList"
+                                        [position]="'bottom'"
+                                        [placeholder]="'选择表'"
+                                        [disabled]="!checkedSourceType || !checkedSource"
+                                        [size]="'small'"
+                                        [class.error]="errorType===13"
+                                        (callback)="selectChange($event, 'checkedTable')"></select-component>
+                                    <span class="input-error" *ngIf="errorType === 13" style="padding-left: 0">{{error}}</span>
+                                </span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </span>
+        </div>
+
+        <div class="canvas-box">
+            <div class="jsPlumb-container" #jsplumbContainer [style.height.px]="getJsplumbContainerHeight()">
+                <div class="source first">
+                    <div class="name">源字段</div>
+                    <div class="type">类型</div>
+                </div>
+                <div class="source point" [style.top.px]="(i+1) * 20 + 20" *ngFor="let source of sourceFieldList;let i = index">
+                    <div class="name" [title]="source.fieldName">{{source.fieldName | substr:10}}</div>
+                    <div class="type" [title]="source.dataType">{{source.dataType | substr:10}}</div>
+                </div>
+                <div class="target first">
+                    稽核规则
+                </div>
+                <div class="target point" [style.top.px]="(i * 20 + 20) + 20" *ngFor="let target of tagetRulls;let i = index">
+                    <div class="name" [title]="target.name" [attr.ruleId]="target.ruleId">{{target.name | substr:10}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 实时运行日志 -->
+    <div class="runlog" [@slideBottom] *ngIf="showRunLog">
+        <div class="log-header">
+            <i class="iconfont icon-ico_tab_close" (click)="closeLogPanel()"></i>
+        </div>
+        <table-component>
+            <thead class="table-component-thead">
+            <tr>
+                <th width="30%">任务id</th>
+                <th width="20%">运行状态</th>
+                <th width="20%">运行时间</th>
+                <th width="20%">运行结果</th>
+                <th width="10%">操作</th>
+            </tr>
+            </thead>
+            <tbody class="table-component-tbody">
+            <tr *ngFor="let item of logs; let i=index">
+                <td>{{item.configId}}</td>
+                <td>{{getRunStatus(item.runType)}}</td>
+                <td>{{item.runningTime | date: 'YYYY-MM-DD HH:mm:ss'}}</td>
+                <td>{{getRunStatus(item.runResult)}}</td>
+                <td>
+                    <button class="btn icon only" tooltip="删除" (click)="deleteRunHistory(item.id)">
+                        <i class="iconfont icon-ico_delete"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot class="table-component-tfoot">
+            <tr *ngIf="noLog">
+                <td colspan="5">暂无数据...</td>
+            </tr>
+            </tfoot>
+            <div class="table-component-page">
+                <pagination-component [pagenow]="pageNum" [pagesize]="pageSize" [totalcount]="totalCount" (onPageChange)="doPageChange($event)"></pagination-component>
+            </div>
+        </table-component>
+    </div>
+</div>

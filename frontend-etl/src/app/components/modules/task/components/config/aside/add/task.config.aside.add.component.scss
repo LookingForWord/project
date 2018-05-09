@@ -1,0 +1,85 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+
+.container {
+    width: 635px;
+    padding: 25px 0;
+
+    .input-container {
+        width: 435px;
+        input[type='text'] {
+            width: 100%;
+        }
+    }
+
+    >div {
+        .item {
+            display: inline-block;
+            float: left;
+            margin-right: 10px;
+            .desc {
+                width: 435px;
+                height: 60px;
+            }
+            > span {
+                &:first-child {
+                    display:inline-block;
+                    width: 100px;
+                    text-align: right;
+                    margin-right: 5px;
+                }
+                &.node-type {
+                    width: 451px;
+                }
+            }
+        }
+        .taskStatus {
+            margin-right: 10px;
+            .radio {
+                top: 2px;
+            }
+            .radio input[type='radio'] + label {
+                padding: 5px;
+            }
+
+        }
+    }
+}
+.tree-container-parent {
+    position: relative;
+    display: inline-block;
+    margin-left: 10px;
+    .tree-container {
+        overflow: auto;
+        display: inline-block;
+        width: 449px;
+        border: 1px solid $borderColor;
+        border-top: 0;
+        max-height: 120px;
+        .inner {
+            width:auto;
+            display: inline;
+            min-width: 100%;
+            white-space: nowrap;
+        }
+    }
+    .required {
+        color: $redColor;
+    }
+}
+
+
+.file-btn {
+    position: relative;
+    line-height: 34px;
+    overflow: hidden;
+    input[type='file'] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+}

@@ -1,0 +1,211 @@
+<div class="container">
+    <div class="header-container">
+        <ul class="clearfix">
+            <!--<li (click)="addTaskClick($event)">-->
+                <!--<i class="iconfont icon-ico_task_add"></i>-->
+                <!--<span>调试</span>-->
+            <!--</li>-->
+            <li (click)="saveTaskClick()">
+                <i class="iconfont icon-ico_save"></i>
+                <span>保存</span>
+            </li>
+            <li (click)="closePanel()">
+                <i class="iconfont icon-ico_block"></i>
+                <span>关闭</span>
+            </li>
+        </ul>
+    </div>
+    <div class="content">
+
+        <!-- shell脚本 -->
+        <div class="item" *ngIf="!external">
+            <div class="item-col line">
+                <span class="label">任务名称</span>
+                <span class="required-content">
+                    <i class="required-red">*</i>
+                    <input type="text"
+                           class="input"
+                           size="small"
+                           [(ngModel)]="jobName"
+                           (keyup)="makeUpdating()"
+                           maxlength="25"
+                           placeholder="任务名称">
+                    <span class="required-label" *ngIf="errorType===1">请输入任务名称</span>
+                </span>
+            </div>
+            <div class="item-col line">
+                <span class="label">上传文件</span>
+                <span class="required-content upload">
+                    <i class="required-red">*</i>
+                    <input class="file-name input" size="small" readonly [title]="uploadName || ''" [attr.value]="uploadName || ''">
+                    <a class="btn primary file-btn">
+                        <input type="file" #uploaderRef ng2FileSelect [uploader]="uploader" multiple>
+                        <span>浏览...</span>
+                    </a>
+                    <span class="required-label" *ngIf="errorType===5">{{error}}</span>
+                </span>
+            </div>
+            <div class="item-col line">
+                <span class="label">入口文件</span>
+                <span class="required-content checked-select">
+                    <i class="required-red">*</i>
+                    <select-component
+                        [option]="mainFile"
+                        [options]="jobFile"
+                        [position]="'bottom'"
+                        [placeholder]="'请先上传文件'"
+                        [size]="'small'"
+                        (callback)="chooseMainFile($event)"
+                    ></select-component>
+                    <span class="required-label" *ngIf="errorType===3">请先上传文件</span>
+                </span>
+            </div>
+            <div class="item-col line">
+                <span class="label">运行参数</span>
+                <span class="required-content">
+                    <i class="required-red"></i>
+                    <input type="text"
+                           class="input"
+                           size="small"
+                           (keyup)="makeUpdating()"
+                           [(ngModel)]="shellParameter"
+                           placeholder="运行参数">
+                </span>
+            </div>
+            <div class="item-col line">
+                <span class="label">任务描述</span>
+                <span class="required-content textarea">
+                    <i class="required-red"></i>
+                    <textarea
+                           maxlength="120"
+                           class="input textarea"
+                           size="small"
+                           (keyup)="makeUpdating()"
+                           [(ngModel)]="desc"
+                           placeholder="描述"></textarea>
+                </span>
+            </div>
+
+
+            <!--<div class="item-col">-->
+                <!--<span class="label">数据库</span>-->
+                <!--<span class="line ">-->
+                    <!--<span class="checked-select required-content">-->
+                        <!--<i class="required-red">*</i>-->
+                        <!--<span class="required-label" *ngIf="errorType===10">请选择数据库</span>-->
+                        <!--<select-component-->
+                            <!--[option]=""-->
+                            <!--[options]="dbSourceArr"-->
+                            <!--(callback)="chooseDbSource($event)"-->
+                            <!--[position]="'bottom'"-->
+                            <!--[placeholder]="'选择数据库'"-->
+                            <!--[size]="'small'"></select-component>-->
+                    <!--</span>-->
+                <!--</span>-->
+            <!--</div>-->
+
+            <!--<div class="item-col line">-->
+                <!--<div class="common-table">-->
+                    <!--<div class="common-table-box">-->
+                        <!--<div class="common-table-body">-->
+                            <!--<table>-->
+                                <!--<tbody class="tbody">-->
+                                    <!--<tr *ngFor="let item of tasks">-->
+                                        <!--<td>-->
+                                            <!--<radio-component [modal]="item.checked ? true : ''" [value]="item.checked" [label]="item.name" [type]="item.checked" (callback)="onRadioCallback($event, item)"></radio-component>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                <!--</tbody>-->
+                            <!--</table>-->
+                        <!--</div>-->
+                        <!--<div class="common-table-footer">-->
+                            <!--<pagination-component [pagenow]="pageNum"-->
+                                <!--[pagesize]="pageSize"-->
+                                <!--[totalcount]="totalcount"-->
+                                <!--(onPageChange)="getOrganizeList($event)">-->
+                            <!--</pagination-component>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="item-col line">-->
+                <!--<div class="btn-box">-->
+                    <!--<button class="btn primary">执行</button>-->
+                    <!--<button class="btn delete">删除</button>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="item-col line">-->
+                <!--<span class="required-content sql">-->
+                    <!--<span class="required-label" *ngIf="errorType===11">请输入SQL语句</span>-->
+                    <!--<textarea type="text"-->
+                           <!--class="input moment"-->
+                           <!--size="small"-->
+                           <!--placeholder="SQL执行语句"></textarea>-->
+                <!--</span>-->
+            <!--</div>-->
+
+
+        </div>
+
+        <!-- 外部任务 -->
+        <div class="item" *ngIf="external">
+            <div class="item-col line">
+                <span class="label">任务名称</span>
+                <span class="required-content">
+                    <i class="required-red">*</i>
+                    <input type="text"
+                           class="input"
+                           size="small"
+                           [(ngModel)]="jobName"
+                           (keyup)="makeUpdating()"
+                           maxlength="25"
+                           placeholder="任务名称">
+                    <span class="required-label" *ngIf="errorType===1">请输入任务名称</span>
+                </span>
+            </div>
+            <div class="item-col">
+                <span class="label">系统名称</span>
+                    <span class="line ">
+                    <span class="checked-select required-content">
+                        <i class="required-red">*</i>
+                        <span class="required-label" *ngIf="errorType===4">请选择系统名称</span>
+                        <select-component
+                        [option]="systemName"
+                        [options]="systemNames"
+                        [label]="'externalSystemName'"
+                        (callback)="chooseExterior($event,'systemName')"
+                        [position]="'bottom'"
+                        [placeholder]="'选择系统名称'"
+                        [size]="'small'"></select-component>
+                    </span>
+                </span>
+            </div>
+            <div class="item-col">
+                <span class="label">任务</span>
+                <span class="required-content">
+                    <i class="required-red">*</i>
+                    <input type="text"
+                           class="input"
+                           size="small"
+                           readonly
+                           (click)="chooseExterior($event,'checkedTreeTask')"
+                           [(ngModel)]="checkedTreeTask && checkedTreeTask.name"
+                           placeholder="请选择任务">
+                    <span class="required-label" *ngIf="errorType===5">请选择</span>
+                </span>
+            </div>
+            <div class="item-col line">
+                <span class="label">运行参数</span>
+                <span class="required-content">
+                    <i class="required-red"></i>
+                    <input type="text"
+                           class="input"
+                           size="small"
+                           (keyup)="makeUpdating()"
+                           [(ngModel)]="shellParameter"
+                           placeholder="运行参数">
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

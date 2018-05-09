@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="tree-container">
+        <div class="search-box">
+            <span class="pl3 pr3 new-folder" [tooltip]="'新增规则库'" (click)="addDirectory()" authority="task.Catalog.add">
+                <i class="iconfont icon-ico_folder_add"></i>
+            </span>
+                <span class="input-icon" position="left">
+                <input type="text"
+                       class="input"
+                       size="small"
+                       placeholder="搜索目录"
+                       inputDebounce
+                       (debounceClick)="searchChange($event)"
+                       [(ngModel)] = "search"
+                       (keyup.enter)="searchClick()"
+                       >
+                <span class="iconfont icon-ico_search_textfield"></span>
+            </span>
+        </div>
+        <div class="inner clearfix">
+            <task-rule-tree-component
+                [list]="flows"
+                [type]="flowType"
+            >
+            </task-rule-tree-component>
+        </div>
+    </div>
+</div>

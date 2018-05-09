@@ -1,0 +1,52 @@
+<div class="back-container hidden">
+    <a class="link line" (click)="backNodeset()">
+        <i class="iconfont mr3">&#xe64e;</i>返回
+    </a>
+</div>
+
+<div class="aside" #dragOrigin>
+    <ul>
+        <li class="item" *ngFor="let module of modules; let i = index" >
+            <span class="title" (click)="moduleClick(module)">
+                <i class="iconfont icon-ico_arrow_down" [class.expand]="module.expand"></i>
+                <span>{{module.moduleName}}</span>
+                <span class="color"
+                      [class.first]="i===0"
+                      [class.second]="i===1"
+                      [class.third]="i===2"
+                      [class.forth]="i===3">
+                </span>
+            </span>
+            <ul [class.show]="module.expand" class="child-box clearfix" [@slideUpDwon]>
+                <ng-template ngFor let-child [ngForOf]="module.children">
+                    <li class="drag-item origin"
+                        *ngIf="child.isActive==='true'"
+                        [class.first]="i===0"
+                        [class.second]="i===1"
+                        [class.third]="i===2"
+                        [class.forth]="i===3"
+                        [attr.moduleName]="child.moduleName"
+                        [attr.moduleNumber]="child.moduleNumber"
+                        [attr.moduleType]="child.moduleType"
+                        [attr.moduleParentName]="module.moduleName">
+                        <i [class]="getIconfont(child.moduleNumber)" [title]="child.moduleName"></i>
+                        {{child.moduleName}}
+                    </li>
+                </ng-template>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="drag-target-container">
+    <div class="drag-target drag-target-headers"
+         #dragTarget
+         [style.transform]="dragTargetPosition"
+         [style.width.px]="dragTargetOption.width"
+         [style.height.px]="dragTargetOption.height"></div>
+    <div class="drag-view">
+        <i class="iconfont icon-ico_array mr10" (click)="positionClick()"></i>
+        <i class="iconfont icon-ico_enlarge" (click)="scaleClick('+')"></i>
+        <span>{{getScaleView()}}</span>
+        <i class="iconfont icon-ico_narrow" (click)="scaleClick('-')"></i>
+    </div>
+</div>

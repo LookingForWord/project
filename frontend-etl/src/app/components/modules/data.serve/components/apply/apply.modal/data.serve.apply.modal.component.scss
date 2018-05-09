@@ -1,0 +1,56 @@
+@import 'assets/styles/variable';
+@import 'frontend-common/assets/styles/variable';
+
+.container {
+    width: 354px;
+    padding: 25px 0;
+    .row {
+        margin-bottom: 25px;
+        ul li {
+            float: inherit;
+            display: block;
+            margin-right: 0;
+        }
+    }
+    >div {
+        .item {
+            display: inline-block;
+            float: left;
+            margin-right: 10px;
+            .input-container {
+                width: 279px;
+                .input {
+                    width: 240px;
+                }
+                textarea.input {
+                    width: 263px;
+                    height: 90px;
+                    vertical-align: top;
+                }
+
+            }
+            > span {
+                &:first-child {
+                    display:inline-block;
+                    width: 60px;
+                    text-align: right;
+                    color: #666666;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+    .row:last-child {
+        .input-container .required-red {
+            top: 10px;
+        }
+    }
+    .input-error {
+        position: absolute;
+        color: #FF3333;
+        font-size: 12px;
+        bottom: -17px;
+        left: 10px;
+    }
+}
+

@@ -1,0 +1,58 @@
+@import 'frontend-common/assets/styles/variable.scss';
+
+.container {
+    padding: 0 20px;
+    color: $textNormalColor;
+    min-width: 900px;
+    .back {
+        border-bottom: 1px solid $borderColor;
+        padding: 5px 10px;
+        .iconfont {
+            font-size: 12px;
+        }
+    }
+    .col-6 {
+        text-align: center;
+    }
+    .name {
+        display:inline-block;
+        width: 84px;
+        text-align: right;
+    }
+    .input-container {
+        display: inline-block;
+        width: 200px;
+        &.input-wrapper {
+            .input {
+                width: 184px;
+                &.upload {
+                    width: 132px;
+                }
+            }
+        }
+        &.source-table {
+            width: 180px;
+        }
+        &.align-l {
+            text-align: left;
+        }
+    }
+}
+
+.file-btn {
+    position: relative;
+    padding: 0 5px;
+    overflow: hidden;
+    float: right;
+    line-height: 24px;
+    input {
+        position: absolute;
+        right: 0;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        cursor: pointer;
+    }
+}

@@ -1,0 +1,83 @@
+@import 'frontend-common/assets/styles/variable.scss';
+
+$contentWidth: 1366px;
+.container {
+    background: #F5F5F5;
+    .title {
+        line-height: 60px;
+        background: #fff;
+        .title-content {
+            width: $contentWidth;
+            margin: 0 auto;
+        }
+        .left {
+            .iconfont {
+                color: #4499EE;
+            }
+            span {
+                font-size: 16px;
+                color: $textNormalColor;
+            }
+            &:first-child {
+                font-size: 16px;
+                span {
+                    cursor: pointer;
+                    color: #4499EE;
+                    letter-spacing: 1px;
+                }
+            }
+        }
+        .jt {
+            font-size: 14px;
+            color: #CCCCCC;
+        }
+    }
+    .content {
+        width: $contentWidth;
+        margin: 0 auto;
+        .select {
+            .select-box {
+                display: inline-block;
+                width: 150px;
+            }
+        }
+
+    }
+}
+:host ::ng-deep table-component {
+    .container {
+        .table-component-title {
+            padding: 0 20px;
+            .title {
+                font-size: 16px;
+                color: #666666;
+                letter-spacing: 1px;
+                background: #F5F5F5;
+                .iconfont {
+                    &.start {
+                        color: #00BD9C;
+                    }
+                    &.pause {
+                        color: #FF9900;
+                    }
+                    &.failure {
+                        color: #E94C36;
+                    }
+                }
+            }
+        }
+        .table-component-thead {
+            tr {
+                background: #F9F9F9;
+                box-shadow: 0 1px 0 0 #EEEEEE;
+                border-bottom: 0;
+            }
+        }
+        table {
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+            border: 0 !important;
+        }
+    }
+
+}

@@ -1,0 +1,35 @@
+<div class="tree-container" >
+    <ul #titleContainer  >
+        <li *ngFor="let flow of dataList;let i = index;" >
+            <div class="tree-title"
+                 [style.paddingLeft.px]="index*20 + 10"
+                 [class.checked] = 'flow.checked'
+                 [attr.index]="i">
+                <i class="icon iconfont "
+                   [class.icon-checkbox_normal]="!flow.checked "
+                   [class.icon-checkbox_checked_hover]="flow.checked "
+                   [class.icon-checkbox_partialcheck]="flow.some && !flow.checked "
+                   (click)="checkedClick(flow, $event)"
+                ></i>
+                <i class="icon iconfont icon-ico_arrow_down arrow"
+                   [class.expand]="flow.expand"
+                   (click)="expandClick(flow, $event)"
+                ></i>
+                <!--<i class="iconfont icon-ico_menu_object logo" *ngIf="flow.type === 1 && treeType === 'department'"></i>-->
+                <!--<i class="iconfont icon-ico_btn_object logo" *ngIf="flow.type === 2 && treeType === 'department'"></i>-->
+                <!--<i class="iconfont icon-ico_company logo" *ngIf="treeType === 'staff' && flow.type === 1"></i>-->
+                <!--<i class="iconfont icon-ico_department logo" *ngIf="treeType === 'staff' && flow.type === 2"></i>-->
+                <!--<i class="iconfont icon-ico_department1 logo" *ngIf="treeType === 'staff' && flow.type === 0"></i>-->
+                <span (click)="expandClick(flow, $event)">{{flow.name}}</span>
+            </div>
+            <div class="child-content" *ngIf="flow.children&&flow.children.length&&flow.expand" [@slideUpDwon]>
+                <authority-role-permission-tree-component
+                    [dataList]="flow.children"
+                    [index]="index+1"
+                    [parent]="flow"
+                    [treeType]="treeType">
+                </authority-role-permission-tree-component>
+            </div>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,58 @@
+<div class="container">
+    <div>
+        <table-component>
+            <div class="table-component-search line">
+                <button class="btn line primary" (click)="newLabel()" authority="governance.tag.add">
+                    <i class="iconfont mr5 icon-ico_add"></i><span>创建标签</span>
+                </button>
+                <div class="input-icon ml5" position="left">
+                    <input type="text" class="input" #search inputDebounce (debounceClick)="searchChange($event)" (keyup.enter)="getList(1)" [(ngModel)]="keyWord" placeholder="支持标签名和标签描述搜索">
+                    <i class="icon iconfont icon-ico_search_textfield"></i>
+                </div>
+                <button class="btn ml5" (click)="getList(1)">搜索</button>
+            </div>
+            <div class="table-component-title">
+                <span class="title">
+                    <i class="iconfont icon-ico_tags_manage mr8"></i>标签列表
+                </span>
+                <span class="record">共{{totalcount}}条记录</span>
+            </div>
+            <thead class="table-component-thead">
+            <tr>
+                <th width="25%">标签名称</th>
+                <th width="30%">标签描述</th>
+                <th width="15%">创建者</th>
+                <th width="15%">创建时间</th>
+                <th width="15%">操作</th>
+            </tr>
+            </thead>
+            <tbody class="table-component-tbody">
+            <tr *ngFor="let label of labelList">
+                <td>{{label.name}}</td>
+                <td>{{label.description}}</td>
+                <td>{{label.createUser}}</td>
+                <td>{{label.createTime | date}}</td>
+                <td>
+                    <button class="btn icon only" tooltip="查看" position="top" (click)="detailClick(label.id)">
+                    <i class="icon iconfont icon-ico_view"></i>
+                    </button>
+                    <button class="btn icon only"  tooltip="编辑" position="top" authority="governance.tag.edit" (click)="updateClick(label.id)">
+                    <i class="icon iconfont icon-ico_edit"></i>
+                    </button>
+                    <button class="btn icon only" tooltip="删除" position="top" authority="governance.tag.delete" (click)="deleteClick(label)">
+                    <i class="icon iconfont icon-ico_delete"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot class="table-component-tfoot">
+            <tr  *ngIf="noDataType">
+                <td colspan="5">暂无数据...</td>
+            </tr>
+            </tfoot>
+            <div class="table-component-page">
+                <multi-pagination-component [pagenow]="pagenow" [pagesize]="pagesize" [totalcount]="totalcount" (onPageChange)="doPageChange($event)"></multi-pagination-component>
+            </div>
+        </table-component>
+    </div>
+</div>

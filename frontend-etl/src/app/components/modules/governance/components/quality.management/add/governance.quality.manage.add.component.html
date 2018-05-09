@@ -1,0 +1,121 @@
+<div class="container">
+    <div class="form-check" *ngIf="status === 'add'">
+        <div class="row line" >
+            <ul>
+                <li class="line">
+                    <span>数据源类型</span>
+                    <span class="input-container source-type">
+                        <span class="required-content">
+                            <i class="required-red">*</i>
+                             <select-component
+                                 [option]="sourceType"
+                                 [options]="sourceTypes"
+                                 [disabled]="status === 0"
+                                 [downHeight]="180"
+                                 [placeholder]="'数据源类型'"
+                                 (callback)="sourceAnalysis($event, 'sourceType')">
+                             </select-component>
+                             <span class="required-label" *ngIf="errorType===1">请选择数据源类型</span>
+                        </span>
+                    </span>
+                </li>
+                <li class="line">
+                    <span>数据源名称</span>
+                    <span class="input-container source-type">
+                        <span class="required-content">
+                            <i class="required-red">*</i>
+                             <select-component
+                                 [option]="sourceName"
+                                 [options]="sourceNames"
+                                 [disabled]="status === 0"
+                                 [downHeight]="180"
+                                 [placeholder]="'数据源名称'"
+                                 (callback)="sourceAnalysis($event, 'sourceName')">
+                             </select-component>
+                             <span class="required-label" *ngIf="errorType===2">请选择数据源名称</span>
+                        </span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="row line">
+            <ul>
+                <li class="line">
+                    <span>表</span>
+                    <span class="input-container source-type">
+                        <span class="required-content">
+                            <i class="required-red">*</i>
+                             <select-component
+                                 [option]="sourceTable"
+                                 [options]="sourceTables"
+                                 [disabled]="status === 0"
+                                 [downHeight]="180"
+                                 [placeholder]="'表'"
+                                 (callback)="tableCheck($event)">
+                             </select-component>
+                             <span class="required-label" *ngIf="errorType===3">请选择表</span>
+                        </span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="rule">
+        <div class="row">
+            <div class="head">
+                <span>表名检查</span>
+            </div>
+            <div>
+                <ul class="clearfix">
+                    <li class="cell"  *ngFor="let fields of fieldData;let i = index;">
+                        <span class="input-container select-box">
+                            <span class="label">规则名称</span>
+                            <span class="required-content">
+                                <i class="required-red">*</i>
+                                <span class="required-label" *ngIf="fields.errorType===1">{{fields.error}}</span>
+                                <select-component
+                                    [option]="fields.type"
+                                    [options]="fields.ruleList"
+                                    [index]="i"
+                                    (callback)="fieldTypesChecked($event, i)"
+                                    [search]="false"
+                                    [size]="'small'"
+                                    [placeholder]="'规则名称'"
+                                    [downHeight]="180"
+                                    [position]="i < 1 ? 'bottom' : 'top'"
+                                ></select-component>
+                            </span>
+                        </span>
+                        <span class="input-container" *ngFor="let item of fields.type.ruleParams; let k=index;">
+                            <span class="label">{{item.attrDesc}}</span>
+                            <span class="required-content" *ngIf="!item.inputParam">
+                                <i class="required-red">*</i>
+                                <span class="required-label" *ngIf="fields.errorType===2 && fields.index===k">只能是数字</span>
+                                <span class="required-label" *ngIf="fields.errorType===3 && fields.index===0">长度范围错误</span>
+                                <input type="text" class="input" size="small" [(ngModel)]="item.inputValue" maxlength="8" [placeholder]="item.attrDesc" >
+                            </span>
+                            <span class="required-content" *ngIf="item.inputParam">
+                                <i class="required-red">*</i>
+                                <select-component
+                                    [options]="item.inputParam"
+                                    [option]="changeValue(item.inputValue, item.inputParam)"
+                                    [size]="'small'"
+                                    (callback)="choose($event, item)"
+                                ></select-component>
+                                <span class="required-label" *ngIf="fields.errorType===4 && fields.index===k">请选择</span>
+                            </span>
+                        </span>
+                        <span class="btn-box">
+                            <button class="btn icon only"  title="删除" (click)="deleteField(i)">
+                                <i class="icon iconfont icon-ico_delete"></i>
+                            </button>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="add" [class.nodata]="!(fieldData && fieldData.length>0)">
+                <span class="link" (click)="addField()">+添加规则</span>
+            </div>
+        </div>
+    </div>
+</div>

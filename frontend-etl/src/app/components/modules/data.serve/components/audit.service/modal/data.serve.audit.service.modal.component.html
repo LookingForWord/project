@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row clearfix">
+        <ul>
+            <li class="item">
+                <span>审批结果</span>
+                <span class="input-container required-content">
+                    <i class="required-red">*</i>
+                    <select-component
+                        [option]="checkedResult"
+                        [options]="resultList"
+                        (callback)="chooseResult($event)">
+                    </select-component>
+                    <span class="input-error" *ngIf="errorType===1">{{error}}</span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row clearfix">
+        <ul>
+            <li class="item">
+                <span>过期日期</span>
+                <span class="input-container required-content">
+                    <i class="required-red">{{checkedResult.value === 2 ? '' : '*'}}</i>
+                    <span class="date-box" position="right">
+                        <input type="text" class="input" datepicker [options]="customOptions" [(ngModel)]="expireDate">
+                        <i class="iconfont icon-ico_datapick"></i>
+                    </span>
+                    <span class="input-error" *ngIf="errorType===2">{{error}}</span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row clearfix">
+        <ul>
+            <li class="item">
+                <span>审批理由</span>
+                <span class="input-container required-content">
+                    <i class="required-red">{{checkedResult.value === 2 ? '*' : ''}}</i>
+                    <span class="input-error" *ngIf="errorType===3">{{error}}</span>
+                    <textarea class="input" [(ngModel)]="approveDesc" maxlength="220" placeholder="审批理由"></textarea>
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

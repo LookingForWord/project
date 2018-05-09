@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="header-container">
+        <ul class="clearfix">
+            <li (click)="saveTaskClick()">
+                <i class="iconfont icon-ico_save"></i>
+                <span>保存</span>
+            </li>
+            <li (click)="closePanel()">
+                <i class="iconfont icon-ico_block"></i>
+                <span>关闭</span>
+            </li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="item">
+            <div class="item-col line text">指标名称:&nbsp;{{parent['checkedNorm']['name']}}</div>
+            <div class="item-col line text">字段:&nbsp;{{fieldTxt}}</div>
+            <div class="item-col line text">sql:&nbsp;{{sql}}</div>
+            <div class="item-col line">
+                <span class="label">函数模板</span>
+                <span class="required-content checked-select">
+                    <i class="required-red">*</i>
+                    <select-component
+                        [option]="checkedFunc"
+                        [options]="funcList"
+                        [label]="'templateName'"
+                        [placeholder]="'函数模板'"
+                        [size]="'small'"
+                        (callback)="chooseFunc($event)"
+                    ></select-component>
+                    <span class="required-label" *ngIf="errorType===1">{{error}}</span>
+                </span>
+            </div>
+            <div class="item-col line">
+                <span class="label">执行函数</span>
+                <span class="required-content textarea">
+                    <textarea
+                       maxlength="420"
+                       class="input textarea"
+                       size="small"
+                       (keyup)="makeUpdating()"
+                       [(ngModel)]="templateContent"
+                       placeholder="执行函数"></textarea>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

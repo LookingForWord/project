@@ -1,0 +1,51 @@
+<div class="tree-container">
+    <ul #titleContainer>
+        <li *ngFor="let item of list;let i = index;">
+            <div class="tree-title"
+                 [class.checked]="item.checked"
+                 (click)="expandClick(item, $event)"
+                 [style.paddingLeft.px]="(item.index)*20 + 10"
+                 [attr.index]="i"
+                 [class.checked]="item.checked">
+                <span>
+                    <i class="status"
+                        [class.normal]="item.status === 0"
+                        [class.error]="item.status === 1"
+                    ></i>
+                    <i class="iconfont"
+                       *ngIf="item.type === 'system'"
+                       [class.icon-ico_folder_close]="!item.expand"
+                       [class.icon-ico_folder_open]="item.expand"
+                       (click)="expandClick(item, $event)"
+                    ></i>
+                    <i class="iconfont"
+                       *ngIf="item.type !== 'system'"
+                       [class.icon-ico_folder_close]="!item.expand && item.children && item.children.length"
+                       [class.icon-ico_folder_open]="item.expand && item.children && item.children.length"
+                       (click)="expandClick(item, $event)"
+                    ></i>
+                    <i class="iconfont icon-ico_menu_object logo" *ngIf="item.type === 1 && !item.children"></i>
+                    <i class="iconfont icon-ico_btn_object logo" *ngIf="item.type === 2 && !item.children"></i>
+                </span>
+                <span class="name">{{item.resourceName}}</span>
+                <span class="context">{{item.url}}</span>
+                <span class="context">{{item.createrCnname}}</span>
+                <span class="context">{{item.createTime}}</span>
+                <span class="context" *ngIf="item.type === 1 || item.type === 2">创建</span>
+                <span class="action-btn" *ngIf="item.type !== 'system' && item.parentId !== null">
+                    <i class="icon iconfont icon-ico_view" [tooltip]="'查看'" (click)="detailClick(item,$event)"></i>
+                    <i class="icon iconfont icon-ico_edit" [tooltip]="'编辑'" (click)="updateClick(item,$event)" *ngIf="checkBtnAuthority('authority.object.editMenu')"></i>
+                    <i class="icon iconfont icon-ico_delete" [tooltip]="'删除'" (click)="deleteClick(item,$event)" *ngIf="checkBtnAuthority('authority.object.deleteMenu')"></i>
+
+                    <i class="icon iconfont icon-ico_move_up" [tooltip]="'上移'" (click)="up(list,item,$event)" *ngIf="i!==0"></i>
+                    <i class="icon iconfont icon-ico_move_down" [tooltip]="'下移'" (click)="down(list,item,$event)" *ngIf="i!==(list.length-1)"></i>
+                </span>
+            </div>
+            <div class="child-content" *ngIf="item.children&&item.children.length&&item.expand" [@slideUpDwon]>
+                <authority-object-menu-tree-component
+                    [list]="item.children">
+                </authority-object-menu-tree-component>
+            </div>
+        </li>
+    </ul>
+</div>

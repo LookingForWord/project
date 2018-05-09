@@ -1,0 +1,151 @@
+<div class="container"
+     [class.min]="leftState===1"
+     [class.normal]="leftState===2"
+     [class.mixMax]="leftState===3"
+     [class.max]="leftState===4">
+    <div class="content">
+        <!--<div class="head mb10">-->
+        <!--<button class="btn primary" (click)="saveConvergence()">执行</button>-->
+        <!--</div>-->
+        <div class="target-table">
+            <div class="header-container">
+                <iconfont-component [name]="'ico_info'" [width]="'16'" [height]="'16'"></iconfont-component>
+                <span class="title">基本信息</span>
+            </div>
+            <ul class="select-list">
+                <li>
+                    <span>配置名称</span>
+                    <span class="input-container">
+                        <span class="required-content">
+                            <i class="required-red">*</i>
+                            <input type="text" class="input" [(ngModel)]="configName" placeholder="请输入" maxlength="20">
+                        </span>
+                        <span class="input-error" *ngIf="error === 1">请输入配置名称</span>
+                    </span>
+                </li>
+                <li>
+                    <span>源数据库类型</span>
+                    <span class="input-container">
+                        <span class="required-content">
+                            <i class="required-red">*</i>
+                            <select-component
+                                [placeholder]="'请选择'"
+                                [option]="dbType"
+                                [options]="dbTypes"
+                                [background]="'#fff'"
+                                (callback)="dbTypesChecked($event)"></select-component>
+                        </span>
+                        <span class="input-error" *ngIf="error === 2">请选择源数据库</span>
+                    </span>
+                </li>
+                <li>
+                    <span>源数据源</span>
+                    <span class="input-container">
+                        <span class="required-content">
+                            <i class="required-red">*</i>
+                            <select-component
+                                [placeholder]="'请选择'"
+                                [option]="dbSource"
+                                [options]="dbSourceArr"
+                                [background]="'#fff'"
+                                (callback)="dbSourceChecked($event)"></select-component>
+                        </span>
+                        <span class="input-error" *ngIf="error === 3">请选择源数据源</span>
+                    </span>
+                </li>
+                <li>
+                    <span>目标数据库类型</span>
+                    <span class="input-container">
+                        <span class="required-content">
+                            <i class="required-red">*</i>
+                            <select-component
+                                [placeholder]="'请选择'"
+                                [option]="targetDbType"
+                                [options]="dbTypes"
+                                [background]="'#fff'"
+                                (callback)="targetSourceCheckd($event, 'db')"></select-component>
+                        </span>
+                        <span class="input-error" *ngIf="error === 4">请选择目标数据库</span>
+                    </span>
+                </li>
+                <li>
+                    <span>目标数据源</span>
+                    <span class="input-container">
+                        <span class="required-content">
+                            <i class="required-red">*</i>
+                            <select-component
+                                [placeholder]="'请选择'"
+                                [option]="targetSource"
+                                [options]="targetSourceArr"
+                                [background]="'#fff'"
+                                (callback)="targetSourceCheckd($event, 'source')"></select-component>
+                        </span>
+                        <span class="input-error" *ngIf="error === 5">请选择目标数据源</span>
+                    </span>
+                </li>
+                <li>
+                    <span>汇聚类型</span>
+                    <span class="input-container">
+                        <span class="required-content">
+                            <i class="required-red">*</i>
+                            <select-component
+                                [options]="convergeTypeArr"
+                                [option]="convergeType"
+                                [background]="'#fff'"
+                                (callback)="convergeTypeCheck($event)"
+                            ></select-component>
+                        </span>
+                    </span>
+                </li>
+            </ul>
+            <div class="tables" #dragOrigin>
+                <div class="tables-title">
+                    <div class="tab">
+                        <span  [class.checked]="tabId==='source'" (click)="toggleTab('source')">源数据表</span>
+                        <span [class.checked]="tabId==='target'" (click)="toggleTab('target')">目标数据表</span>
+                    </div>
+                </div>
+                <ul class="tables-list" [style.height]="tabId !== 'source' ? 0 : ''">
+                    <li *ngFor="let item of tableArr;let i=index">
+                        <span class="drag-item converge-drag-item"
+                              [attr.title]="item.name"
+                              [attr.moduleName]="item.name"
+                              [attr.moduleNumber]="i"
+                              [attr.moduleId]="item.id"
+                        >{{item.value}}</span>
+                    </li>
+                </ul>
+                <ul class="tables-list" [style.height]="tabId !== 'target' ? 0 : ''">
+                    <li *ngFor="let item of targetTableArr;let i=index">
+                        <span class="drag-item converge-drag-item"
+                              [attr.title]="item.name"
+                              [attr.moduleName]="item.name"
+                              [attr.moduleNumber]="i"
+                              [attr.moduleId]="item.id"
+                        >{{item.value}}</span>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="field-message">
+            <i class="iconfont icon-ico_enlarge" id="plus" (click)="adjustRatio('+')"></i>
+            <i class="iconfont icon-ico_narrow" id="banus" (click)="adjustRatio('-')"></i>
+            <div class="header-container">
+                <button class="btn" size="small" authority="task.converge.delete" (click)="resetCanvas()">清空</button>
+                <button class="btn primary" size="small" authority="task.converge.run" (click)="saveConvergence()">执行</button>
+            </div>
+            <div class="drag-target-container">
+                <div class="drag-target"
+                     #dragTarget
+                     [style.transform]="dragTargetPosition"
+                     [style.width.px]="dragTargetOption.width"
+                     [style.height.px]="dragTargetOption.height"></div>
+                <div class="drag-view">
+                    <span>{{getScaleView()}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

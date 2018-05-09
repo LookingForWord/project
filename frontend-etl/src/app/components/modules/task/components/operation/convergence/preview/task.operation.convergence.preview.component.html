@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="canvas-container" #canvas>
+        <div class="source-box"  *ngIf="dataType === 'split'">
+            <div class="source">
+                <h5>表名:{{sourceSplitName}}</h5>
+                <ul>
+                    <li>字段名</li>
+                    <li class="item" *ngFor="let sourceItem of sourceSplitKeys" [attr.title]="sourceItem.source" [attr.name]="sourceItem.source">{{sourceItem.source}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="target-box"  *ngIf="dataType === 'split'">
+            <div class="target" *ngFor="let target of targetTables; let i = index">
+                <h5 [attr.title]="target.name">表名:{{target.name}}</h5>
+                <ul>
+                    <li>字段名</li>
+                    <li class="item" *ngFor="let name of target.keys" [attr.title]="name.target" [attr.source]="name.source">{{name.target}}</li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="source-box"  *ngIf="dataType === 'merge'">
+            <div class="source" *ngFor="let source of sourceTables">
+                <h5>表名:{{source.name}}</h5>
+                <ul>
+                    <li>字段名</li>
+                    <li class="item" *ngFor="let item of source.keys"
+                        [attr.title]="item.source"
+                        [class.join]="item.type === 'join'"
+                        [attr.table]="source.name"
+                        [attr.source]="item.source"
+                        [attr.name]="!item.type ? item.source : ''">{{item.source}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="target-box"  *ngIf="dataType === 'merge'">
+            <div class="target">
+                <h5 [attr.title]="targetMergeName">表名:{{targetMergeName}}</h5>
+                <ul>
+                    <li>字段名</li>
+                    <li class="item" *ngFor="let merge of targetMergeKeys"
+                        [attr.title]="merge.source"
+                        [attr.sourceTable]="merge.sourceTable"
+                        [attr.source]="merge.source">{{merge.target}}</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="tree-container">
+    <ul #titleContainer>
+        <li *ngFor="let item of list;let i = index;"  >
+            <div class="tree-title"
+                 [class.checked]="item.checked"
+                 (click)="checkedClick(item, $event)"
+                 [style.paddingLeft.px]="(index*20) + 10"
+                 [attr.index]="i"
+                >
+                <span>
+                     <i class="iconfont"
+                        [class.icon-ico_folder_open]="item.expand"
+                        [class.icon-ico_folder_close]="!item.expand"
+                        [class.special]="item.type === 'undistributedCata'"></i>
+                </span>
+                <span class="name">{{item.name}}</span>
+                <i class="icon iconfont icon-ico_edit" (click)="editCatalog(item, $event)" *ngIf="item.parentId!=='0' && !type && checkBtnAuthority('governance.catalog.edit')"></i>
+                <i class="icon iconfont icon-ico_delete" (click)="deleteCatalog(item, $event)" *ngIf="item.parentId!=='0' && !type && checkBtnAuthority('governance.catalog.delete')"></i>
+            </div>
+            <div class="child-content" *ngIf="item.children&&item.children.length&&item.expand" [@slideUpDwon]>
+                <governance-catalog-tree-component
+                    [type]='type'
+                    [index]="index+1"
+                    [parent]="item"
+                    [list]="item.children"
+                    [modal]="modal"
+                  >
+                </governance-catalog-tree-component>
+            </div>
+        </li>
+    </ul>
+</div>

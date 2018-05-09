@@ -1,0 +1,105 @@
+
+<div class="container">
+    <div *ngIf="displayMode === 'table'" class="table-box">
+        <table-component >
+            <div class="table-component-search line">
+                <button class="addDatabase btn primary ml10 mr5 line" authority="authority.object.addMenu" (click)="newMenu()">
+                    <i class="icon iconfont mr5 icon-ico_add"></i><span>新增对象</span>
+                </button>
+                <button class="btn mr5" (click)="importResource()" authority="authority.object.importMenu">导入</button>
+                <button class="btn mr5" (click)="exportResource()" authority="authority.object.exportMenu">导出</button>
+                <a [attr.href]="exportResourceTemplate()" authority="authority.object.exportMenuModal">
+                    <button class="btn mr15">
+                        导出模板
+                    </button>
+                </a>
+                <div  class="input-icon" position="left" *ngIf="displayMode === 'table'">
+                    <input type="text" class="input" #search [(ngModel)]="keyWord" inputDebounce (debounceClick)="searchChange($event)" (keyup.enter)="getMenuList(1)" placeholder="支持名称、系统搜索">
+                    <i class="icon iconfont icon-ico_search_textfield"></i>
+                </div>
+                <button class="back line btn ml5" (click)="getMenuList(1)" *ngIf="displayMode === 'table'">搜索</button>
+                <span class="change-display" (click)="changeMode(displayMode)">
+                    <i class="iconfont icon-ico_table_view" *ngIf="displayMode === 'table'"></i>
+                    <i class="iconfont icon-ico_tree_view" *ngIf="displayMode === 'tree'"></i>
+                </span>
+            </div>
+            <div class="table-component-title">
+                <span class="title">
+                    <i class="iconfont mr8 icon-ico_menu"></i>菜单列表
+                </span>
+                <span class="record">共{{totalcount}}条记录</span>
+            </div>
+            <thead class="table-component-thead">
+            <tr>
+                <th>名称</th>
+                <th>所属系统</th>
+                <th>上级菜单</th>
+                <th width="60px">类型</th>
+                <th width="270px">链接地址</th>
+                <th>更新时间</th>
+                <th>创建时间</th>
+                <th width="40px">状态</th>
+                <th width="110px">操作</th>
+            </tr>
+            </thead>
+            <tbody class="table-component-tbody">
+                <tr *ngFor="let menu of menus;let i=index;">
+                <td>{{menu.resourceName}}</td>
+                <td>{{menu.ownSystemName}}</td>
+                <td>{{menu.parentName}}</td>
+                <td>{{menu.type === 1 ? '菜单' : '按钮'}}</td>
+                <td [attr.title]="menu.url">{{menu.url}}</td>
+                <td>{{menu.updateTime}}</td>
+                <td>{{menu.createTime}}</td>
+                <td>
+                    <i class="normal" *ngIf="menu.status === 0"></i>
+                    <i class="disable" *ngIf="menu.status !== 0"></i>
+                </td>
+                <td>
+                    <button class="btn icon only" tooltip="查看" position="top" (click)="detailClick(menu)">
+                    <i class="icon iconfont icon-ico_view"></i>
+                    </button>
+                    <button class="btn icon only" tooltip="编辑" position="top" (click)="updateClick(menu)" authority="authority.object.editMenu">
+                    <i class="icon iconfont icon-ico_edit"></i>
+                    </button>
+                    <button class="btn icon only" tooltip="删除" position="top" (click)="deleteClick(menu)" authority="authority.object.deleteMenu">
+                    <i class="icon iconfont icon-ico_delete"></i>
+                    </button>
+                </td>
+                </tr>
+            </tbody>
+            <tfoot class="table-component-tfoot">
+            <tr *ngIf="noDataType">
+                <td colspan="9">暂无数据...</td>
+            </tr>
+            </tfoot>
+            <div class="table-component-page">
+                <multi-pagination-component [pagenow]="pagenow" [pagesize]="pagesize" [totalcount]="totalcount" (onPageChange)="doPageChange($event)"></multi-pagination-component>
+            </div>
+        </table-component>
+    </div>
+    <div class="menu-tree clearfix" *ngIf="displayMode === 'tree'">
+        <div class="table-component-search line" *ngIf="displayMode === 'tree'">
+            <button class="addDatabase btn primary ml10 mr5 line" authority="authority.object.addMenu" (click)="newMenu()">
+                <i class="icon iconfont mr5 icon-ico_add"></i><span>新增对象</span>
+            </button>
+            <button class="btn mr5" (click)="importResource()" authority="authority.object.importMenu">导入</button>
+            <button class="btn mr5" (click)="exportResource()" authority="authority.object.exportMenu">导出</button>
+            <a [attr.href]="exportResourceTemplate()" authority="authority.object.exportMenuModal">
+                <button class="btn mr15">
+                    导出模板
+                </button>
+            </a>
+            <span class="change-display" (click)="changeMode(displayMode)">
+            <i class="iconfont icon-ico_tree_view" ></i>
+        </span>
+        </div>
+        <div>
+            <authority-object-menu-tree-component
+                [list]="menuTree"
+            ></authority-object-menu-tree-component>
+        </div>
+    </div>
+
+</div>
+

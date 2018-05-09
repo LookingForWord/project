@@ -1,0 +1,127 @@
+.container {
+    height: 100%;
+    * {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+    }
+    .source-analysis {
+        height: 100%;
+        .target-table {
+            width: 320px;
+            background: #fff;
+            border-right: 1px solid #CCDDEE;
+            height: 100%;
+            float: left;
+            .header-container {
+                padding: 16px 10px;
+                .title {
+                    font-size: 14px;
+                    color: #666666;
+                    letter-spacing: 0;
+                    font-weight: 600;
+                }
+            }
+            .select-list {
+                padding-top: 15px;
+                li {
+                    margin-bottom: 24px;
+                    >span:first-child {
+                        display:inline-block;
+                        width: 84px;
+                        text-align: right;
+                        font-size: 14px;
+                        color: #666666;
+                        letter-spacing: 1px;
+                    }
+                    .input-container {
+                        width: calc(100% - 90px);
+                        vertical-align: middle;
+                        position: relative;
+                        .required-content {
+                            width: 100%;
+                            padding-right: 10px;
+                            padding-left: 10px;
+                        }
+                        .required-red {
+                            margin-top: -9px;
+                        }
+                        .input {
+                            width: 162px;
+                            height: 36px;
+                            padding-left: 13px;
+                        }
+                        .input-error {
+                            font-size: 12px;
+                            left: 15px;
+                            bottom: -17px;
+                        }
+                    }
+                }
+            }
+            .tables {
+                width: 100%;
+                height: calc(100% - 135px);
+                margin-top: 20px;
+                ul {
+                    background: #fff;
+                    width: auto;
+                    height: 100%;
+                    overflow-y: auto;
+                    li {
+                        float: left;
+                        margin-left: 14px;
+                        margin-top: 14px;
+                    }
+                }
+
+            }
+        }
+        .field-message{
+            width: calc(100% - 320px);
+            height: 100%;
+            float: left;
+            position: relative;
+            background: #fff;
+            .header-container {
+                position: absolute;
+                left: 20px;
+                top: 14px;
+                z-index: 9;
+                button {
+                    margin-left: 12px;
+                }
+            }
+            .icon-ico_narrow, .icon-ico_enlarge {
+                position: absolute;
+                right: 20px;
+                top: 14px;
+                font-size: 16px;
+                z-index: 99;
+                cursor: pointer;
+                color: #666;
+            }
+            .icon-ico_narrow {
+                right: 88px;
+            }
+        }
+    }
+}
+.drag-target-container {
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+    background: rgba(0, 0, 0, .3);
+    .drag-target {
+        background: #fff;
+    }
+
+    .drag-view {
+        position: absolute;
+        right: 46px;
+        top: 16px;
+        font-size: 12px;
+        color: #666;
+    }
+
+}

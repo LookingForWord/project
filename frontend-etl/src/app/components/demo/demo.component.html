@@ -1,0 +1,657 @@
+<div class="mlr10 pb20 container">
+    <div class="row">
+        <div>
+            <input type="text" [(ngModel)]="customTime" placeholder="自定义日期选择器" datepicker [options]="customOptions">
+            <button (click)="getCustomTime()">获取时间</button>
+            <button (click)="setCustomTime()">设置时间</button>
+        </div>
+    </div>
+    <div class="row">
+        <ul>
+            <li>
+                <span class="title">
+                    Http Server
+                </span>
+                <span class="">
+                    <button class="mr10 mtb10" (click)="httpServerGetDataUrlClick()">http server get data url</button>
+                </span>
+            </li>
+            <li>
+                <span class="title">
+                    Modal alert
+                </span>
+                <span class="">
+                    <button class="mr10 mtb10" (click)="showalertClick(1)">show alert</button>
+                    <button class="mr10 mtb10" (click)="showalertClick(2)">show alert with title</button>
+                    <button class="mr10 mtb10" (click)="showalertClick(3)">show alert with no auto hide</button>
+                </span>
+            </li>
+            <li>
+                <span class="title mb10">Modal Loading and comfrim</span>
+                <span>
+                    <button (click)="showLoadingClick()">show loading</button>
+                    <button (click)="showConfrimClick()">show Confrim</button>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <ul>
+            <li>
+                <span class="title mb10">Modal Solt Component</span>
+                <span>
+                    <button (click)="showTClick()">Show Transclusion</button>
+                    <modal-slot-component #slot>
+                        <span class="slot-header">111</span>
+                        <div class="slot-content">
+                            <div>我是正文内容</div>
+                        </div>
+                        <div class="slot-footer">
+                            <button class="btn" (click)="nextClick()">下一步</button>
+                        </div>
+                    </modal-slot-component>
+                </span>
+            </li>
+            <li>
+                <span class="title mb10"></span>
+                <span></span>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <ul>
+            <li>
+                <span class="title mb10">Tooltip Component</span>
+                <span>
+                    <button class="mtb10 mlr10" [tooltip]="'测试'" [tooltipPosition]="'bottom'" [tooltipShow]="false" @fadeIn >bottom</button>
+                    <button class="mtb10 mlr10" [tooltip]="'测试'" [tooltipPosition]="'right'">right</button>
+                    <button class="mtb10 mlr10" [tooltip]="'测试'" [tooltipPosition]="'top'">top</button>
+                    <button class="mtb10 mlr10" [tooltip]="'测试'" [tooltipPosition]="'left'">left</button>
+                </span>
+            </li>
+            <li>
+                <span class="title mb10">Tooltip Component</span>
+                <span>
+                    <button (click)="show=!show">切换显示show</button>
+                    <span [show]="show">Show</span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <ul>
+            <li>
+                <span class="title  mb10">Select Component</span>
+                <span>
+                    <span class="demo-select">
+                        <select-component
+                            [option]="optionChecked"
+                            [options]="options"
+                            (callback)="optionCheckedCallback($event)"
+                            [placeholder]="'默认显示'"
+                            [single]="true"
+                            [clear]="true"></select-component>
+                    </span>
+                    <span class="demo-select">
+                        <select-component
+                            [option]="optionChecked2"
+                            [options]="options"
+                            (callback)="optionCheckedCallback2($event)"
+                            [position]="'top'"
+                            [placeholder]="'top 显示'"
+                            [single]="true"
+                            [disabled]="true"
+                            [clear]="true"></select-component>
+                    </span>
+                    <span class="demo-select">
+                        <select-component
+                            [option]="optionChecked3"
+                            [options]="options1"
+                            (callback)="optionCheckedCallback3($event)"
+                            [placeholder]="'可以编辑'"
+                            [position]="'top'"
+                            [search]="true"
+                            [edit]="true"
+                            (searchCallback)="onSearchCallback3($event)"
+                            [searchs]="options1"
+                        ></select-component>
+                    </span>
+                </span>
+            </li>
+            <li>
+                <span class="title  mb10">Mutil Select Component</span>
+                <span>
+                    <span class="mr10" style="width: 300px;display: inline-block">
+                        <multi-select-component
+                            [option]="mutilOption"
+                            [options]="mutilOptions"
+                            [adaption]="true"
+                            (callback)="mutilOptionCallback($event)"
+                            [placeholder]="'默认显示、宽度100%'">
+                        </multi-select-component>
+                    </span>
+                    <span class="mr10" style="width: 200px;display: inline-block">
+                        <multi-select-component
+                            [option]="mutilOption2"
+                            [options]="mutilOptions"
+                            (callback)="mutilOptionCallback2($event)"
+                            [position]="'top'"
+                            [single]="true"
+                            [disabled]="true"
+                            [placeholder]="'top 显示'">
+                        </multi-select-component>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <ul>
+            <li>
+                <span class="title mb10">Small Select Component</span>
+                <span>
+                    <span class="demo-select">
+                        <select-component
+                            [option]="smallOptionChecked"
+                            [options]="options"
+                            (callback)="smallOptionCheckedCallback($event)"
+                            [placeholder]="'默认显示'"
+                            [single]="true"
+                            [size]="'small'"
+                            [clear]="true"></select-component>
+                    </span>
+                    <span class="demo-select">
+                        <select-component
+                            [option]="smallOptionChecked2"
+                            [options]="options"
+                            (callback)="smallOptionCheckedCallback2($event)"
+                            [position]="'top'"
+                            [placeholder]="'top 显示4444'"
+                            [single]="true"
+                            [disabled]="true"
+                            [size]="'small'"
+                            [clear]="true"></select-component>
+                    </span>
+                    <span class="demo-select">
+                        <select-component
+                            [option]="smallOptionChecked3"
+                            [options]="options1"
+                            (callback)="smallOptionCheckedCallback3($event)"
+                            [placeholder]="'自定义输入'"
+                            [position]="'top'"
+                            [search]="true"
+                            [size]="'small'"
+                            [downHeight]="150"
+                            (searchCallback)="onSearchCallback($event)"
+                            [searchs]="options1"
+                            [edit]="true"
+                        ></select-component>
+                    </span>
+                </span>
+            </li>
+            <li>
+                <span class="title mb10">Small Mutil Select Component</span>
+                <span>
+                    <span class="mr10" style="width: 300px;display: inline-block">
+                        <multi-select-component
+                            [option]="smallMutilOption"
+                            [options]="mutilOptions"
+                            [downHeight]="100"
+                            [size]="'small'"
+                            [single]="true"
+                            (callback)="smallMutilOptionCallback($event)"
+                            [placeholder]="'默认显示'">
+                        </multi-select-component>
+                    </span>
+                    <span class="mr10" style="width: 200px;display: inline-block">
+                        <multi-select-component
+                            [option]="smallMutilOption2"
+                            [options]="mutilOptions"
+                            [size]="'small'"
+                            (callback)="smallMutilOptionCallback2($event)"
+                            [position]="'top'"
+                            [placeholder]="'top 显示'">
+                        </multi-select-component>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <ul>
+            <li>
+                <span class="title mb10">Input normal</span>
+                <span>
+                    <input type="text" class="input" placeholder="normal input">
+                    <input type="text" class="input" disabled placeholder="normal disabled input">
+                </span>
+                <span class="title mb10">Input small</span>
+                <span>
+                    <input type="text" class="input" size="small" disabled placeholder="small disabled input">
+                    <input type="text" class="input" size="small" placeholder="small input">
+                </span>
+                <span class="title">Textarea</span>
+                <span>
+                    <textarea class="input" placeholder="enter something"></textarea>
+                </span>
+            </li>
+            <li>
+                <span class="title mb10">Input Wrapper(父元素添加disbaled类,input添加disabled属性，请把input标签作为第一子元素)</span>
+                <span>
+                    <span class="input-icon mb10" position="left">
+                        <input type="text" class="input" placeholder="input">
+                        <span class="iconfont icon-ico_search_textfield"></span>
+                    </span>
+                    <span class="input-icon disabled mb10" position="right">
+                        <input type="text" class="input" disabled placeholder="disbaled input">
+                        <span class="iconfont icon-ico_search_textfield"></span>
+                    </span>
+                    <span class="input-icon mb10" position="right">
+                        <input type="text" class="input" size="large" placeholder="使用时请把input标签作为第一子元素">
+                        <span class="iconfont icon-ico_search_textfield"></span>
+                    </span><br/>
+                    <span class="input-icon mb10" position="right">
+                        <input type="text" class="input" size="small" placeholder="small input">
+                        <span class="iconfont icon-ico_search_textfield"></span>
+                    </span>
+                    <span class="input-icon disabled mb10" position="right">
+                        <input type="text" class="input" disabled size="small" placeholder="small input">
+                        <span class="iconfont icon-ico_search_textfield"></span>
+                    </span>
+                </span>
+                <span class="title"> 表单校验样式（外层容器添加类  form-error）</span>
+                <span>
+                    <span class="input-container" [style.marginBottom.px]="25">
+                        <span [class.form-error]="this.loginError === 1">
+                            <span class="input-icon" position="left">
+                                <input type="text" placeholder="请填写登录名" class="input" [(ngModel)]="loginName">
+                                <i class="iconfont icon-ico_search_textfield"></i>
+                            </span>
+                            <button (click)="save()" class="btn">点击提交</button>
+                        </span>
+                        <p *ngIf="this.loginError === 1" class="input-error">请填写登录名</p>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <ul>
+            <li>
+                <span class="title mb10">Radio</span>
+                <span>
+                    <span class="radio">
+                        <input type="radio" id="radio1" name="radio">
+                        <label for="radio1"></label>
+                    </span>
+                    <span class="radio">
+                        <input type="radio" id="radio2" name="radio">
+                        <label for="radio2"></label>
+                    </span>
+
+                     <span>{{radio}}</span>
+                    <radio-component [modal]="radio" [value]="true" [label]="'是'" [type]="'yes'" (callback)="onRadioCallback($event)"></radio-component>
+                    <radio-component [modal]="radio" [value]="false" [label]="'否'" [type]="'no'" (callback)="onRadioCallback($event)"></radio-component>
+                    <radio-component [modal]="radio" [disabled]="true"></radio-component>
+                </span>
+            </li>
+            <li>
+                <span class="title mb10">Button</span>
+                <span>
+                    <button class="btn primary">Primary</button>
+                    <button class="btn disabled">Disabled</button>
+                    <button class="btn">Default</button>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <ul>
+            <li>
+                <span class="title mb10">Button Size</span>
+                <span>
+                    <button class="btn">default</button>
+                    <button class="btn" size="small">Small</button>
+                    <button class="btn delete" size="small">delete</button>
+                    <button class="btn menu-btn">菜单</button>
+                    <button class="btn menu-btn active">菜单选中,加active类</button>
+                </span>
+                <span class="title mb10">
+                    Button Group
+                </span>
+                <span>
+                   <span class="btn-group">
+                        <button class="btn primary">First</button>
+                        <button class="btn">Second</button>
+                        <button class="btn ">Third</button>
+                    </span>
+                </span>
+            </li>
+            <li>
+                <span class="title mb10">Button Icon</span>
+                <span>
+                    <button class="btn icon mb10">
+                        <span class="iconfont icon-ico_task_add"></span>
+                            Icon
+                    </button>
+                    <button class="btn primary icon mb10">
+                        <span class="iconfont icon-ico_task_add"></span>
+                        primary Icon
+                    </button>
+                    <button class="btn disabled icon mb10">
+                        <span class="iconfont icon-ico_task_add"></span>
+                        disabled Icon
+                    </button>
+                    <button class="btn icon mb10" size="small">
+                        <span class="iconfont icon-ico_task_add"></span>
+                        small Icon
+                    </button>
+                    <button class="btn icon primary mb10" size="small">
+                        <span class="iconfont icon-ico_task_add"></span>
+                        small Icon
+                    </button><br/>
+                    <button class="btn icon menu-btn mb10">
+                        <span class="iconfont  icon-ico_task_add"></span>
+                        菜单button
+                    </button>
+                    <button class="btn icon menu-btn active mb10">
+                        <span class="iconfont  icon-ico_task_add"></span>
+                        菜单button选中,加active类
+                    </button>
+                    <button class="btn icon menu-btn disabled mb10">
+                        <span class="iconfont  icon-ico_task_add"></span>
+                        菜单button
+                    </button><br/>
+                    <button class="btn icon only mb10">
+                        <span class="iconfont icon-ico_task_add"></span>
+                    </button>
+                    <button class="btn disabled icon only mb10">
+                        <span class="iconfont icon-ico_task_add"></span>
+                    </button>
+                    <button class="btn icon only mb10" size="small">
+                        <span class="iconfont icon-ico_task_add"></span>
+                    </button>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <ul>
+            <li>
+                <span class="title mb10">Checkbox(父元素添加disabled类即可禁用,添加part类即为部分选中)</span>
+                <span>
+                    <span class="checkbox">
+                        normal<input type="checkbox" id="checkbox">
+                        <label for="checkbox"></label>
+                    </span>
+                        选中禁用
+                    <span class="checkbox disabled">
+                        <input type="checkbox" checked  id="disabled">
+                        <label for="disabled"></label>
+                    </span>
+                        未选中禁用
+                    <span class="checkbox disabled" >
+                        <input type="checkbox" id="disabledChecked">
+                        <label for="disabledChecked"></label>
+                    </span>
+                        部分选中
+                    <span class="checkbox part">
+                        <input type="checkbox" id="part">
+                        <label for="part"></label>
+                    </span>
+                </span>
+            </li>
+            <li>
+                <span class="title mb10">Colorful Iconfont</span>
+                <span>
+                    <i class="iconfont icon-ico_add"></i>
+                    <iconfont-component [name]="'ico_add'"></iconfont-component>
+                    <iconfont-component [name]="'ico_add'" [fill]="'red'" [hover]="'blue'"></iconfont-component>
+                    <iconfont-component [name]="'ico_add'" [width]="11" [height]="10"></iconfont-component>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <ul>
+            <li>
+                <span class="title mb15">JSPLUMB LINE</span>
+                <span>
+                    <div class="jsplumb-container clearfix" #jsplumbContainer>
+                        <div class="left point"
+                            [class.first]="i === 0"
+                            [style.top.px]="i * 37"
+                            *ngFor="let left of leftList;let i = index;">{{left.fieldname}}</div>
+                        <div class="right point"
+                            [class.first]="i === 0"
+                            [style.top.px]="i * 37 + 15"
+                            *ngFor="let right of rightList;let i = index;">{{right.fieldname}}</div>
+                    </div>
+                </span>
+            </li>
+            <li>
+                <span class="title mb10">Datepicker demo</span>
+                <span style="position: relative">
+                    <input type="text"
+                           ngx-mydatepicker
+                           [(ngModel)]="startTime"
+                           [options]="dateOption"
+                           #dpStart="ngx-mydatepicker"
+                           (click)="dpStart.openCalendar()">
+                    <button (click)="getStartTime()">获取时间</button>
+                    <button (click)="setStartTime()">设置原始时间</button>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <ul>
+            <li>
+                <span class="title">Tree demo</span>
+                <span>
+                     <demo-tree-component
+                         [tress]="tress">
+                     </demo-tree-component>
+                </span>
+            </li>
+            <li>
+                <!--<span class="title">Grid</span>-->
+                <!--<span>-->
+                     <!--<div class="row gutter rowstyle mb5">-->
+                        <!--<div class="col-1">col-1</div>-->
+                        <!--<div class="col-2">col-2</div>-->
+                        <!--<div class="col-3">col-3</div>-->
+                        <!--<div class="col-4">col-4</div>-->
+                    <!--</div>-->
+                    <!--<div class="row rowstyle mb5">-->
+                        <!--<div class="col-6">col-6</div>-->
+                        <!--<div class="col-6">col-6</div>-->
+                    <!--</div>-->
+                    <!--<div class="row rowstyle mb5">-->
+                        <!--<div class="col-4">col-4</div>-->
+                        <!--<div class="col-4">col-4</div>-->
+                        <!--<div class="col-4">col-4</div>-->
+                    <!--</div>-->
+                    <!--<div class="row rowstyle mb5">-->
+                        <!--<div class="col-2">col-2</div>-->
+                        <!--<div class="col-2">col-2</div>-->
+                        <!--<div class="col-2">col-2</div>-->
+                        <!--<div class="col-2">col-2</div>-->
+                        <!--<div class="col-2">col-2</div>-->
+                        <!--<div class="col-2">col-2</div>-->
+                    <!--</div>-->
+                <!--</span>-->
+            </li>
+        </ul>
+    </div>
+    <h4 class="mt30 mb5">Grid</h4>
+    <div class="row gutter rowstyle mb5">
+        <div class="col-1">col-1</div>
+        <div class="col-2">col-2</div>
+        <div class="col-3">col-3</div>
+        <div class="col-4">col-4</div>
+    </div>
+    <div class="row rowstyle mb5">
+        <div class="col-6">col-6</div>
+        <div class="col-6">col-6</div>
+    </div>
+    <div class="row rowstyle mb5">
+        <div class="col-4">col-4</div>
+        <div class="col-4">col-4</div>
+        <div class="col-4">col-4</div>
+    </div>
+    <div class="row rowstyle mb5">
+        <div class="col-2">col-2</div>
+        <div class="col-2">col-2</div>
+        <div class="col-2">col-2</div>
+        <div class="col-2">col-2</div>
+        <div class="col-2">col-2</div>
+        <div class="col-2">col-2</div>
+    </div>
+    <div class="row rowstyle mb5">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">col-xs-12 col-sm-8 col-md-6 col-lg-4</div>
+        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">col-xs-12 col-sm-8 col-md-6 col-lg-4</div>
+    </div>
+    <div class="row rowstyle mb5">
+        <div class="col-md-12 col-lg-6">col-md-12 col-lg-6</div>
+        <div class="col-md-12 col-lg-6">col-md-12 col-lg-6</div>
+    </div>
+
+    <h4 class="mtb5">Modal Loading</h4>
+    <div class="mtb20">
+        <button (click)="showLoadingClick()">show loading</button>
+        <button (click)="showConfrimClick()">show Confrim</button>
+        <button (click)="showConfrimErrorClick()">show Confrim 错误提醒</button>
+    </div>
+
+    <h4 class="mtb5">Modal Solt Component</h4>
+    <button (click)="showTClick()">Show Transclusion</button>
+    <modal-slot-component #slot>
+        <span class="slot-header">111</span>
+        <div class="slot-content">
+            <div>我是正文内容</div>
+        </div>
+        <div class="slot-footer">
+            <button class="btn" (click)="nextClick()">下一步</button>
+        </div>
+    </modal-slot-component>
+
+    <h4 class="mtb5">Colorful Iconfont</h4>
+    <div>
+        <i class="iconfont icon-ico_add"></i>
+        <iconfont-component [name]="'ico_add'"></iconfont-component>
+        <iconfont-component [name]="'ico_add'" [fill]="'red'" [hover]="'blue'"></iconfont-component>
+        <iconfont-component [name]="'ico_add'" [width]="11" [height]="10"></iconfont-component>
+    </div>
+    <div>
+        <span>{{radio}}</span>
+        <radio-component [modal]="radio" [value]="true" [label]="'是'" [type]="'yes'" (callback)="onRadioCallback($event)"></radio-component>
+        <radio-component [modal]="radio" [value]="false" [label]="'否'" [type]="'no'" (callback)="onRadioCallback($event)"></radio-component>
+        <radio-component [modal]="radio" [disabled]="true"></radio-component>
+    </div>
+
+    <div>
+        <h3>表单校验样式（外层容器添加类  form-error）</h3>
+        <div class="input-container" [style.marginBottom.px]="25">
+            <div [class.form-error]="this.loginError === 1">
+                <span class="input-icon" position="left">
+                    <input type="text" placeholder="请填写登录名" class="input" [(ngModel)]="loginName">
+                    <i class="iconfont icon-ico_search_textfield"></i>
+                </span>
+                <button (click)="save()" class="btn">点击提交</button>
+            </div>
+            <p *ngIf="this.loginError === 1" class="input-error">请填写登录名</p>
+        </div>
+    </div>
+
+    <h4 class="mtb5">Datepicker demo</h4>
+    <div style="position: relative;">
+        <input type="text"
+               ngx-mydatepicker
+               [(ngModel)]="startTime"
+               [options]="dateOption"
+               #dpStart="ngx-mydatepicker"
+               (click)="dpStart.openCalendar()">
+        <button (click)="getStartTime()">获取时间</button>
+        <button (click)="setStartTime()">设置原始时间</button>
+        <div>
+            <!--<input type="text" [(ngModel)]="startTime" placeholder="自定义日期选择器" datepicker [options]="customOptions">-->
+        </div>
+    </div>
+
+    <h4 class="mtb5">Tree demo</h4>
+    <div>
+        <demo-tree-component
+            [tress]="tress">
+        </demo-tree-component>
+    </div>
+
+    <div>
+        <h3>通用表格模板</h3>
+        <table-component>
+            <div class="table-component-search line">
+                <button class="back line btn">
+                    <i class="icon iconfont icon-ico_back"></i><span> 返回</span>
+                </button>
+                <button class="btn line primary ml5">
+                    <i class="iconfont mr5 icon-ico_add"></i><span>创建数据源</span>
+                </button>
+                <span class="select-container ml5">
+                    <select-component
+                        [placeholder]="'支持数据源类型搜索'">
+                    </select-component>
+                </span>
+                <div class="input-icon ml5" position="left">
+                    <input type="text" class="input" #search placeholder="支持数据源名搜索">
+                    <i class="icon iconfont icon-ico_search_textfield"></i>
+                </div>
+                <button class="btn ml5">搜索</button>
+            </div>
+            <div class="table-component-title">
+                <span class="title">
+                    <i class="iconfont icon-ico_datasource mr8"></i>数据源列表
+                </span>
+                <span class="record">共1条记录</span>
+            </div>
+            <thead class="table-component-thead">
+                <tr>
+                    <th>数据源名称</th>
+                    <th>数据源类型</th>
+                    <th>数据源描述</th>
+                </tr>
+            </thead>
+            <tbody class="table-component-tbody">
+                <tr>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+            </tbody>
+            <tfoot class="table-component-tfoot">
+                <tr>
+                    <td colspan="3">暂无数据...</td>
+                </tr>
+            </tfoot>
+            <div class="table-component-page">
+                <pagination-component [pagenow]="1" [pagesize]="10" [totalcount]="20"></pagination-component>
+            </div>
+        </table-component>
+    </div>
+
+    <div style="margin-bottom: 100px;"></div>
+</div>

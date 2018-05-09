@@ -1,0 +1,188 @@
+@import '../../../../../../../../../assets/styles/variable';
+@import '../../../../../../../../../frontend-common/assets/styles/variable';
+
+.aside {
+    width: 250px;
+    height: 300px;
+    position: absolute;
+    top: 10px;
+    left:10px;
+    border: 1px solid $borderColor;
+    z-index: 10;
+    background: #fff;
+    overflow-y: auto;
+    li {
+        width: 100%;
+        float: left;
+    }
+    .tree-title {
+        position: relative;
+        padding: 3px 10px 3px 5px;
+        cursor: pointer;
+        transition: $transitionAll;
+
+        &:hover {
+            background: #E0E0E0;
+        }
+        &.checked {
+            background: #EEEEEE;
+        }
+        .icon-fold {
+            color: #FFAD49;
+        }
+        .icon-work {
+            color: #4499EE;
+        }
+    }
+    .right-panel {
+        position: fixed;
+        top: 95px;
+        bottom: 0;
+        right: 0;
+        width: 300px;
+        overflow: hidden;
+        border-left: 1px solid #CCDDEE;
+        overflow-y: auto;
+        background: #fff;
+        z-index: 99;
+        display: block;
+        &.hidden {
+            display: none;
+        }
+        .header-container {
+            border-bottom: 1px solid #CCDDEE;
+            background: #F5F5F5;
+            li {
+                float: left;
+                display: inline-block;
+                line-height: 33px;
+                cursor: pointer;
+                transition: $transitionAll;
+                padding: 0 10px;
+                &:hover {
+                    background: #E0E0E0;
+                }
+                i {
+                    color: #4499EE;
+                }
+                span {
+                    color: #666;
+                }
+            }
+        }
+        .item {
+            padding: 5px;
+            .item-col {
+                margin-bottom: 20px;
+                >span:first-child {
+                    display: inline-block;
+                    width: 60px;
+                    font-size: 12px;
+                }
+                >span.required-content {
+                    display: inline-block;
+                    width: calc(100% - 70px);
+                    padding-left: 5px;
+                    font-size: 12px;
+                    .required-red {
+                        left: -8px;
+                    }
+                    .input {
+                        font-size: 12px;
+                    }
+                    textarea {
+                        vertical-align: top;
+                        font-size: 12px;
+                        height: 80px;
+                    }
+                    .uploadPath {
+                        font-size: 12px;
+                        cursor: not-allowed;
+                        width: 135px;
+                    }
+                    .file-btn {
+                        position: relative;
+                        input {
+                            position: absolute;
+                            left: 0;
+                            right: 0;
+                            top: 0;
+                            bottom: 0;
+                            opacity: 0;
+                        }
+                    }
+                    .input-error {
+                        left: 6px;
+                        bottom: -16px;
+                        position: absolute;
+                        color: red;
+                        font-size: 12px;
+                    }
+                    &.upload-content {
+                        .file-name {
+                            position: absolute;
+                            bottom: -16px;
+                            left: 6px;
+                        }
+                        .input-error {
+                            bottom: -30px;
+                        }
+                    }
+                    &.select-box {
+                        width: 216px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.configs {
+    width: 106px;
+    border: 1px solid #CCDDEE;
+    background: #F4F4F4;
+    text-align: center;
+    display: inline-block;
+    position: absolute;
+    left: 10px;
+    top: 20px;
+    z-index: 1;
+    li {
+        padding: 10px 0 5px;
+        color: #333;
+        position: relative;
+        span {
+            display: inline-block;
+            padding: 5px 2px;
+            width: 80px;
+            cursor: move;
+            position: relative;
+            border-radius: $borderRradius;
+            background: #FFFFFF;
+            border: 1px solid #CCDDEE;
+            box-shadow: 0 2px 2px 0 rgba(206, 211, 223, .6);
+        }
+    }
+}
+
+.drag-target-container {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .3);
+    .drag-target {
+        background: #fff;
+    }
+    .drag-view {
+        position: absolute;
+        right: 15px;
+        top: 5px;
+        color: #666;
+        i {
+            cursor: pointer;
+        }
+    }
+}

@@ -1,0 +1,117 @@
+<div class="container">
+    <div class="header-container">
+        <ul class="clearfix">
+            <li (click)="testNode($event)">
+                <i class="iconfont icon-ico_submit"></i>
+                <span>调试</span>
+            </li>
+            <li (click)="saveTaskClick()">
+                <i class="iconfont icon-ico_save"></i>
+                <span>保存</span>
+            </li>
+            <li (click)="submitTaskClick()">
+                <i class="iconfont icon-ico_submit"></i>
+                <span>运行</span>
+            </li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="item">
+            <div class="item-col">
+                <span class="label">任务名称</span>
+                <span class="required-content">
+                    <i class="required-red">*</i>
+                    <!--<span class="input-error" *ngIf="errorType===1">请填写任务名称</span>-->
+                    <input class="input" size="small" disabled type="text" [(ngModel)]="jobName" placeholder="任务名称">
+                </span>
+            </div>
+            <div class="item-col">
+                <span class="label">hdfs目录</span>
+                <span class="required-content">
+                    <i class="required-red">*</i>
+                    <!--<span class="input-error" *ngIf="errorType===2">请填写节点名称</span>-->
+                    <input class="input" size="small" disabled type="text" [(ngModel)]="jobFile" placeholder="目录">
+                </span>
+            </div>
+            <div class="item-col">
+                <span class="label">入口文件</span>
+                <span class="required-content">
+                    <i class="required-red">*</i>
+                    <!--<span class="input-error" *ngIf="errorType===3">请填写节点名称</span>-->
+                    <input class="input" size="small" disabled type="text" [title]="mainFile" [(ngModel)]="mainFile" placeholder="入口文件">
+                </span>
+            </div>
+            <div class="item-col">
+                <span class="label">shell参数</span>
+                <span class="required-content">
+                    <i class="required-red"></i>
+                    <input class="input" size="small" disabled type="text" [(ngModel)]="parameter_str" placeholder="参数">
+                </span>
+            </div>
+            <div class="item-col">
+                <span class="label">任务描述</span>
+                <span class="required-content">
+                    <i class="required-red"></i>
+                    <textarea class="input" disabled [(ngModel)]="desc" maxlength="200" placeholder="描述"></textarea>
+                </span>
+            </div>
+
+            <!--<div class="item-col">-->
+                <!--<span class="label">数据库连接</span>-->
+                <!--<span class="line ">-->
+                    <!--<span class="checked-select required-content">-->
+                        <!--<i class="required-red">*</i>-->
+                        <!--<span class="required-label" *ngIf="errorType===3">请选择数据库</span>-->
+                        <!--<select-component-->
+                            <!--[option]="dbSource"-->
+                            <!--[options]="dbSourceArr"-->
+                            <!--(callback)="checkDbSource($event)"-->
+                            <!--[position]="'bottom'"-->
+                            <!--[placeholder]="'选择实例'"-->
+                            <!--[size]="'small'"></select-component>-->
+                    <!--</span>-->
+                <!--</span>-->
+            <!--</div>-->
+
+            <!--<div class="item-col line">-->
+                <!--<div class="common-table">-->
+                    <!--<div class="common-table-box">-->
+                        <!--<div class="common-table-body">-->
+                            <!--<table>-->
+                                <!--<tbody class="tbody">-->
+                                <!--<tr *ngFor="let item of tasks">-->
+                                    <!--<td>-->
+                                        <!--<radio-component [modal]="item.checked ? true : ''" [value]="item.checked" [label]="item.name" [type]="item.checked" (callback)="onRadioCallback($event, item)"></radio-component>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                                <!--</tbody>-->
+                            <!--</table>-->
+                        <!--</div>-->
+                        <!--<div class="common-table-footer">-->
+                            <!--<pagination-component [pagenow]="pageNum"-->
+                                                  <!--[pagesize]="pageSize"-->
+                                                  <!--[totalcount]="totalcount"-->
+                                                  <!--(onPageChange)="getOrganizeList($event)">-->
+                            <!--</pagination-component>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="item-col line">-->
+                <!--<div class="btn-box">-->
+                    <!--<button class="btn primary">执行</button>-->
+                    <!--<button class="btn delete">清空</button>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="item-col line">-->
+                <!--<div class="sql">-->
+                    <!--<span class="required-label" *ngIf="errorType===4">请输入SQL语句</span>-->
+                    <!--<textarea type="text"-->
+                              <!--class="input"-->
+                              <!--maxlength="200"-->
+                              <!--placeholder="SQL执行语句"></textarea>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>

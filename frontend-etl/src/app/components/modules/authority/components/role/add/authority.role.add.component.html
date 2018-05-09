@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="tab-box">
+        <div class="row clearfix" *ngIf="status === 'infoRole' || status === 'addRole' || status === 'editRole'">
+            <ul>
+                <li>
+                    <span>角色名</span>
+                    <span class="input-container">
+                        <span class="required-content">
+                            <i class="required-red">*</i>
+                            <input type="text" class="input" [class.error]="errorType===1" [(ngModel)]="roleName" maxlength="10"  [disabled]="status === 'infoRole'" placeholder="请输入角色名">
+                            <span class="input-error" *ngIf="errorType===1">{{error}}</span>
+                        </span>
+                    </span>
+                </li>
+                <li>
+                    <span>状态</span>
+                    <span class="input-container status-box">
+                        <span class="required-content">
+                            <i class="required-red">*</i>
+                             <select-component
+                                 [option]="roleStatus"
+                                 [options]="roleStatusArray"
+                                 [placeholder]="'选择角色状态'"
+                                 [disabled]="status === 'infoRole'"
+                                 (callback)="statusChecked($event)"></select-component>
+                            <span class="input-error" *ngIf="errorType===2">{{error}}</span>
+                        </span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

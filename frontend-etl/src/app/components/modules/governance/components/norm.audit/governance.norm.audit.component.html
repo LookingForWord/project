@@ -1,0 +1,14 @@
+<div class="container"
+     [class.min]="leftState===1"
+     [class.normal]="leftState===2"
+     [class.mixMax]="leftState===3"
+     [class.max]="leftState===4">
+    <div class="inner">
+        <div class="aside">
+            <governance-norm-audit-aside-component></governance-norm-audit-aside-component>
+        </div>
+        <div class="content">
+            <governance-norm-audit-content-component></governance-norm-audit-content-component>
+        </div>
+    </div>
+</div>

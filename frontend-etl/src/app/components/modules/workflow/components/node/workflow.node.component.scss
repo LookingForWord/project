@@ -1,0 +1,37 @@
+.container {
+    padding: 0;
+    :host ::ng-deep table-component {
+        > .container {
+            padding-top: 0;
+        }
+    }
+    :host ::ng-deep .table-component-tbody {
+        tr td {
+            .checkbox {
+                position: relative;
+                .check-input {
+                    position: absolute;
+                    display: inherit;
+                    width: 100%;
+                    height:100%;
+                    z-index: 999;
+                    opacity: 0;
+                    margin-right: 10px
+                }
+                label {
+                    vertical-align: middle;
+                    position: relative;
+                    margin-right: 4px;
+                    top: -1px;
+                }
+            }
+            .checkbox input[type='checkbox']:checked + label:hover {
+                background: #4499EE;
+                border-color: #4499EE;
+                &:after {
+                    color: #fff;
+                }
+            }
+        }
+    }
+}

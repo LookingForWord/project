@@ -1,0 +1,82 @@
+
+<table-component>
+    <div class="table-component-search line">
+        <button class="btn line primary add" (click)="newDataSource()"  authority="governance.dataSource.add">
+            <i class="iconfont mr5 icon-ico_add"></i><span>创建数据源</span>
+        </button>
+        <span class="select-container ml5">
+            <select-component
+                [options]="sourceTypes"
+                [option]="sourceType"
+                [placeholder]="'支持数据源类型搜索'"
+                (callback)="sourceTypeCheck($event)">
+            </select-component>
+        </span>
+        <div class="input-icon ml5" position="left">
+            <input type="text" class="input" placeholder="支持数据源名搜索" inputDebounce (debounceClick)="searchInstanceChange($event)" [(ngModel)]="keyword" >
+            <i class="icon iconfont icon-ico_search_textfield"></i>
+            <span *ngIf="errorType===1" class="error">请勿输入特殊符号</span>
+        </div>
+        <button class="btn ml5" (click)="searchInstanceChange($event)">搜索</button>
+    </div>
+    <div class="table-component-title">
+        <span class="title">
+            <i class="iconfont icon-ico_datasource mr8"></i>数据源列表
+        </span>
+        <span class="record">共{{totalcount}}条记录</span>
+    </div>
+    <thead class="table-component-thead">
+        <tr>
+            <th width="13%">数据源名称</th>
+            <th width="8%">数据源类型</th>
+            <th width="24%">链接信息</th>
+            <th width="13%">数据源描述</th>
+            <th width="13%">创建者</th>
+            <th width="8%">创建时间</th>
+            <th width="8%">最近同步状态</th>
+            <th width="13%">操作</th>
+        </tr>
+    </thead>
+    <tbody class="table-component-tbody">
+        <tr *ngFor="let source of sources">
+            <td>{{source.dsName}}</td>
+            <td>{{source.dsType}}</td>
+            <td class="url">
+                <div *ngIf="source && source.links && source.links.length">
+                    <p *ngFor="let idx of source.links">{{idx.name}}：{{idx.value}}</p>
+                </div>
+            </td>
+            <td>{{source.dsDesc}}</td>
+            <td>{{source.creatorName}}</td>
+            <td>{{source.createTime | date}}</td>
+            <td><div [attr.class]="changeStatusColor(source.syncState)" [tooltip]="changeStatus(source.syncState)"></div></td>
+            <td>
+                <button class="btn icon only" tooltip="连接测试" position="top" authority="governance.dataSource.ceshi" (click)="testClick(source.id)">
+                    <i class="icon iconfont icon-ico_test_link"></i>
+                </button>
+                <button class="btn icon only" tooltip="同步" position="top" authority="governance.dataSource.synchronous" (click)="asyncClick(source.id)"
+                    [disabled]="(!(source.dimCode === 'DB_TYPE' && (source.syncState === 'not' || source.syncState === 'failed')))"
+                    [class.disabled]="(!(source.dimCode === 'DB_TYPE' && (source.syncState === 'not' || source.syncState === 'failed')))">
+                    <i class="icon iconfont icon-ico_metadata_synchro"></i>
+                </button>
+                <button class="btn icon only" tooltip="查看" position="top" (click)="detailClick(source.id)">
+                    <i class="icon iconfont icon-ico_view"></i>
+                </button>
+                <button class="btn icon only"  tooltip="编辑" position="top" authority="governance.dataSource.edit" (click)="updateClick(source)">
+                    <i class="icon iconfont icon-ico_edit"></i>
+                </button>
+                <button class="btn icon only" tooltip="删除" position="top" authority="governance.dataSource.delete" (click)="deleteClick(source.id)">
+                    <i class="icon iconfont icon-ico_delete"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot class="table-component-tfoot">
+        <tr *ngIf="noDataType">
+            <td colspan="8">暂无数据...</td>
+        </tr>
+    </tfoot>
+    <div class="table-component-page">
+        <multi-pagination-component [pagenow]="pagenow" [pagesize]="pagesize" [totalcount]="totalcount"  (onPageChange)="doPageChange($event)"></multi-pagination-component>
+    </div>
+</table-component>

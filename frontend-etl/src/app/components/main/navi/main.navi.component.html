@@ -1,0 +1,13 @@
+<div>
+    <div class="subnavi">
+        <ul>
+            <li *ngFor="let c of components; let i = index;"
+                (click)="toggleComponent(c.component, i)"
+                [class.checked]="i===index">
+                <span>{{c.name}}</span>
+            </li>
+        </ul>
+        <div class="underline"></div>
+    </div>
+    <div #content></div>
+</div>

@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="tree-container">
+        <div class="search-box btn-group" authority="governance.catalog.add" >
+            <button class="back line btn primary" size="small" (click)="addDirectory()">
+                创建目录
+            </button>
+
+            <!--有搜索的页面代码，功能暂时没有实现先注释-->
+            <!--<span class="pl3 pr3 new-folder" [tooltip]="'新增目录'" (click)="addDirectory()">-->
+                <!--<i class="iconfont icon-ico_folder_add"></i>-->
+            <!--</span>-->
+                <!--<span class="input-icon" position="left">-->
+                <!--<input type="text"-->
+                       <!--class="input"-->
+                       <!--size="small"-->
+                       <!--disabled-->
+                       <!--placeholder="搜索目录"-->
+                       <!--[(ngModel)] = "search"-->
+                       <!--(keyup.enter)="searchClick()"-->
+                       <!--&gt;-->
+                <!--<span class="iconfont icon-ico_search_textfield"></span>-->
+            <!--</span>-->
+        </div>
+        <div class="inner clearfix">
+            <governance-catalog-tree-component
+                [list]="flows"
+                [type]="flowType"
+            >
+            </governance-catalog-tree-component>
+        </div>
+    </div>
+</div>

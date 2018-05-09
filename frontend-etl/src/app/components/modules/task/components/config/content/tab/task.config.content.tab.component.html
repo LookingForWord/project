@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="canvas-container">
+        <div *ngFor="let content of contents" [class.invisible]="!content.checked">
+            <div #cons></div>
+        </div>
+    </div>
+    <div class="tabs">
+        <ul class="clearfix">
+            <li *ngFor="let content of contents;let i = index;"
+                [class.checked]="content.checked"
+                (click)="toggleContentClick(content)">
+                <span class="text-overflow">{{content.title}}</span>
+                <i class="iconfont icon-ico_tab_close" *ngIf="i>0" (click)="removeContent(content, $event)"></i>
+            </li>
+        </ul>
+    </div>
+</div>
+

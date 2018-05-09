@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="header clearfix">
+        <div class="close" (click)="hideRightPannel($event)">
+            <i class="iconfont icon-ico_tab_close"></i>
+        </div>
+    </div>
+    <div class="content clearfix">
+        <div class="left">
+            <div class="left-content">
+                <div class="clearfix">
+                    <div class="item converge-item source">
+                        <h4 [title]="sourceList.tableName">源表:&nbsp;{{sourceList.tableName}}</h4>
+                        <h5>
+                            <span>字段名</span>
+                            <span>值</span>
+                        </h5>
+                        <p *ngFor="let item of sourceList.data"  [class.check]="checkName.join(',').indexOf(item.name) !== -1 || CheckName.join(',').indexOf(item.name) !== -1">
+                            <span>{{item.name}}</span>
+                            <span>{{item.value}}</span>
+                        </p>
+                    </div>
+
+                    <div class="item converge-item target">
+                        <h4 [title]="targetList.tableName">目标表:&nbsp;{{targetList.tableName}}</h4>
+                        <h5>
+                            <span>字段名</span>
+                            <span>值</span>
+                        </h5>
+                        <p *ngFor="let item of targetList.data" [class.check]="presentTarget === item.name">
+                            <span>{{item.name}}</span>
+                            <span (click)="openProcess(item.name)" >{{item.value}}</span>
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="page">
+                    <span class="link" [class.disabled]="pageNow === 1" (click)="previousPage()">上一条</span>
+                    <span class="link" [class.disabled]="pageNow === list.length" (click)="nextPage()">下一条</span>
+                    <span class="link" (click)="reload()">换一批</span>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <ul>
+                <div  *ngFor="let item of presentStep; let i=index">
+                    <li>
+                        步骤{{i + 1}}：来源字段：{{item.sourceField || '无'}}，转换规则：{{item.ruleType || '无'}}，{{item.ruleName ? '规则名：' + item.ruleName + '，' : ''}}规则参数：{{item.ruleContent || '无'}}，去向目标字段：{{item.targetField || '无'}}
+                    </li>
+                    <div class="img-box">
+                        <img src="/assets/images/jt_down.jpg" alt="" *ngIf="presentStep && presentStep.length!==0 && presentStep.length!==1 && presentStep.length !== (i+1)">
+                    </div>
+                </div>
+
+            </ul>
+        </div>
+    </div>
+</div>

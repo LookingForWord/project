@@ -1,0 +1,50 @@
+<div class="container theme-home">
+    <div class="header-container">
+        <div class="title-box">
+            <div>城市大数据中心</div>
+        </div>
+        <div class="time font-number">{{data}}</div>
+        <div class="total-data clearfix" *ngIf="!noAuthourity">
+            <div>
+                总数据集:<span [title]="totalDataSetNum" class="font-number">&nbsp;{{totalDataSetNum | number}}&nbsp;</span>个</div>
+            <div>
+                总数据量:<span [title]="totalDataTotalNum" class="font-number">&nbsp;{{totalDataTotalNum | number}}&nbsp;</span>条
+            </div>
+            <div >
+                总数据项:<span [title]="totalDataItemNum" class="font-number">&nbsp;{{totalDataItemNum | number}}&nbsp;</span>个
+            </div>
+        </div>
+        <!--<div class="basics clearfix">-->
+            <!--基础数据-->
+        <!--</div>-->
+    </div>
+    <div class="row" *ngIf="!noAuthourity">
+        <div class="col-3" *ngFor="let item of basicDataList">
+            <div class="item">
+                <div class="title">
+                    <span [attr.class]="'iconfont icon-ico_' + (item.icon || 'metadata_synchro')"></span>
+                    <span class="text" [title]="item.categoryName">{{item.categoryName}}</span>
+                </div>
+                <div class="detail" (click)="turnToDetail(item, 'set')">
+                    <p class="name">数据集</p>
+                    <p class="font-number">{{item.dataSetNum}}</p>
+                </div>
+                <div class="detail" (click)="turnToDetail(item, 'item')">
+                    <p class="name">数据项</p>
+                    <p class="font-number">{{item.dataItemNum}}</p>
+                </div>
+                <div class="detail last">
+                    <p class="name">数据量</p>
+                    <p class="font-number">{{item.dataTotalNum | number}}</p>
+                </div>
+                <i class="top-left"></i>
+                <i class="top-right"></i>
+                <i class="bottom-left"></i>
+                <i class="bottom-right"></i>
+            </div>
+        </div>
+    </div>
+    <div class="row noAuthourity" *ngIf="noAuthourity" >
+        <p>亲！您沒有权限访问这部分的数据！请到权限管理或联系管理员进行配置。。。</p>
+    </div>
+</div>

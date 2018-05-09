@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="choose">
+        <span>分隔符:</span>
+        <span>
+            <radio-component
+                 [modal]="radioValue==='tab' ? true : ''"
+                 [value]="radioValue==='tab'"
+                 [label]="'tab'" [type]="radioValue==='tab'"
+                 (callback)="onRadioCallback($event, 'tab')"></radio-component>
+        </span>
+        <span>
+            <radio-component
+                [modal]="radioValue==='comma' ? true : ''"
+                [value]="radioValue==='comma'"
+                [label]="'逗号'" [type]="radioValue==='comma'"
+                (callback)="onRadioCallback($event, 'comma')"></radio-component>
+        </span>
+        <span>
+            <radio-component
+                [modal]="radioValue==='semicolon' ? true : ''"
+                [value]="radioValue==='semicolon'"
+                [label]="'分号'"
+                [type]="radioValue==='semicolon'"
+                (callback)="onRadioCallback($event, 'semicolon')"></radio-component>
+        </span>
+        <span>
+            <radio-component
+                [modal]="radioValue==='blanks' ? true : ''"
+                [value]="radioValue==='blanks'"
+                [label]="'空格'"
+                [type]="radioValue==='blanks'"
+                (callback)="onRadioCallback($event, 'blanks')"></radio-component>
+        </span>
+        <span class="checkbox">
+            <input type="checkbox" id="check" class="check-input" [(ngModel)]="header">
+            <label for="check"></label>
+            是否包含表头
+        </span>
+    </div>
+    <div>
+        <textarea name="textarea" class="textarea input" cols="30" rows="5" [(ngModel)]="result"></textarea>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row line" >
+        <ul>
+            <li class="line">
+                <span>数据源类型</span>
+                <span class="input-container source-type">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                         <select-component
+                             [option]="dataSourceType"
+                             [options]="dataSourceTypes"
+                             (callback)="dataSourceTypeChecked($event)"
+                             [placeholder]="'选择数据源类型'">
+                         </select-component>
+                        <span class="required-label" *ngIf="errorType===1">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+            <li class="line">
+                <span>数据源</span>
+                <span class="input-container source-type">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                         <select-component
+                             [option]="dataSource"
+                             [options]="dataSources"
+                             (callback)="dataSourceChecked($event)"
+                             [placeholder]="'选择数据源'"
+                             [search]="true">
+                         </select-component>
+                        <span class="required-label" *ngIf="errorType===2">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+            <li class="line">
+                <span>数据源表</span>
+                <span class="input-container source-type">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                         <select-component
+                             [option]="table"
+                             [options]="tables"
+                             (callback)="tableChecked($event)"
+                             [placeholder]="'选择数据源类表'"
+                             [search]="true">
+                         </select-component>
+                        <span class="required-label" *ngIf="errorType===3">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

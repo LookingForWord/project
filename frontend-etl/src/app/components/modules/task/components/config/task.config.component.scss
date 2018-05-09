@@ -1,0 +1,56 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable';
+
+.container {
+    position: fixed;
+    left: $sidebarWidth;
+    top: $headerHeight;
+    bottom: 0;
+    right: 0;
+    transition: $transitionAll;
+
+    &.min {
+        left: $sidebarMinWidth;
+    }
+    &.normal {
+        left: $sidebarWidth;
+    }
+    &.mixMax {
+        left: $sidebarMinWidth + $sidebarWidth;
+    }
+    &.max {
+        left: $sidebarMaxWidth;
+    }
+
+    .inner {
+        height: 100%;
+        position: relative;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .type-container {
+        //padding-bottom: 10px;
+    }
+    .content-container {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        .aside {
+            width: $configTreeWidth;
+            height: 100%;
+            display: inline-block;
+            float: left;
+            border-right: 1px solid #CCDDEE;
+        }
+        .content {
+            margin-left: $configTreeWidth;
+            height: 100%;
+            overflow: hidden;
+        }
+    }
+}
+
+

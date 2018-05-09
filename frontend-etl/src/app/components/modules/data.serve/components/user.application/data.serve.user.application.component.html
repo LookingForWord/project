@@ -1,0 +1,99 @@
+<div class="ontainer">
+    <div class="title">
+        <div class="title-content">
+            <span class="left" (click)="goBack()">
+                <i class="iconfont icon-leixing"></i>
+                <span>服务列表</span>
+            </span>
+            <i class="iconfont icon-ico_arrow_right jt"></i>
+            <span class="left">
+                <span>申请记录列表</span>
+            </span>
+        </div>
+    </div>
+    <div class="content">
+        <div class="content-header clearfix">
+            <div class="left">
+                <div class="apply">
+                    <i class="iconfont icon-leixing"></i>
+                    <span>
+                        <select-component
+                            [option]="checkedStatus"
+                            [options]="statusList"
+                            [background]="'#fff'"
+                            (callback)="chooseStatus($event)"
+                        ></select-component>
+                    </span>
+                </div>
+            </div>
+            <div class="right">
+                <input type="text" class="input" [(ngModel)]="keyWord" inputDebounce (debounceClick)="searchChange($event)" placeholder="根据服务名称查询">
+                <!--<span *ngFor="let item of sortList">-->
+                    <!--{{item.name}}-->
+                    <!--<i class="esc" (click)="sort(item, 'esc')" [class.checked]="item.esc"></i>-->
+                    <!--<i class="desc" (click)="sort(item, 'desc')" [class.checked]="item.desc"></i>-->
+                <!--</span>-->
+            </div>
+        </div>
+        <div class="content-list">
+            <ul>
+                <li class="clearfix" *ngFor="let item of applyList; let i=index;">
+                    <div class="left">
+                        <div class="li_top">
+                            <span>
+                                <!-- 0 正常 1 暂停 2 失效 -->
+                                <i class="iconfont icon-ico_start start" *ngIf="item.serveStatus===0"></i>
+                                <i class="iconfont icon-ico_pause pause" *ngIf="item.serveStatus===1"></i>
+                                <i class="iconfont icon-ico_block failure" *ngIf="item.serveStatus===2"></i>
+                                <span class="li_title">{{item.serveName}}</span>
+                            </span>
+                            <span class="url">{{item.url}}</span>
+                        </div>
+                        <div class="list_middle">
+                            <span>
+                                <i class="iconfont icon-ico_datapick"></i>
+                                <span class="li_title">申请时间:{{item.applyTime}}</span>
+                            </span>
+                            <span>
+                                <i class="iconfont icon-ico_datapick"></i>
+                                <span class="li_title">过期时间:{{item.expireDate}}</span>
+                            </span>
+                        </div>
+                        <div class="list_bottom">
+                            <span>
+                                <i class="iconfont icon-ico_menu_object"></i>
+                                <span class="li_title">{{item.applyDesc}}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div>
+                            <span class="waite-audit" *ngIf="item.approveStatus===0">等待审批中...</span>
+                            <button class="btn ml8" size="small"  *ngIf="item.approveStatus===0" (click)="cancel(item)">取消</button>
+                            <span class="waite-audit" *ngIf="item.approveStatus===1">已审核通过</span>
+                            <span class="faile" *ngIf="item.approveStatus===2">审批未通过...</span>
+                            <button class="btn ml8" size="small" *ngIf="item.approveStatus===2" (click)="apply(item)">重新申请</button>
+                            <button class="btn ml8" size="small" *ngIf="item.approveStatus===2" (click)="cancel(item)">取消</button>
+                            <span class="cancle" *ngIf="item.approveStatus===3">已取消</span>
+                        </div>
+                        <div class="introducetion">
+                            <!--审批原因：该服务在你申请之后已经被停用了-->
+                            {{item.approveDesc}}
+                        </div>
+                    </div>
+                </li>
+                <li *ngIf="applyList && applyList.length < 1" class="no-data">
+                    暂无数据...
+                </li>
+            </ul>
+        </div>
+
+        <div class="common-table-footer" *ngIf="applyList && applyList.length > 0">
+            <multi-pagination-component [pagenow]="pageNum"
+                                  [pagesize]="pageSize"
+                                  [totalcount]="totalCount"
+                                  (onPageChange)="doPageChange($event)">
+            </multi-pagination-component>
+        </div>
+    </div>
+</div>

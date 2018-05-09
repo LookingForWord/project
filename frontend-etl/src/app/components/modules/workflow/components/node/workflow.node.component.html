@@ -1,0 +1,44 @@
+<div class="container">
+    <table-component>
+        <div class="table-component-title">
+            <span class="title">
+                <i class="iconfont mr8 icon-ico_node_manage"></i>节点管理列表
+            </span>
+            <span class="record">共{{totalcount}}条记录</span>
+        </div>
+        <thead class="table-component-thead">
+        <tr>
+            <th width="30%">地址</th>
+            <th>端口</th>
+            <th width="40%">运行环境</th>
+            <th width="80px">操作</th>
+        </tr>
+        </thead>
+        <tbody class="table-component-tbody">
+            <tr *ngFor="let item of nodeList, let i = index">
+                <td>{{item.address && item.address.slice(0, item.address.indexOf(':'))}}</td>
+                <td>{{changeAddress(item.address)}}</td>
+                <td>
+                    <span *ngFor="let idx of item.tagArr, let i=index" class="checkbox">
+                        <input type="checkbox" [checked]="idx.value === true" [id]="i" disabled>
+                        <label [for]="i"></label>{{idx.name}}
+                    </span>
+                </td>
+                <td authority="workflow.node.edit">
+                    <button class="btn icon only" tooltip="编辑" position="top" (click)="editClick(item)" >
+                    <i class="icon iconfont icon-ico_edit"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot class="table-component-tfoot">
+        <tr *ngIf="noDataType">
+            <td colspan="4">暂无数据...</td>
+        </tr>
+        </tfoot>
+        <div class="table-component-page">
+            <multi-pagination-component [pagenow]="pageNow" [pagesize]="pageSize" [totalcount]="totalcount" (onPageChange)="doPageChange($event)"></multi-pagination-component>
+        </div>
+    </table-component>
+</div>
+

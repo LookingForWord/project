@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row clearfix mt10">
+         <div class="col-2  txt-right">
+            字段名称:
+         </div>
+         <div class="col-8">
+            {{colInfo && colInfo.columnName || '/'}}
+         </div>
+    </div>
+    <div class="row clearfix mt10">
+        <div class="col-2 txt-right">
+            过滤条件:
+        </div>
+        <div class="col-9">
+            <div class="row mb20" *ngFor="let con of conditionArray;let i = index;">
+                <div class="sel-con mr8">
+                    <select-component
+                        [option]="con.checked"
+                        [options]="con.options"
+                        [position]="i < 3 ? 'bottom' : 'top'"
+                        [placeholder]="'请选择过滤条件'"
+                        [downHeight]="200"
+                        [size]="'small'"
+                        (callback)="checkCon($event, i)">
+                    </select-component>
+                    <span class="input-error" *ngIf="con.errorType===1">{{con.error}}</span>
+                </div>
+                <div class="input-box mr8">
+                    <input class="input" type="text" [(ngModel)]="con.value" size="small" placeholder="请填写过滤值">
+                    <span class="input-error" *ngIf="con.errorType===2">{{con.error}}</span>
+                </div>
+                <button class="btn only icon iconfont icon-ico_delete delete" [class.disabled]="conditionArray.length < 2" (click)="deleteLine(con, i)"></button>
+            </div>
+        </div>
+    </div>
+    <div class="link-box">
+        <span class="link" (click)="addCon();">增加过滤条件</span>
+    </div>
+</div>

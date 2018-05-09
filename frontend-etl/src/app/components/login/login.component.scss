@@ -1,0 +1,126 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+
+$errorColor: #D75F73;
+
+.out-box{
+    width: 100%;
+    min-width: $bodyMinWidth;
+    height: 100%;
+    position: fixed;
+    top:0;
+    left:0;
+
+    z-index: 203;
+    background: #193c6d url("/assets/images/login_page.png") no-repeat center scroll;
+    text-align: center;
+    margin: 0;
+    overflow: hidden;
+
+    .content {
+        background: #FFFFFF;
+        box-shadow: 0 20px 40px 0 rgba(6, 45, 61, .8);
+        width: 800px;
+        height: 500px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -400px;
+        margin-top: -250px;
+
+        .row {
+            height: 100%;
+        }
+        >.row:first-child {
+            .col-6:first-child {
+                height: 500px;
+                overflow: hidden;
+                img {
+                    height: 100%;
+                }
+            }
+        }
+        .logo {
+            padding: 50px;
+            margin-top: 30px;
+        }
+        .inner {
+            padding: 0 50px;
+        }
+        .input-content {
+            box-shadow: inset 0 -1px 0 0 #CCDDEE;
+            padding: 1px 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            color: #666;
+            transition: $transitionAll;
+            input {
+                border: 0;
+                width: 100%;
+                padding: 12px 0;
+                font-size: 16px;
+                &::-moz-placeholder {
+                    color: #CCDDEE;
+                }
+                &:-ms-input-placeholder {
+                    color: #CCDDEE;
+                }
+                &::-webkit-input-placeholder {
+                    color: #CCDDEE;
+                }
+            }
+            &:focus, &:hover {
+                box-shadow: inset 0 -1px 0 0 #4499EE;
+            }
+            &.code-box {
+                text-align: left;
+                box-shadow: none;
+                padding-left: 0;
+                margin-bottom: 5px;
+                input {
+                    width: 160px;
+                    box-shadow: inset 0 -1px 0 0 #CCDDEE;
+                    padding-left: 10px;
+                }
+                .code-img-box {
+                    float: right;
+                    text-align: center;
+                    img {
+                        height: 36px;
+                        display: block;
+                        cursor: pointer;
+                    }
+                    p {
+                        font-size: 12px;
+                    }
+                }
+                .required-label {
+                    bottom: -8px;
+                }
+            }
+        }
+        .remember-content {
+            text-align: left;
+            color: #666;
+            padding: 10px;
+            margin-bottom: 5px;
+        }
+        .login-content {
+            padding: 10px 0;
+            &.disabled {
+                button {
+                    cursor: not-allowed;
+                }
+            }
+            button {
+                width: 100%;
+                font-size: 18px;
+                height: 45px;
+            }
+            .jumping {
+                font-size: 14px;
+            }
+        }
+    }
+}

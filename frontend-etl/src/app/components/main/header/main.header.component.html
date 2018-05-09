@@ -1,0 +1,42 @@
+<div class="header-container theme-header" [class.isHome]="isHome">
+    <div class="logo" [class.isHome]="isHome">
+        <div class="header_logo"></div>
+    </div>
+    <div class="navi" [class.small]="isSmall">
+        <ul>
+            <li *ngFor="let navi of navigate" [class.checked]="navi.checked" (click)="navigateClick(navi)">
+                <span>{{navi.name}}</span>
+                <i class="top-left"></i>
+                <i class="top-right"></i>
+                <i class="bottom-left"></i>
+                <i class="bottom-right"></i>
+            </li>
+        </ul>
+    </div>
+    <div class="user" [class.show]="showContent">
+        <span (click)="toggleShowContent($event)">
+            <span class="mr5" [title]="realName">你好，{{realName}}</span>
+            <i class="iconfont icon-ico_arrow_down2 logout" [class.toggle]="showContent"></i>
+        </span>
+        <div class="content" *ngIf="showContent">
+            <div class="split">
+                <i class="left"></i>
+                <i class="right"></i>
+            </div>
+            <ul>
+                <li (click)="passwordService()">
+                    <i class="iconfont icon-ico_manage"></i>
+                    <span style="bottom: 2px">密码服务</span>
+                </li>
+                <li (click)="changePwd()">
+                    <i class="iconfont icon-ico_reset_password"></i>
+                    <span style="bottom: 2px">修改密码</span>
+                </li>
+                <li class="line" (click)="logoutClick()">
+                    <i class="iconfont icon-ico_logout"></i>
+                    <span>退出</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,137 @@
+@import 'assets/styles/global.scss';
+
+.container {
+    width: 700px;
+    padding-bottom: 20px;
+    font-size: 14px;
+    max-height: 450px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    .norm-box {
+        padding-top: 20px;
+    }
+    .row {
+        margin-bottom: 25px;
+        li {
+            display: inline-block;
+            float: left;
+            // 必填项设置
+            .required-content {
+                width: calc(100% - 10px);
+                display: inline-block;
+                padding-left: 10px;
+                position: relative;
+                .required-red {
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    margin-top: -7px;
+                    &.invisible {
+                        visibility: hidden;
+                    }
+                }
+                .required-label {
+                    position: absolute;
+                    bottom: -16px;
+                    left: 13px;
+                    color: $redColor;
+                }
+            }
+            &:first-child {
+                margin-right: 9px;
+            }
+            &.datasource-url-box {
+                margin-right: 0;
+            }
+            .input-container {
+                .input {
+                    width: 202px;
+                    &.datasource-url {
+                        width: 548px;
+                    }
+                }
+
+            }
+            > span {
+                >select-component {
+                    width: 216px;
+                    display: inline-block;
+                }
+                &:first-child {
+                    display:inline-block;
+                    width: 100px;
+                    color: #666;
+                    text-align: right;
+                    margin-right: 3px;
+                }
+                &.source-type {
+                    width: 228px;
+                }
+            }
+            &.desc-box {
+                position: relative;
+                >span {
+                    &:first-child {
+                        position: relative;
+                    }
+                }
+                .input-container .required-content .required-red {
+                    top: 10px;
+                }
+                .desc {
+                    width: 547px!important;
+                    height: 100px;
+                    resize: none;
+                }
+                .des {
+                    vertical-align: top;
+                }
+            }
+
+        }
+    }
+
+    // sql预览
+    .view-sql {
+        .back-box {
+            margin-top: 10px;
+        }
+        h5 {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .row {
+            margin-bottom: 0;
+            ul li {
+                margin-bottom: 25px;
+                .input-container {
+
+                }
+            }
+        }
+    }
+}
+:host ::ng-deep table-component {
+    .container {
+        padding-right: 0;
+        padding-left: 0;
+    }
+    table {
+        table-layout: fixed;
+        tr td, tr th {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+    }
+}
+
+:host ::ng-deep modal-basci-component {
+    .norm-save {
+        display: inline-block;
+        &.hide {
+            display: none;
+        }
+    }
+}
+

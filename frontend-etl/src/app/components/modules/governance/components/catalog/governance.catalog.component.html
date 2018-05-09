@@ -1,0 +1,50 @@
+<div class="container" >
+    <div class="left-tree">
+        <div class="tree-container">
+            <governance-catalog-aside-component #aside></governance-catalog-aside-component>
+        </div>
+    </div>
+    <div class="right-table " *ngIf="!noCheck">
+        <table-component>
+            <div class="table-component-title">
+                <span class="title">
+                    <i class="iconfont icon-ico_folder_manage mr8"></i>目录列表
+                </span>
+                <span class="record">共{{totalcount}}条记录</span>
+            </div>
+            <thead class="table-component-thead">
+            <tr>
+                <th width="21%">目录名称</th>
+                <th width="21%">创建人</th>
+                <th width="21%">创建时间</th>
+                <th width="21%">目录描述</th>
+                <th width="16%">操作</th>
+            </tr>
+            </thead>
+            <tbody class="table-component-tbody">
+            <tr *ngFor="let item of list">
+                <td>{{item.name}}</td>
+                <td>{{item.createUser}}</td>
+                <td>{{item.createTime | date}}</td>
+                <td>{{item.description}}</td>
+                <td>
+                    <button class="btn icon only"  tooltip="查看" position="top" (click)="detailClick(item)">
+                        <i class="icon iconfont icon-ico_view"></i>
+                    </button>
+                    <button class="btn icon only"  tooltip="编辑" position="top" authority="governance.catalog.edit" (click)="updateClick(item)">
+                        <i class="icon iconfont icon-ico_edit"></i>
+                    </button>
+                    <button class="btn icon only"  tooltip="删除" position="top" authority="governance.catalog.delete" (click)="deleteClick(item)">
+                        <i class="icon iconfont icon-ico_delete"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot class="table-component-tfoot">
+                <tr *ngIf="noData">
+                    <td colspan="5">暂无数据...</td>
+                </tr>
+            </tfoot>
+        </table-component>
+    </div>
+</div>

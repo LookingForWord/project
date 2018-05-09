@@ -1,0 +1,169 @@
+@import 'frontend-common/assets/styles/variable.scss';
+@import 'assets/styles/variable.scss';
+.container {
+    padding: 0;
+    height: 100%;
+    position: relative;
+    overflow-y: hidden;
+    > div {
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    :host ::ng-deep .table-component-tbody {
+        tr {
+            td .line {
+                .icon-ico_arrow_down {
+                    display: inline-block;
+                    transform: rotate(-90deg);
+                    font-size: 12px !important;
+                    cursor: pointer;
+                    transition: $transitionAll;
+                    &.expand {
+                        transform: rotate(0deg);
+                    }
+                }
+            }
+            th:first-child, td:first-child {
+                text-align: left;
+                width: 10%;
+                max-width: 200px;
+                padding-left: 8px;
+                span {
+                    a {
+                        max-width: 90%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+            }
+            td {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    :host ::ng-deep .table-component-thead {
+        tr {
+            th:first-child, td:first-child {
+                text-align: left;
+                width: 10%;
+                max-width: 200px;
+                padding-left: 8px;
+                span {
+                    a {
+                        max-width: 90%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+            }
+            th {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    // 右侧弹框
+    .task-panel {
+        width: 400px;
+        position: fixed;
+        right: 0;
+        top: 60px;
+        bottom: 0;
+        background: #fff;
+        border-left: 1px solid $borderColor;
+        //overflow-y: auto;
+        box-shadow: -2px 0 2px 0 rgba(206,211,223,0.60);
+        .task-panel-title {
+            background: #F5F5F5;
+            border-bottom: 1px solid #CCDDEE;
+            height: 31px;
+            .tab {
+                display: inline-block;
+                span {
+                    float: left;
+                    width: 82px;
+                    line-height: 30px;
+                    text-align: center;
+                    color: #666;
+                    border-top: 2px solid transparent;
+                    border-left: 1px solid transparent;
+                    border-right: 1px solid transparent;
+                    cursor: pointer;
+                    &.checked {
+                        border-color: #CCDDEE;
+                        background: #fff;
+                        border-top-color: #4499EE;
+                        color: #333333;
+                    }
+                    &:first-child {
+                        border-left: 0;
+                    }
+                }
+            }
+            .close {
+                float: right;
+                margin-right: 10px;
+                cursor: pointer;
+                color: #666666;
+                margin-top: 2px;
+                &:hover {
+                    color: #FF3333;
+                }
+            }
+        }
+        .task-panel-attribute {
+            padding-top: 14px;
+            height: calc(100% - 55px);
+            overflow-y: auto;
+            p, li {
+                padding-left: 35px;
+                color: #666666;
+                font-size: 12px;
+                line-height: 26px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            &.runLog {
+                overflow-y: auto;
+                ul {
+                    li {
+                        overflow: unset;
+                        text-overflow: unset;
+                        white-space: normal;
+                        padding-left: 10px;
+                    }
+                }
+
+            }
+        }
+    }
+
+    // 下方弹框
+    .bottom-panel {
+        height: 500px;
+        position: absolute;
+        right: 20px;
+        left: 20px;
+        bottom: -100%;
+        background: #fff;
+        border: 1px solid $borderColor;
+        border-bottom: 0;
+        display: none;
+        //overflow-y: auto;
+        //box-shadow: 2px 0 2px 0 rgba(206,211,223,0.60);
+        &.show {
+            display: block;
+            opacity: 1;
+            bottom: 0;
+        }
+    }
+}

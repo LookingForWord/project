@@ -1,0 +1,16 @@
+.container {
+    padding: 10px;
+    .common-table-body {
+        table {
+            width: 100%;
+            thead {
+                tr>th {
+                    width: 22.5%;
+                    &:last-child {
+                        width: 10%;
+                    }
+                }
+            }
+        }
+    }
+}

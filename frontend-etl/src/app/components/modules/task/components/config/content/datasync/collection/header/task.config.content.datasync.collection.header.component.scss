@@ -1,0 +1,25 @@
+@import 'frontend-common/assets/styles/variable.scss';
+@import 'assets/styles/variable.scss';
+
+.container {
+    width: 520px;
+    height: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    color: $textNormalColor;
+    .table {
+        width: 95%;
+        th, td {
+            text-align: center;
+        }
+        th {
+            padding: 10px 0;
+        }
+        td {
+            padding-bottom: 20px;
+        }
+    }
+    .required-content {
+        width: 200px;
+    }
+}

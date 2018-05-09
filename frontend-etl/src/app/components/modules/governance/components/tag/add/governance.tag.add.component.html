@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row line" >
+        <ul>
+            <li>
+                <span>标签名称</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input tag-name" maxlength="30"  [class.error]="errorType===1" [(ngModel)]="name" placeholder="标签名称" [disabled]="status === 0">
+                        <span class="required-label" *ngIf="errorType===1">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row line">
+        <ul>
+            <li class="desc-box">
+                <span class="des">描述</span>
+                <span class="input-container" >
+                    <span class="required-content">
+                        <i class="required-red"></i>
+                        <textarea class="desc input tag-des"  [disabled] = "status === 0" [(ngModel)]="description" placeholder="标签描述"></textarea>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row line" *ngIf="status === 0">
+        <ul>
+            <li>
+                <span>创建时间</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" maxlength="30"  [ngModel]="createTime | date"  (ngModelChange)="createTime=$event" [disabled]="status === 0">
+                        <!--<span class="required-label" *ngIf="errorType===1">{{error}}</span>-->
+                    </span>
+                </span>
+            </li>
+            <li>
+                <span>创建者</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" maxlength="30"  [(ngModel)]="createUser" [disabled]="status === 0">
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

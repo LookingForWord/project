@@ -1,0 +1,131 @@
+<div class="container ">
+    <div class="header-container">
+        <ul class="clearfix">
+            <li (click)="saveTaskClick()">
+                <i class="iconfont icon-ico_save"></i>
+                <span>保存</span>
+            </li>
+            <li (click)="closePanel()">
+                <i class="iconfont icon-ico_block"></i>
+                <span>关闭</span>
+            </li>
+            <!--<li (click)="deleteClick()">-->
+                <!--<i class="iconfont icon-ico_delete"></i>-->
+                <!--<span>删除</span>-->
+            <!--</li>-->
+            <li (click)="viewTaskLog()">
+                <i class="iconfont icon-ico_view"></i>
+                <span>查看日志</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="item" *ngIf="!external">
+        <div class="item-col">
+            <span class="label">任务名称</span>
+            <span class="required-content">
+                    <i class="required-red">*</i>
+                    <input class="input" size="small" type="text" [(ngModel)]="jobName" (keyup)="makeUpdating()" placeholder="任务名称">
+                    <span class="input-error" *ngIf="errorType===1">请填写任务名称</span>
+                </span>
+        </div>
+        <div class="item-col">
+            <span class="label">上传文件</span>
+            <span class="required-content upload-content">
+                    <i class="required-red">*</i>
+                    <input type="text" size="small" class="input uploadPath" readonly [title]="uploadName" [(ngModel)]="uploadName" placeholder="上传路径">
+                    <button class="btn primary file-btn">
+                        <input type="file" #uploaderRef ng2FileSelect [uploader]="uploader">
+                        <span>浏览...</span>
+                    </button>
+                    <span class="input-error" *ngIf="errorType===2">{{error}}</span>
+                <!--<span class="file-name" *ngIf="uploader&&uploader.queue.length>0" [title]="uploader.queue[0].file.name">{{uploader.queue[0].file.name | substr}}</span>-->
+                </span>
+        </div>
+        <div class="item-col">
+            <span class="label">入口文件</span>
+            <span class="required-content checked-select">
+                    <i class="required-red">*</i>
+                    <select-component
+                        [option]="mainFile"
+                        [options]="jobFile"
+                        (callback)="chooseMainFile($event)"
+                        [position]="'bottom'"
+                        [placeholder]="'请先上传文件'"
+                        [size]="'small'"></select-component>
+                    <span class="input-error" *ngIf="errorType===4">请先上传文件获取入口文件</span>
+                </span>
+        </div>
+
+        <div class="item-col">
+            <span class="label">运行参数</span>
+            <span class="required-content">
+                    <i class="required-red"></i>
+                    <input class="input" size="small" type="text" [(ngModel)]="parameter_str" (keyup)="makeUpdating()" placeholder="参数">
+                </span>
+        </div>
+        <div class="item-col">
+            <span class="label">任务描述</span>
+            <span class="required-content">
+                    <i class="required-red"></i>
+                    <textarea class="input" [(ngModel)]="desc" maxlength="200" placeholder="描述" (keyup)="makeUpdating()"></textarea>
+                </span>
+        </div>
+    </div>
+
+    <!-- 外部任务 -->
+    <div class="item" *ngIf="external">
+        <div class="item-col">
+            <span class="label">任务名称</span>
+            <span class="required-content">
+                    <i class="required-red">*</i>
+                    <input class="input" size="small" type="text" [(ngModel)]="jobName" placeholder="任务名称" (keyup)="makeUpdating()">
+                    <span class="input-error" *ngIf="errorType===1">请填写任务名称</span>
+                </span>
+        </div>
+        <div class="item-col">
+            <span class="label">系统名称</span>
+            <span class="line ">
+                    <span class="checked-select required-content">
+                        <i class="required-red">*</i>
+                        <span class="required-label" *ngIf="errorType===5">请选择系统名称</span>
+                        <select-component
+                            [option]="systemName"
+                            [options]="systemNames"
+                            [label]="'externalSystemName'"
+                            (callback)="chooseExterior($event,'systemName')"
+                            [position]="'bottom'"
+                            [placeholder]="'选择系统名称'"
+                            [size]="'small'"></select-component>
+                    </span>
+                </span>
+        </div>
+        <div class="item-col">
+            <span class="label">任务</span>
+            <span class="required-content">
+                    <i class="required-red">*</i>
+                    <input type="text"
+                           class="input"
+                           size="small"
+                           readonly
+                           (click)="chooseExterior($event,'checkedTreeTask')"
+                           [(ngModel)]="checkedTreeTask && checkedTreeTask.name"
+                           placeholder="请选择任务">
+                    <span class="required-label" *ngIf="errorType===6">请选择任务</span>
+                </span>
+        </div>
+
+        <div class="item-col line">
+            <span class="label">任务参数</span>
+            <span class="required-content">
+                    <i class="required-red"></i>
+                    <input type="text"
+                           class="input"
+                           size="small"
+                           (keyup)="makeUpdating()"
+                           [(ngModel)]="shellParameter"
+                           placeholder="任务参数">
+                </span>
+        </div>
+    </div>
+</div>

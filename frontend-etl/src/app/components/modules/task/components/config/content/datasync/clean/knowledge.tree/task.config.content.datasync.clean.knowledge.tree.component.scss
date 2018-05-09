@@ -1,0 +1,46 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+
+.tree-container {
+    float: left;
+    min-width: 100%;
+    position: relative;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    li {
+        width: 100%;
+        float: left;
+    }
+    .tree-title {
+        position: relative;
+        line-height: 29px;
+        cursor: pointer;
+        transition: $transitionAll;
+        &:hover {
+            background: #E0E0E0;
+        }
+        .delete-menu {
+            opacity: 0;
+            position: relative;
+            top: 2px;
+            transition: $transitionAll;
+        }
+        &:hover .delete-menu{
+            opacity: 1;
+        }
+        &.checked {
+            background: #EEEEEE;
+        }
+        .fold {
+            color: #FFAD49;
+            position: relative;
+            top: 1px;
+        }
+        .checkbox {
+            position: relative;
+            top: 3px;
+            margin-left: 2px;
+        }
+    }
+}

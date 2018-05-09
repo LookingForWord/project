@@ -1,0 +1,153 @@
+.container {
+    padding: 10px;
+    margin: 0;
+    width: auto;
+    height: auto;
+    //margin-right: 10px;
+    .common-table-box {
+        .common-table-body {
+            table {
+                :hover {
+                    background: none!important;
+                }
+                thead {
+                    width: 100%;
+                    tr>th {
+                        width: 8.8%;
+                        &:first-child {
+                            width: 9%;
+                        }
+                        &:last-child {
+                            width: 10%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .input-container {
+        width: 100%;
+    }
+    .required-content {
+        width:100%;
+        padding: 0;
+    }
+    .desc {
+        width: 100%!important;
+        padding: 0!important;
+        height: 150px;
+        overflow-y: auto;
+    }
+    .input-box {
+        width: 140px;
+    }
+    .input-info {
+        background-color: #C4E6FF;
+    }
+    .input-content {
+        width: 90%;
+        border:0;
+        text-align: center;
+        cursor: pointer;
+        background-color: #C4E6FF;
+        &:focus {
+            border-style:solid;
+            border-color: #03a9f4;
+            box-shadow: 0 0 15px #03a9f4;
+        }
+    }
+    .background-ereaser {
+        &:hover {
+            background: none !important;
+        }
+    }
+    .highlight {
+        color:red;
+    }
+    .page-box {
+        text-align: center;
+        span {
+            font-size: 14px;
+            color: rgba(28,150,212,1);
+            letter-spacing: 1px;
+            padding: 0 4px;
+            cursor: pointer;
+        }
+        .noPre {
+            cursor: not-allowed;
+            color: rgba(28,150,212,0.7);
+        }
+        .noNext {
+            cursor: not-allowed;
+            color: rgba(28,150,212,0.7);
+        }
+    }
+    .task-panel {
+        width: 400px;
+        position: fixed;
+        right: 0;
+        top: 60px;
+        bottom: 0;
+        background: #fff;
+        border-left: 1px solid black;
+        //overflow-y: auto;
+        box-shadow: -2px 0 2px 0 rgba(206,211,223,0.60);
+        .task-panel-title {
+            background: #F5F5F5;
+            border-bottom: 1px solid #CCDDEE;
+            height: 31px;
+            .tab {
+                display: inline-block;
+                span {
+                    float: left;
+                    width: 82px;
+                    line-height: 30px;
+                    text-align: center;
+                    color: #666;
+                    border-top: 2px solid transparent;
+                    border-left: 1px solid #CCDDEE;
+                    border-right: 1px solid #CCDDEE;
+                    cursor: pointer;
+                    &.checked {
+                        background: #fff;
+                        border-top-color: #4499EE;
+                        color: #333333;
+                        border-left: 0;
+                        border-right: 0;
+                    }
+                    &:first-child {
+                        border-left: 0;
+                    }
+                }
+            }
+            .close {
+                float: right;
+                margin-right: 10px;
+                cursor: pointer;
+                color: #666666;
+                margin-top: 2px;
+                &:hover {
+                    color: #FF3333;
+                }
+            }
+        }
+        .common-table-body {
+            table {
+                width: 100%;
+                thead {
+                    width: 100%;
+                    tr>th {
+                        text-align: center;
+                        width: 50%;
+                    }
+                    .middle {
+                        text-align: center!important;
+                    }
+                }
+            }
+        }
+    }
+    .common-table .common-table-box .common-table-body table tr td:nth-child(1) {
+        padding-left: 0px;
+    }
+}

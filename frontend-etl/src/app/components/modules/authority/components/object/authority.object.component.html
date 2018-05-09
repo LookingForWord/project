@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="tabs clearfix">
+        <span (click)="tabClick('menu')" [class.checked]="tabType==='menu'" authority="authority.object.menuManage">菜单管理</span>
+        <span (click)="tabClick('interfaces')" [class.checked]="tabType==='interfaces'" authority="authority.object.interfaceManage">接口管理</span>
+        <!--<span (click)="tabClick('data')" [class.checked]="tabType==='data'">数据管理</span>-->
+        <span (click)="tabClick('dataPermission')" [class.checked]="tabType==='dataPermission'" authority="authority.object.dataManage">数据对象管理</span>
+    </div>
+    <div *ngIf="checkBtnAuthority('authority.object.menuManage') ||
+            checkBtnAuthority('authority.object.interfaceManage') ||
+            checkBtnAuthority('authority.object.dataManage')">
+        <router-outlet></router-outlet>
+    </div>
+    <div *ngIf="!checkBtnAuthority('authority.object.menuManage') &&
+            !checkBtnAuthority('authority.object.interfaceManage') &&
+            !checkBtnAuthority('authority.object.dataManage')" class="no-authority">
+        亲!您还未添加该菜单对象下的权限哦!
+    </div>
+</div>

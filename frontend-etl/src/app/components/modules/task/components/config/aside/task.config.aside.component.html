@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="title" *ngIf="!showSearch">
+        <span class="pl3 pr3 new-folder" [tooltip]="'新增目录'" authority="task.config.addCataLog" (click)="addDirectory()">
+            <i class="iconfont icon-ico_folder_add"></i>
+        </span>
+        <span class="input-icon" position="left">
+            <input type="text"
+                   class="input"
+                   size="small"
+                   placeholder="搜索目录/任务"
+                   #search
+                   inputDebounce
+                   (debounceClick)="searchChange($event,search.value)"
+                   (keyup.enter)="searchClick(search.value)"
+                   (keyup)="searchClick(search.value)">
+            <span class="iconfont icon-ico_search_textfield"></span>
+        </span>
+        <!--<button class="btn search-btn" size="small" (click)="searchClick(search.value)">搜索</button>-->
+    </div>
+    <!--任务类型暂且注销-->
+    <!--<div class="types">-->
+        <!--<div class="task-work-flow line" [class.checked]="type==='work'" (click)="toggleFlowType('work')">-->
+            <!--<i class="iconfont icon-ico_task_work_flow"></i>-->
+            <!--<span>工作流任务</span>-->
+        <!--</div>-->
+        <!--<div class="task-point line" [class.checked]="type==='node'" (click)="toggleFlowType('node')">-->
+            <!--<i class="iconfont icon-ico_task_point"></i>-->
+            <!--<span>节点任务</span>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="tree-container" id="task-tree-container">
+        <div class="inner clearfix">
+            <task-config-tree-component
+                [flows]="flows"
+                [type]="flowType">
+            </task-config-tree-component>
+        </div>
+    </div>
+</div>

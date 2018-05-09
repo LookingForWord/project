@@ -1,0 +1,94 @@
+.container {
+    .task-panel-title {
+        background: #F5F5F5;
+        border-bottom: 1px solid #CCDDEE;
+        height: 31px;
+        .tab {
+            display: inline-block;
+            span {
+                float: left;
+                width: 82px;
+                line-height: 30px;
+                text-align: center;
+                color: #666;
+                border-top: 2px solid transparent;
+                border-left: 1px solid #CCDDEE;
+                border-right: 1px solid #CCDDEE;
+                cursor: pointer;
+                &.checked {
+                    background: #fff;
+                    border-top-color: #4499EE;
+                    color: #333333;
+                    border-left: 0;
+                    border-right: 0;
+                }
+                &:first-child {
+                    border-left: 0;
+                }
+            }
+        }
+        .close {
+            float: right;
+            margin-right: 10px;
+            cursor: pointer;
+            color: #666666;
+            margin-top: 2px;
+            &:hover {
+                color: #FF3333;
+            }
+        }
+    }
+    .task-panel-attribute {
+        padding-top: 14px;
+        height: calc(100% - 55px);
+        overflow-y: auto;
+        p, li {
+            padding-left: 35px;
+            color: #666666;
+            font-size: 12px;
+            line-height: 26px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        &.runLog {
+            overflow-y: auto;
+            ul {
+                li {
+                    overflow: unset;
+                    text-overflow: unset;
+                    white-space: normal;
+                    padding-left: 10px;
+                }
+            }
+
+        }
+    }
+
+    .task-panel-attribute .chart-box {
+        padding: 5px;
+        margin-top: 10px;
+        min-height: 480px;
+        height: auto;
+        > div {
+            border-top: 1px solid #CCDDEE;
+        }
+        .chart-header {
+            padding: 10px 0;
+            span {
+                display: inline-block;
+                font-size: 12px !important;
+                &.select {
+                    width: 150px;
+                    position: relative;
+                }
+                &.title {
+                    margin-right: 14px;
+                    font-size: 12px;
+                    color: #333333;
+                    padding-left: 14px;
+                }
+            }
+        }
+    }
+}

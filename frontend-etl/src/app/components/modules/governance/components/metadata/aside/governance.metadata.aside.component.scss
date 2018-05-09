@@ -1,0 +1,25 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+
+.container {
+    position: relative;
+    height: 100%;
+    .search-box {
+        padding-bottom: 5px;
+        padding-left: 6px;
+        border-bottom: 1px solid #CCDDEE;
+        .input-icon > .input{
+            width: 230px;
+        }
+        i {
+            color: #ffad49;
+        }
+    }
+    .tree-container {
+        height: 100%;
+        .inner {
+            height: 100%;
+            overflow: auto;
+        }
+    }
+}

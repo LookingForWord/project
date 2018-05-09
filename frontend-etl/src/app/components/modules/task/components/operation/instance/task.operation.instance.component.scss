@@ -1,0 +1,58 @@
+@import 'frontend-common/assets/styles/variable.scss';
+@import 'assets/styles/variable.scss';
+.container {
+    padding: 0;
+    height: calc(100% - 40px);
+    .tabs {
+        background: #F5F5F5;
+        border-bottom: 1px solid #CCDDEE;
+        span {
+            padding: 8px 20px;
+            text-align: center;
+            font-size: 14px;
+            border-top: 2px solid transparent;
+            border-right: 1px solid transparent;
+            border-left: 1px solid transparent;
+            color: #666;
+            position: relative;
+            transition: $transitionAll;
+            display: inline-block;
+            cursor: pointer;
+            float: left;
+            &:hover {
+                color: #333;
+            }
+            &:first-child {
+                &.checked {
+                    border-left-color: transparent;
+                }
+            }
+            &.checked {
+                background: #fff;
+                border-color: #CCDDEE;
+                border-top-color: #4499EE;
+                color: #333;
+                &:after {
+                    content: '';
+                    width: 100%;
+                    height: 1px;
+                    position: absolute;
+                    bottom: -1px;
+                    left: 0;
+                    background: #fff;
+                }
+            }
+        }
+    }
+    .task-panel {
+        width: 700px;
+        position: fixed;
+        right: 0;
+        top: 60px;
+        bottom: 0;
+        background: #fff;
+        border-left: 1px solid $borderColor;
+        //overflow-y: auto;
+        box-shadow: -2px 0 2px 0 rgba(206, 211, 223, 0.60);
+    }
+}

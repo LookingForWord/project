@@ -1,0 +1,250 @@
+@import 'frontend-common/assets/styles/variable';
+@import 'assets/styles/variable.scss';
+@import 'assets/styles/global.scss';
+
+.container {
+    height:100%;
+    position: relative;
+    .header-container {
+        border-bottom: 1px solid #CCDDEE;
+        background: #F5F5F5;
+        margin-bottom: 10px;
+        text-align: center;
+        height: 34px;
+        ul {
+            display: inline-block;
+        }
+        li {
+            float: left;
+            display: inline-block;
+            line-height: 33px;
+            cursor: pointer;
+            transition: $transitionAll;
+            padding: 0 10px;
+            &:hover {
+                background: #E0E0E0;
+            }
+            i {
+                color: #4499EE;
+            }
+            span {
+                color: #666;
+            }
+        }
+    }
+
+    .content {
+        padding: 10px 20px;
+        .row {
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            margin-bottom: 25px;
+            li {
+                display: inline-block;
+                float: left;
+                min-width: 390px;
+                &:first-child {
+                    margin-right: 10px;
+                }
+                .select-box {
+                    width: 243px;
+                }
+                // 必填项设置
+                .required-content {
+                    width: calc(100% - 10px);
+                    display: inline-block;
+                    padding-left: 10px;
+                    position: relative;
+                    .required-red {
+                        position: absolute;
+                        left: 0;
+                        top: 50%;
+                        margin-top: -7px;
+                        &.invisible {
+                            visibility: hidden;
+                        }
+                    }
+                    .required-label {
+                        color: #666666;
+                        letter-spacing: 1px;
+                        position: absolute;
+                        bottom: -18px;
+                        left: 13px;
+                        color: $redColor;
+                    }
+                }
+                > span {
+                    &:first-child {
+                        display: inline-block;
+                        width: 80px;
+                        text-align: right;
+                        color: #666666;
+                        position: relative;
+                        bottom: 2px;
+                    }
+                }
+                span.input-error{
+                    padding-left: 14px;
+                }
+                .input {
+                    width: 194px;
+                }
+                .input-error {
+                    bottom: -17px;
+                    font-size: 12px;
+                }
+            }
+        }
+        // 添加表
+        .add-table {
+            border-top: 1px solid #EEEEEE;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            padding: 20px 0;
+            .add-table-content {
+                .row {
+                    padding: 0;
+                    margin-bottom: 0;
+                    vertical-align: middle;
+                    ul li {
+                        width: auto;
+                        min-width: unset;
+                        margin-right: 10px;
+                        padding-left: 10px;
+                        span:first-child {
+                            margin-right: 10px;
+                        }
+                        .input-container.select-box {
+                            width: 150px;
+                            .required-content {
+                                padding-left: 0;
+                                width: 100%;
+                                i.required-red {
+                                    left: -10px;
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            .add-table-content:first-child {
+                padding-bottom: 25px;
+            }
+        }
+
+        .jsPlumb-container {
+            position: relative;
+            min-height: 100px;
+            padding-top: 20px;
+            .source, .target {
+                width: 262px;
+                padding: 0 5px;
+                border: 1px solid $borderColor;
+                border-top: 0;
+                position: absolute;
+                text-align: center;
+                color: $textDeepColor;
+                &.first {
+                    border-top: 1px solid $borderColor;
+                    background: #F5F5F5;
+                    color: $textNormalColor;
+                }
+                .name, .type {
+                    width: 50%;
+                    padding: 1px 0;
+                    display: inline-block;
+                    float: left;
+                    text-align: center;
+                }
+            }
+            .source {
+                left: 15%;
+            }
+            .target {
+                left: 59%;
+                .name {
+                    width: 100%;
+                }
+            }
+        }
+        .item-col {
+            margin-bottom: 20px;
+            color: #666;
+            &.info {
+                margin-bottom: 10px;
+            }
+            >span {
+                display: inline-block;
+                &:first-child {
+                    width: 60px;
+                    text-align: right;
+                }
+                &.s {
+                    width: 47px;
+                }
+                &.checked-select {
+                    width: 233px;
+                }
+                >span {
+                    &.checked-select {
+                        width: 233px;
+                    }
+                }
+            }
+            .number {
+                width: 100px;
+                display: inline-block;
+            }
+            .time-error {
+                position: absolute;
+                color: #FF3333;
+                font-size: 12px;
+                left: 14px;
+                bottom: -17px;
+            }
+        }
+    }
+
+    .runlog {
+        width: 100%;
+        height: 300px;
+        position: absolute;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background: #fff;
+        border-top: 1px solid $borderColor;
+        overflow-y: auto;
+        box-shadow: -2px 0 2px 0 rgba(206, 211, 223, 0.60);
+        .log-header {
+            height: 30px;
+            line-height: 30px;
+            text-align: right;
+            i {
+                font-size: 18px;
+                color: #FF3333;
+                margin-right: 14px;
+                cursor: pointer;
+            }
+        }
+        ul {
+            height: calc(100% - 35px);
+            overflow-y: auto;
+            li {
+                line-height: 26px;
+                padding-left: 15px;
+            }
+        }
+    }
+}
+:host ::ng-deep datapicker-component {
+    .datepicker .view .title {
+        span .iconfont {
+            position: static;
+        }
+    }
+}

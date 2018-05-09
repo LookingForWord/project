@@ -1,0 +1,45 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+.container {
+    height: 100%;
+    * {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+    }
+    .left-tree {
+        float: left;
+        width: 282px;
+        overflow: auto;
+        height: 100%;
+        padding: 10px 0;
+        border-right: 1px solid #CCDDEE;
+        .tree-container {
+            height: 100%;
+            overflow: auto;
+            .iconfont {
+                color: #4499EE;
+            }
+        }
+    }
+    .right-table {
+        padding: 10px;
+        margin-left:10px;
+        height: calc(100% - 20px);
+        overflow: auto;
+        .common-table-body {
+            height: 100%;
+            //border: 1px solid #666666;
+            table {
+                tr {
+                    td:first-child, th:first-child {
+                        padding-left: 0;
+                    }
+                    //th {
+                    //    width: 20%;
+                    //}
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,74 @@
+@import 'assets/styles/variable';
+@import 'frontend-common/assets/styles/variable';
+
+.container {
+    width: 354px;
+    padding: 25px 0;
+    .row {
+        margin-bottom: 25px;
+        ul li {
+            float: inherit;
+            display: block;
+            margin-right: 0;
+        }
+    }
+    >div {
+        .item {
+            display: inline-block;
+            float: left;
+            margin-right: 10px;
+            .input-container {
+                width: 279px;
+                .input {
+                    width: 240px;
+                }
+                textarea.input {
+                    width: 263px;
+                    height: 90px;
+                    vertical-align: top;
+                }
+
+            }
+            > span {
+                &:first-child {
+                    display:inline-block;
+                    width: 60px;
+                    text-align: right;
+                    color: #666666;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+    .row:last-child {
+        .input-container .required-red {
+            top: 10px;
+        }
+    }
+    .input-error {
+        position: absolute;
+        color: #FF3333;
+        font-size: 12px;
+        bottom: -17px;
+        left: 10px;
+    }
+    .row .item > .input-container > .date-box {
+        position: relative;
+        display: inline-block;
+        .iconfont {
+            position: absolute;
+            right: 10px;
+            top: 6px;
+            &:hover {
+                color: #4499EE;
+            }
+        }
+        > .input {
+            width: 263px;
+        }
+        .input:hover + i.iconfont, .input:focus + i.iconfont, .input:active + i.iconfont {
+            color: #4499EE;
+        }
+    }
+}
+

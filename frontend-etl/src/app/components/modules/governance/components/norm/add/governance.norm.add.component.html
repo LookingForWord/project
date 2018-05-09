@@ -1,0 +1,145 @@
+<div class="container add-norm-modal">
+    <div class="norm-box" *ngIf="showType==='norm'">
+        <div class="row line" *ngIf="type !== 'sql'">
+            <ul>
+                <li>
+                    <span>指标名称</span>
+                    <span class="input-container">
+                        <span class="required-content">
+                            <i class="required-red">*</i>
+                            <input type="text" class="input" maxlength="20" [class.error]="errorType===1" [(ngModel)]="checkName" placeholder="请输入指标名称" [disabled]="type === 'detail'">
+                            <span class="required-label" *ngIf="errorType===1">{{error}}</span>
+                        </span>
+                    </span>
+                </li>
+                <li class="line">
+                    <span>指标类型</span>
+                    <span class="input-container source-type">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                         <select-component
+                             [option]="checkType"
+                             [options]="checkTypes"
+                             [placeholder]="'请选择指标类型'"
+                             [disabled]="type === 'detail'"
+                             [downHeight]="180"
+                             (callback)="selectChange($event, 'checkType')">
+                         </select-component>
+                        <span class="required-label" *ngIf="errorType===2">{{error}}</span>
+                    </span>
+                </span>
+                </li>
+            </ul>
+        </div>
+        <div class="row line"  *ngIf="type !== 'sql'">
+            <li class="line">
+                <span>数据源类型</span>
+                <span class="input-container source-type">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <select-component
+                            [option]="dsType"
+                            [options]="dsTypes"
+                            [placeholder]="'请选择数据源类型'"
+                            [disabled]="type === 'detail'"
+                            [downHeight]="180"
+                            (callback)="selectChange($event, 'dsType')">
+                        </select-component>
+                        <span class="required-label" *ngIf="errorType===3">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+            <li class="line">
+                <span>数据源名称</span>
+                <span class="input-container source-type">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <select-component
+                            [option]="dataSourceName"
+                            [options]="dataSourceNames"
+                            [placeholder]="'请选择数据源名称'"
+                            [disabled]="type === 'detail'"
+                            [label]="'dsName'"
+                            [search]="true"
+                            (callback)="selectChange($event, 'dataSourceName')">
+                        </select-component>
+                        <span class="required-label" *ngIf="errorType===4">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+        </div>
+        <div class="row line">
+            <ul>
+                <li class="line">
+                    <span>结果类型</span>
+                    <span class="input-container source-type">
+                        <span class="required-content">
+                            <i class="required-red">*</i>
+                             <select-component
+                                 [placeholder]="'请选择结果类型'"
+                                 [option]="resultType"
+                                 [options]="resultTypes"
+                                 [disabled]="type === 'detail' || showPreviewResult"
+                                 [downHeight]="180"
+                                 (callback)="selectChange($event, 'resultType')">
+                             </select-component>
+                            <span class="required-label" *ngIf="errorType===5">{{error}}</span>
+                        </span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="row line">
+            <ul>
+                <li class="desc-box">
+                    <span class="des">sql语句</span>
+                    <span class="input-container" >
+                        <span class="required-content">
+                            <i class="required-red">*</i>
+                            <textarea class="desc input tag-des" maxlength="100" [disabled]="type === 'detail'" [(ngModel)]="normSql" placeholder="请输入sql语句"></textarea>
+                            <span class="required-label" *ngIf="errorType===6">{{error}}</span>
+                        </span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="view-sql" *ngIf="showType==='viewSql'">
+        <!--<div class="back-box">-->
+            <!--<button class="back btn" (click)="goBack()">-->
+                <!--<i class="icon iconfont icon-ico_back"></i><span>返回</span>-->
+            <!--</button>-->
+        <!--</div>-->
+        <h5>请为占位符赋值</h5>
+        <div class="row line" *ngIf="type !== 'sql'">
+            <ul>
+                <li *ngFor="let item of placeArr">
+                    <span>{{item.oldValue}}</span>
+                    <span class="input-container">
+                        <span class="required-content">
+                            <i class="required-red">*</i>
+                            <input type="text" class="input" maxlength="20" [class.error]="item.errorType" [(ngModel)]="item.newValue" placeholder="替换值">
+                            <span class="required-label" *ngIf="item.errorType">{{item.error}}</span>
+                        </span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div *ngIf="showType==='norm' && showplaceholder && showPreviewResult && previewList.length" class="previw-result">
+        <h5>sql预览结果:</h5>
+        <table-component>
+            <thead class="table-component-thead">
+                <tr>
+                    <th [width]="thWidth + '%'" *ngFor="let key of keys">{{key}}</th>
+                </tr>
+            </thead>
+            <tbody class="table-component-tbody">
+                <tr *ngFor="let item of previewList; let i=index">
+                    <td *ngFor="let key of keys" [title]="item[key]">{{item[key] || ''}}</td>
+                </tr>
+            </tbody>
+        </table-component>
+    </div>
+</div>

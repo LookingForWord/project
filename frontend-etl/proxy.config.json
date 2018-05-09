@@ -1,0 +1,55 @@
+{
+    "_/etl": "新的接口，把系统的名称暴露出去",
+    "/etl/*": {
+        "target": "http://192.168.0.122:90",
+        "secure": false,
+        "pathRewrite": {"^/etl" : "/etl"},
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/rest/dbgm/*": {
+        "target": "http://192.168.0.122:90",
+        "secure": false,
+        "pathRewrite": {"^/rest" : "/rest"},
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "_/data-serve/": "数据服务 冯正荣",
+    "/data-serve/*": {
+        "target": "http://192.168.0.122:90",
+        "secure": false,
+        "pathRewrite": {"^/data-serve" : "/data-serve"},
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/rest/*": {
+        "target": "http://192.168.0.122:90",
+        "secure": false,
+        "pathRewrite": {"^/rest" : "/rest"},
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/butler/*": {
+        "target": "http://192.168.0.122:90",
+        "secure": false,
+        "pathRewrite": {"^/butler" : "/butler"},
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+
+    "_/dispatch-platform/ws": "调度系统 websocket",
+    "/dispatch-platform/ws": {
+        "target": "http://192.168.0.122:90/dispatch-platform/ws",
+        "secure": false,
+        "ws": true
+    },
+
+    "_/dispatch-platform/*": "调度模块 api",
+    "/dispatch-platform/*": {
+        "target": "http://192.168.0.122:90",
+        "secure": false,
+        "pathRewrite": {"^/dispatch-platform" : "/dispatch-platform"},
+        "changeOrigin": true,
+        "logLevel": "debug"
+    }
+}

@@ -1,0 +1,33 @@
+<div class="tree-container" >
+    <ul #titleContainer  >
+        <li *ngFor="let flow of menuList;let i = index;">
+            <div class="tree-title"
+                 [class.checked]="flow.checked"
+                 (click)="checkedClick(flow, $event)"
+                 [style.paddingLeft.px]="index*20 + 10"
+                 [attr.index]="i">
+                <i class="iconfont" *ngIf="flow.type === 'menu'"
+                    [class.icon-ico_folder_open]="flow.expand"
+                    [class.icon-ico_folder_close]="!flow.expand"
+                    (click)="checkedClick(flow, $event)"></i>
+                <span *ngIf="flow.type === 'button'">
+                    <i class="iconfont icon-ico_knowledge_point task-point"></i>
+                </span>
+                <span>{{flow.menuName}}</span>
+                <span class="delete-menu" (click)="deleteCatalog(flow, $event)" *ngIf="(flow.pid !== '0')&&(type === 'menulist') && checkBtnAuthority('task.knowledge.delete')">
+                    <i class="iconfont icon-ico_delete"></i>
+                </span>
+            </div>
+            <div class="child-content" *ngIf="flow.children&&flow.children.length&&flow.expand" [@slideUpDwon]>
+                <task-knowledge-tree-component
+                    [menuList]="flow.children"
+                    [index]="index+1"
+                    [type]="type"
+                    [parent]="flow"
+                    [menuAll]="menuAll">
+                </task-knowledge-tree-component>
+            </div>
+        </li>
+    </ul>
+</div>
+

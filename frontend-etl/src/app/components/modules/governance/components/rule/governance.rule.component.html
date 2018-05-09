@@ -1,0 +1,62 @@
+<div class="container" >
+    <div  *ngIf="!noCheck">
+        <table-component>
+            <div class="table-component-search line">
+                <button class="btn line primary" [class.disabled]="noCheck" authority="governance.rule.add" (click)="newRule()">
+                    <i class="iconfont mr5 icon-ico_add"></i><span>创建规则</span>
+                </button>
+                <div class="input-icon ml5" position="left">
+                    <input type="text" class="input" #search placeholder="支持规则名称和规则说明搜索" inputDebounce (debounceClick)="searchChange($event)" [(ngModel)]="keyWord"  (keyup.enter)="getAllRuleContentList(0)">
+                    <i class="icon iconfont icon-ico_search_textfield"></i>
+                </div>
+                <button class="btn ml5" (click)="getAllRuleContentList(0)">搜索</button>
+            </div>
+            <div class="table-component-title">
+                <span class="title">
+                    <i class="iconfont icon-ico_rule mr8"></i>规则列表
+                </span>
+                <span class="record">共{{totalcount}}条记录</span>
+            </div>
+            <thead class="table-component-thead">
+            <tr>
+                <th width="14%">规则名称</th>
+                <th width="10%">作用对象</th>
+                <th width="15%">函数名</th>
+                <th width="13%">创建人</th>
+                <th width="14%">创建时间</th>
+                <th width="19%">规则描述</th>
+                <th width="15%">操作</th>
+            </tr>
+            </thead>
+            <tbody class="table-component-tbody">
+                <tr *ngFor="let item of list">
+                    <td>{{item.ruleNamecn}}</td>
+                    <td>{{item.actOn==='metadata' ? '元数据': '数据'}}</td>
+                    <td>{{item.funcName}}</td>
+                    <td>{{item.createUser}}</td>
+                    <td>{{item.createTime | date:'YYYY-MM:DD HH:mm:ss'}}</td>
+                    <td title="{{item.ruleDesc}}">{{item.ruleDesc&& (item.ruleDesc | substr) }}</td>
+                    <td>
+                        <button class="btn icon only"  tooltip="查看" position="top" (click)="detailClick(item.id)">
+                            <i class="icon iconfont icon-ico_view"></i>
+                        </button>
+                        <button class="btn icon only"  tooltip="编辑" position="top" *ngIf="item.ruleType==='NONDEFINED'" authority="governance.rule.edit" (click)="updateClick(item.id)">
+                            <i class="icon iconfont icon-ico_edit"></i>
+                        </button>
+                        <button class="btn icon only"  tooltip="删除" position="top" *ngIf="item.ruleType==='NONDEFINED'" authority="governance.rule.delete" (click)="deleteClick(item.id)">
+                            <i class="icon iconfont icon-ico_delete"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot class="table-component-tfoot">
+            <tr *ngIf="noData">
+                <td colspan="7">暂无数据...</td>
+            </tr>
+            </tfoot>
+            <div class="table-component-page">
+                <multi-pagination-component [pagenow]="pageNum" [pagesize]="pageSize" [totalcount]="totalcount" (onPageChange)="doPageChange($event)"></multi-pagination-component>
+            </div>
+        </table-component>
+    </div>
+</div>

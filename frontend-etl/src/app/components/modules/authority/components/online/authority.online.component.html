@@ -1,0 +1,58 @@
+<div class="container">
+    <div>
+        <table-component>
+            <div class="table-component-search line">
+                <div class="search-bar line">
+                    <div  class="input-icon ml10" position="left">
+                        <i class="icon iconfont icon-ico_search_textfield"></i>
+                        <input type="text" class="input" #search [(ngModel)]="keyWord" inputDebounce (debounceClick)="searchChange($event)" (keyup.enter)="getOnlineUsers(1)" placeholder="支持用户名搜索">
+                    </div>
+                    <button class="back line btn ml4" (click)="getOnlineUsers(1)">
+                    搜索
+                    </button>
+                </div>
+            </div>
+            <div class="table-component-title">
+                <span class="title">
+                    <i class="iconfont icon icon-ico_online_user mr8"></i><span>在线用户列表</span>
+                </span>
+                <span class="record">共{{totalcount}}条记录</span>
+            </div>
+            <thead class="table-component-thead">
+            <tr>
+                <th width="18%">用户ID</th>
+                <th width="18%">用户名</th>
+                <th width="18%">登录系统</th>
+                <th width="18%">登录时间</th>
+                <th width="18%">登录时长</th>
+                <th width="10%">操作</th>
+            </tr>
+            </thead>
+            <tbody class="table-component-tbody">
+                <tr *ngFor="let user of userList">
+                    <td>{{user.userId}}</td>
+                    <td>{{user.userCnName}}</td>
+                    <td>{{user.module}}</td>
+                    <td >{{user.loginTime}}</td>
+                    <td>{{user.longinMins}}</td>
+                    <td>
+                        <button class="btn icon only"  tooltip="查看" position="top" (click)="detailClick(user.userId)">
+                        <i class="icon iconfont icon-ico_view"></i>
+                        </button>
+                        <button class="btn icon only"  tooltip="下线" position="top" (click)="offlineClick(user.userId)" authority="authority.online.offline">
+                        <i class="icon iconfont icon-ico_block"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot class="table-component-tfoot">
+            <tr *ngIf="noDataType">
+                <td colspan="6">暂无数据...</td>
+            </tr>
+            </tfoot>
+            <div class="table-component-page">
+                <multi-pagination-component [pagenow]="pagenow" [pagesize]="pagesize" [totalcount]="totalcount" (onPageChange)="doPageChange($event)"></multi-pagination-component>
+            </div>
+        </table-component>
+    </div>
+</div>

@@ -1,0 +1,208 @@
+<!-- 触发器侧边栏 start -->
+<div class="panel-container" [@slideLeft]>
+    <div class="panel">
+        <div class="task-panel-title clearfix">
+            <div class="tab">
+                <span [class.checked]="triggerTab==='0'" (click)="togglePanelTab('0')">定时</span>
+                <span [class.checked]="triggerTab==='1'" (click)="togglePanelTab('1')">一次</span>
+            </div>
+            <div class="close" (click)="cancle()">
+                <i class="iconfont icon-ico_tab_close"></i>
+            </div>
+        </div>
+        <div class="item" *ngIf="triggerTab==='0'">
+            <div class="item-title">
+                <span>
+                    <i class="iconfont icon-ico_trigger"></i>触发器
+                </span>
+            </div>
+            <div class="item-col line">
+                <span class="s">频率</span>
+                <span class="checked-select required-content">
+                        <i class="required-red">*</i>
+                        <select-component
+                            [option]="checkedDispatch"
+                            [options]="dispatchs"
+                            (callback)="checkedDispatchCallback($event)"
+                            [position]="'bottom'"
+                            [size]="'small'"></select-component>
+                    </span>
+            </div>
+            <div class="item-col line" *ngIf="checkedDispatch&&checkedDispatch.value==='week'">
+                <span class="s">每周</span>
+                <span class="checked-select required-content">
+                        <i class="required-red">*</i>
+                        <span class="required-label" *ngIf="errorType===3">请选择具体周</span>
+                        <multi-select-component
+                            [option]="checkedWeek"
+                            [options]="weeks"
+                            (callback)="checkedTimeCallback($event, 'checkedWeek')"
+                            [position]="'bottom'"
+                            [placeholder]="'选择周'"
+                            [size]="'small'">
+                        </multi-select-component>
+                    </span>
+            </div>
+            <div class="item-col line" *ngIf="checkedDispatch&&checkedDispatch.value==='month'">
+                <span class="s">每月</span>
+                <span class="checked-select required-content">
+                        <i class="required-red">*</i>
+                        <span class="required-label" *ngIf="errorType===4">请选择具体月</span>
+                        <multi-select-component
+                            [option]="checkedMonth"
+                            [options]="months"
+                            (callback)="checkedTimeCallback($event, 'checkedMonth')"
+                            [position]="'bottom'"
+                            [placeholder]="'选择月'"
+                            [size]="'small'">
+                        </multi-select-component>
+                    </span>
+            </div>
+            <div class="item-col" *ngIf="checkedDispatch&&(checkedDispatch.value==='day'||checkedDispatch.value==='week'||checkedDispatch.value==='month')">
+                <span class="s">时间</span>
+                <span class="line">
+                        <span class="number required-content">
+                            <i class="required-red">*</i>
+                            <span class="required-label" *ngIf="errorType===5">选择小时</span>
+                            <select-component
+                                [option]="checkedHour"
+                                [options]="hours"
+                                (callback)="checkedTimeCallback($event, 'checkedHour')"
+                                [position]="'bottom'"
+                                [placeholder]="'小时'"
+                                [size]="'small'"></select-component>
+                        </span>
+                        <span class="desc">时</span>
+                        <span class="number required-content">
+                            <i class="required-red">*</i>
+                            <span class="required-label" *ngIf="errorType===6">选择分钟</span>
+                            <select-component
+                                [option]="checkedMinute"
+                                [options]="minutes"
+                                (callback)="checkedTimeCallback($event, 'checkedMinute')"
+                                [position]="'bottom'"
+                                [placeholder]="'分钟'"
+                                [size]="'small'"></select-component>
+                        </span>
+                        <span class="desc">分</span>
+                    </span>
+            </div>
+            <div class="item-col" *ngIf="checkedDispatch&&(checkedDispatch.value==='minute'||checkedDispatch.value==='hour')">
+                <span class="s">开始</span>
+                <span class="line">
+                        <span class="number required-content">
+                            <i class="required-red">*</i>
+                            <span class="required-label" *ngIf="errorType===7">选择小时</span>
+                            <select-component
+                                [option]="checkedStartHour"
+                                [options]="startHours"
+                                (callback)="checkedStartHourCallback($event)"
+                                [position]="'bottom'"
+                                [placeholder]="'小时'"
+                                [size]="'small'"></select-component>
+                        </span>
+                        <span class="desc">时</span>
+                        <span class="number required-content">
+                            <i class="required-red">*</i>
+                            <select-component
+                                [option]="checkedStartMinute"
+                                [options]="startMinutes"
+                                [disabled]="true"
+                                [position]="'bottom'"
+                                [placeholder]="'分钟'"
+                                [size]="'small'"></select-component>
+                        </span>
+                        <span class="desc">分</span>
+                    </span>
+            </div>
+            <div class="item-col" *ngIf="checkedDispatch&&(checkedDispatch.value==='minute'||checkedDispatch.value==='hour')">
+                <span class="s">结束</span>
+                <span class="line" [style.position]="'relative'">
+                    <span class="number required-content">
+                        <i class="required-red">*</i>
+                        <span class="required-label" *ngIf="errorType===8">选择小时</span>
+                        <select-component
+                            [option]="checkedEndHour"
+                            [options]="endHours"
+                            (callback)="checkedEndHourCallback($event)"
+                            [position]="'bottom'"
+                            [placeholder]="'小时'"
+                            [size]="'small'"></select-component>
+                    </span>
+                    <span class="desc">时</span>
+                    <span class="number required-content">
+                        <i class="required-red">*</i>
+                        <select-component
+                            [option]="checkedEndMinute"
+                            [options]="endMinutes"
+                            [disabled]="true"
+                            [position]="'bottom'"
+                            [placeholder]="'分钟'"
+                            [size]="'small'"></select-component>
+                    </span>
+                    <span class="desc">分</span>
+                    <span class="time-error" *ngIf="errorType===13">结束时间不能早于开始时间</span>
+                </span>
+            </div>
+            <div class="item-col" *ngIf="checkedDispatch&&checkedDispatch.value==='minute'">
+                <span class="s">间隔</span>
+                <span class="line">
+                    <span class="checked-select required-content">
+                        <i class="required-red">*</i>
+                        <span class="required-label" *ngIf="errorType===9">请选择间隔时间</span>
+                        <select-component
+                            [option]="checkedIntervalMinute"
+                            [options]="intervalMinutes"
+                            (callback)="checkedIntervalCallback($event, 'checkedIntervalMinute')"
+                            [position]="'bottom'"
+                            [placeholder]="'间隔时间'"
+                            [size]="'small'"></select-component>
+                    </span>
+                </span>
+            </div>
+            <div class="item-col" *ngIf="checkedDispatch&&checkedDispatch.value==='hour'">
+                <span class="s">间隔</span>
+                <span class="line ">
+                    <span class="checked-select required-content">
+                        <i class="required-red">*</i>
+                        <span class="required-label" *ngIf="errorType===10">请选择间隔时间</span>
+                        <select-component
+                            [option]="checkedIntervalHour"
+                            [options]="intervalHours"
+                            (callback)="checkedIntervalCallback($event, 'checkedIntervalHour')"
+                            [position]="'bottom'"
+                            [placeholder]="'间隔时间'"
+                            [size]="'small'"></select-component>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="item" *ngIf="triggerTab==='1'">
+            <div class="item-title">
+                <span>
+                    <i class="iconfont icon-ico_trigger"></i>触发器
+                </span>
+            </div>
+            <div class="item-col">
+                <span class="s">时间</span>
+                <span class="checked-select required-content">
+                    <i class="required-red">*</i>
+                    <span class="required-label" *ngIf="errorType===1">请选择具体时间</span>
+                    <span class="required-label" *ngIf="errorType===2">不能早于当前时间</span>
+                    <input type="text" class="input moment"
+                           [(ngModel)]="oneceDate"
+                           placeholder="选择时间"
+                           datepicker
+                           size="small"
+                           [options]="customOptions"
+                    >
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="panel-btn">
+        <button class="btn" (click)="cancle()">取消</button>
+        <button class="btn primary" (click)="save()">保存</button>
+    </div>
+</div>
+<!-- 触发器侧边栏 end -->

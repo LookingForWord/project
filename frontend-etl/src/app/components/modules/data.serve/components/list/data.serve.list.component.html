@@ -1,0 +1,127 @@
+<div class="ontainer">
+    <div class="title">
+        <div class="title-content">
+            <span class="left">
+                <i class="iconfont icon-leixing"></i>
+                <span>服务列表</span>
+            </span>
+            <span class="right">
+                <button class="btn line primary ml8" (click)="turnToAddServe()" authority="data.serve.addServe">
+                    <i class="iconfont mr5 icon-ico_add"></i><span>新增服务</span>
+                </button>
+                <button class="btn ml8" (click)="turnToApply()" authority="data.serve.applyServe">
+                    <span>申请服务</span>
+                </button>
+                <button class="btn ml8" (click)="turnToUserApplication()" authority="data.serve.myApplycation">
+                    <span>我的申请</span>
+                    <!--<i class="icon-num">8</i>-->
+                </button>
+                <button class="btn ml8" (click)="turnToAudit()" authority="data.serve.auditServe">
+                    <span>审批服务</span>
+                </button>
+            </span>
+        </div>
+    </div>
+    <div class="content">
+        <div class="content-header clearfix">
+            <div class="left">
+                <div class="apply">
+                    <i class="iconfont icon-leixing"></i>
+                    <span>
+                        <select-component
+                            [option]="checkedService"
+                            [options]="services"
+                            [background]="'#fff'"
+                            (callback)="chooseServe($event)"
+                        ></select-component>
+                    </span>
+                </div>
+                <div class="service" *ngIf="tags && tags.length">
+                    <i class="iconfont icon-ico_tags_manage"></i>
+                    <span *ngFor="let tag of tags" [class.checked]="tag.checked" (click)="chooseTag(tag)">{{tag.name}}</span>
+                </div>
+            </div>
+            <div class="right">
+                <div class="input-icon" position="left">
+                    <span class="iconfont icon-ico_search_textfield"></span>
+                    <input type="text" class="input"
+                    [(ngModel)]="keyWord"
+                    inputDebounce
+                    (debounceClick)="searchChange($event)"
+                    placeholder="根据服务名称和描述查询">
+                </div>
+                <!-- <input type="text" class="input" [(ngModel)]="keyWord" inputDebounce (debounceClick)="searchChange($event)" placeholder="根据服务名称、所属系统等查询"> -->
+                <span *ngFor="let item of sortList">
+                    {{item.name}}
+                    <i class="esc" (click)="sort(item, 'asc')" [class.checked]="item.asc"></i>
+                    <i class="desc" (click)="sort(item, 'desc')" [class.checked]="item.desc"></i>
+                </span>
+            </div>
+        </div>
+        <div class="content-list">
+            <ul>
+                <li class="clearfix" *ngFor="let item of serveList;let i=index;">
+                    <div class="left">
+                        <div class="li_top">
+                            <span>
+                                <i class="iconfont icon-ico_start start" *ngIf="item.status===0" tooltip="正常"></i>
+                                <i class="iconfont icon-ico_pause pause" *ngIf="item.status===1" tooltip="暂停使用"></i>
+                                <i class="iconfont icon-ico_block failure" *ngIf="item.status===2" tooltip="已失效"></i>
+                                <span class="li_title" (click)="turnToDetail(item)">{{item.name}}</span>
+                            </span>
+                            <span class="url">{{item.url}}</span>
+                        </div>
+                        <div class="list_middle">
+                            <span>
+                                <i class="iconfont icon-leixing"></i>
+                                <span class="li_title">{{item.systemName}}</span>
+                            </span>
+                            <span>
+                                <i class="iconfont icon-leixing"></i>
+                                <span class="li_title">{{item.type===0?'公共服务':'个人服务'}}</span>
+                            </span>
+                            <span *ngIf="item.serveTags">
+                                <i class="iconfont icon-ico_tags_manage"></i>
+                                <span class="li_title" *ngFor="let tag of item.serveTags;let i=index">{{tag.tagName + '、'}}</span>
+                            </span>
+                            <span>
+                                <i class="iconfont icon-ico_user"></i>
+                                <span class="li_title">{{item.createUserCnname}}</span>
+                            </span>
+                            <span>
+                                <i class="iconfont icon-ico_datapick"></i>
+                                <span class="li_title">创建日期:{{item.createTime}}</span>
+                            </span>
+                            <span>
+                                <i class="iconfont icon-ico_impact_analysis"></i>
+                                <span class="li_title">{{item.accessCount}}</span>
+                            </span>
+                        </div>
+                        <div class="list_bottom">
+                            <span>
+                                <i class="iconfont icon-ico_menu_object"></i>
+                                <span class="li_title">{{item.serveDesc}}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <span (click)="turnToAddServe(item)" authority="data.serve.editServe">编辑</span>
+                        <span (click)="turnToServiceCall(item)" authority="data.serve.serviceCall">服务调用</span>
+                    </div>
+                </li>
+                <li *ngIf="serveList && serveList.length < 1" style="text-align: center;line-height: 40px">
+                    暂无数据...
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="common-table-footer" *ngIf="serveList && serveList.length > 0">
+            <multi-pagination-component [pagenow]="pageNum"
+                                  [pagesize]="pageSize"
+                                  [totalcount]="totalCount"
+                                  (onPageChange)="doPageChange($event)">
+            </multi-pagination-component>
+        </div>
+    </div>
+</div>

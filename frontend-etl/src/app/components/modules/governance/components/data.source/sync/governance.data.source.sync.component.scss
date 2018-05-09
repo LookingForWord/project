@@ -1,0 +1,62 @@
+@import 'assets/styles/global.scss';
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+.container {
+    width: 700px;
+    padding: 25px 0 ;
+    min-height: 290px;
+    max-height: 500px;
+    overflow: auto;
+    // 树形
+    .row {
+        ul li {
+            &.item {
+                width: 100%;
+                >span {
+                    &:first-child {
+                        display: inline-block;
+                        width: 80px;
+                        text-align: right;
+                        //margin-right: 5px;
+                        color: #666666;
+                        font-size: 14px;
+                    }
+                }
+                .input-container {
+                    .required-content {
+                        .input {
+                            width: 578px;
+                        }
+                    }
+                }
+            }
+            &.item .tree-container-parent {
+                position: relative;
+                display: inline-block;
+                margin-left: 10px;
+                .tree-container {
+                    overflow: auto;
+                    display: inline-block;
+                    width: 592px;
+                    border: 1px solid $borderColor;
+                    border-top: 0;
+                    max-height: 250px;
+                    .inner {
+                        width:auto;
+                        display: inline;
+                        min-width: 100%;
+                        white-space: nowrap;
+                    }
+                }
+                .required {
+                    color: $redColor;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    padding-left: 0;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,169 @@
+@import 'frontend-common/assets/styles/variable';
+@import 'assets/styles/variable.scss';
+.container {
+    height:100%;
+    position: relative;
+    .header-container {
+        border-bottom: 1px solid #CCDDEE;
+        background: #F5F5F5;
+        margin-bottom: 10px;
+        text-align: center;
+        height: 34px;
+        ul {
+            display: inline-block;
+        }
+        li {
+            float: left;
+            display: inline-block;
+            line-height: 33px;
+            cursor: pointer;
+            transition: $transitionAll;
+            padding: 0 10px;
+            &:hover {
+                background: #E0E0E0;
+            }
+            i {
+                color: #4499EE;
+            }
+            span {
+                color: #666;
+            }
+        }
+    }
+    .tabbar {
+        margin: 0 0 10px 10px;
+        border-bottom: 1px solid #CCDDEE;
+        overflow: hidden;
+        width: 100%;
+        ul {
+            width: 600%;
+            border-bottom: 1px solid $borderColor;
+        }
+        li {
+            display: inline-block;
+            min-width: 80px;
+            max-width: 160px;
+            float: left;
+            position: relative;
+            cursor: pointer;
+            background: #F5F5F5;
+            border-top: 1px solid $borderColor;
+            border-right: 1px solid $borderColor;
+            padding: 3px 22px 3px 25px;
+            color: #666;
+            &:first-child {
+                border-left: 1px solid $borderColor;
+            }
+            &:hover {
+                background: #fff;
+                transition: $transitionAll;
+            }
+            &.checked {
+                background: #fff;
+                color: #333;
+                border-top-color: #4499EE;
+                &:before {
+                    content: '';
+                    width: 100%;
+                    height: 1px;
+                    background: #4499EE;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    display: block;
+                }
+                &:after {
+                    content: '';
+                    width: 100%;
+                    height: 1px;
+                    background: #fff;
+                    position: absolute;
+                    bottom: -1px;
+                    left: 0;
+                    display: block;
+                    z-index: 1;
+                }
+            }
+            .icon-project-work, .icon-project-node {
+                position: absolute;
+                left: 5px;
+                top: 0;
+            }
+            .icon-project-work {
+                color: #4499EE;
+            }
+            .icon-project-node {
+                color: #3EDBCE;
+            }
+            .icon-delete {
+                position: absolute;
+                right: 5px;
+                top: 4px;
+                font-size: 12px;
+                &.updating {
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 100%;
+                    background: rgba(0, 0, 0, .5);
+                    display: inline-block;
+                    top: 9px;
+                    right: 5px;
+                }
+            }
+        }
+    }
+    .task-items-content {
+        top: 71px;
+        bottom: 0;
+        position: absolute;
+        width: 100%;
+    }
+
+    .task-asides-content {
+        width: 300px;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        background: #fff;
+    }
+
+    .runlog {
+        width: 100%;
+        height: 300px;
+        position: absolute;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        //background: #fff;
+        background: rgba(0, 0, 0, .8);
+        border-top: 1px solid $borderColor;
+        overflow-y: auto;
+        box-shadow: -2px 0 2px 0 rgba(206, 211, 223, 0.60);
+        .log-header {
+            height: 30px;
+            line-height: 30px;
+            text-align: right;
+            span {
+                float: left;
+                color: #fff;
+                margin-left: 14px;
+                font-size: 14px;
+            }
+            i {
+                font-size: 18px;
+                color: #FF3333;
+                margin-right: 14px;
+                cursor: pointer;
+            }
+        }
+        ul {
+            height: calc(100% - 35px);
+            overflow-y: auto;
+            li {
+                line-height: 26px;
+                padding-left: 15px;
+                color: #fff;
+            }
+        }
+    }
+}

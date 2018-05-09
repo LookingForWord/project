@@ -1,0 +1,30 @@
+<div class="container">
+
+    <div class="clearfix row" >
+        <ul class="clearfix">
+            <li class="item">
+                <span >选择目录</span>
+                <span class="input-container node-type ">
+                    <span class="required-content">
+                        <i class="required-red"></i>
+                        <input type="text" class="input" [title]="dircPath" [(ngModel)]="dircPath" [disabled]="'true'" >
+                    </span>
+                </span>
+            </li>
+            <li class="item">
+                <span></span>
+                <div class="tree-container-parent">
+                    <div class="tree-container">
+                        <div class="inner">
+                            <governance-catalog-tree-component
+                                [list]="flows"
+                                [modal]="modal"
+                                [type]="status">
+                            </governance-catalog-tree-component>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

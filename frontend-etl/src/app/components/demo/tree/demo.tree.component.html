@@ -1,0 +1,39 @@
+<div class="tree-container">
+    <ul>
+        <li *ngFor="let tree of tress; let i = index; ">
+            <div class="tree-title"
+                 [style.paddingLeft.px]="index*20 + 10">
+                <span (click)="toggleExpandClick(tree)">
+                    <i class="iconfont icon-ico_folder_close icon-fold" *ngIf="!tree.expand"></i>
+                    <i class="iconfont icon-ico_folder_open icon-fold" *ngIf="tree.expand"></i>
+                </span>
+                <span  (click)="toggleCheckedClick(tree, $event)">
+                     <i class="icon iconfont "
+                        [class.icon-checkbox_normal]="!tree.checked "
+                        [class.icon-checkbox_checked_hover]="tree.checked "
+                        [class.icon-checkbox_partialcheck]="tree.some&&!tree.checked "
+                     ></i>
+
+                    <!--<i class="icon iconfont icon-checkbox_normal"-->
+                       <!--*ngIf="!tree.checked "-->
+                    <!--&gt;</i>-->
+                    <!--<i class="icon iconfont icon-checkbox_checked_hover"-->
+                       <!--*ngIf="tree.checked "-->
+                    <!--&gt;</i>-->
+                    <!--<input type="checkbox"  [(ngModel)]="tree.checked" (click)="toggleCheckedClick(tree, $event)">-->
+                </span>
+                <i class="icon iconfont icon-ico_move_up" (click)="up(tressAll, tress, tree)"></i>
+                <i class="icon iconfont icon-ico_move_down" (click)="down(tressAll, tress, tree)"></i>
+                <span>{{getName(tree)}}</span>
+            </div>
+            <div class="child-content" *ngIf="tree.children&&tree.children.length&&tree.expand" [@slideUpDwon] style="overflow: hidden">
+                <demo-tree-component
+                    [tress]="tree.children"
+                    [index]="index+1"
+                    [treeParent]="tree"
+                    [tressAll]="tressAll">
+                </demo-tree-component>
+            </div>
+        </li>
+    </ul>
+</div>

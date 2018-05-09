@@ -1,0 +1,215 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+.container {
+    height: 100%;
+    position: relative;
+    min-width: 1200px;
+    .left-tree {
+        float: left;
+        width: 282px;
+        overflow: auto;
+        height: 100% ;
+        padding: 0 0 10px 0;
+        border-right: 1px solid #CCDDEE;
+        .header-container {
+            //width: auto;
+            height: 43px;
+            background: #F5F5F5;
+            border-bottom: 1px solid #CCDDEE;
+            .tag, .file {
+                width: 50%;
+                height: 100%;
+                float: left;
+                text-align: center;
+                line-height: 36px;
+                cursor: pointer;
+                border-top: 2px solid transparent;
+                color: #666;
+                &.checked {
+                    color: #333;
+                    border-top-color: #4499EE;
+                    background: #fff;
+                    cursor: default;
+                }
+            }
+            .file {
+                position: relative;
+                &:after {
+                    width: 1px;
+                    background: #CCDDEE;
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: -2px;
+                    bottom: 1px;
+                }
+            }
+        }
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        .tree-container {
+            height: calc(100% - 49px);
+            margin-top: 5px;
+            overflow: auto;
+            .iconfont {
+                color: #4499EE;
+            }
+            > div {
+                height: 100%;
+            }
+            .tag-box {
+                width: auto;
+                .items {
+                    float: left;
+                    padding: 5px 8px;
+                    margin: 5px ;
+                    max-width: 256px;
+                    color: #333;
+                    cursor: pointer;
+                    background: #DBE7F3;
+                    border-radius: 4px;
+                    &.checked {
+                        background: #4499EE;
+                        color: #fff;
+                    }
+                    &:hover {
+                        background: #4499EE;
+                        color: #fff;
+                    }
+                    &.all {
+                        margin: 10px ;
+                        display: block;
+                        background-color:  #f3ecdb;
+                        &.checked {
+                            background-color:#ee9944 ;
+                        }
+                        &:hover {
+                            background: #ee9944;
+                            color: #fff;
+                        }
+                    }
+                    &.undistributed {
+                        clear: both;
+                        background-color: #edecfd;
+                        &.checked {
+                            background-color:  #4d44ee;
+                        }
+                        &:hover {
+                            background: #4d44ee;
+                            color: #fff;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+    .right-table {
+        //padding: 10px 0;
+        margin-left:10px;
+        height: 100% ;
+        overflow: auto;
+        .datasource {
+            width: 150px;
+        }
+    }
+    .rule-check-box {
+        padding: 15px 10px 15px 10px;
+        .back {
+            position: relative;
+            top: 1px;
+            margin-bottom: 15px;
+            >i{
+                margin-top: -3px;
+                font-size: 14px;
+                transform: rotate(180deg);
+            }
+        }
+        .row {
+            margin-bottom: 25px;
+            li {
+                float: left;
+                width: 42%;
+                >span {
+                    display: inline-block;
+                    width: calc(100% - 70px);
+                    &:first-child {
+                        width: 60px;
+                    }
+                    &.input-container {
+                        >.input {
+                            width: calc(100% - 10px);
+                        }
+                    }
+
+
+                    .input {
+                        height: 36px;
+                    }
+                }
+                &:last-child {
+                    width: 16%;
+                }
+                &.check-result {
+                    width: 100%;
+                    >span {
+                        &:first-child {
+                            position: relative;
+                            top: -100px;
+                        }
+                    }
+                    .input-container {
+                        .input {
+                            height: 120px;
+                            width: calc(100% );
+                        }
+                    }
+                }
+                // 必填项设置
+                .field-rule-value {
+                    width: calc(100% - 30px);
+                    display: inline-block;
+                    padding-left: 10px;
+                    position: relative;
+                    .required-red {
+                        position: absolute;
+                        left: 0;
+                        top: 50%;
+                        margin-top: -7px;
+                        &.invisible {
+                            visibility: hidden;
+                        }
+                    }
+                    .link{
+                        position: absolute;
+                        left: 10px;
+                        line-height: 36px;
+                        top: 0;
+                        display: inline-block;
+
+                    }
+                    .input {
+                        height: 36px;
+                        position: relative;
+                        left: 38px;
+                    }
+                    .required-label {
+                        position: absolute;
+                        bottom: -18px;
+                        left: 40px;
+                        color: $redColor;
+                    }
+                }
+            }
+        }
+    }
+    .analysis-box {
+        height: 100%;
+        display: none;
+        &.show {
+            display: block;
+        }
+    }
+}
+

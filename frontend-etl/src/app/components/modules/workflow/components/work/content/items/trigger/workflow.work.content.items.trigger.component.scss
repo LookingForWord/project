@@ -1,0 +1,127 @@
+.panel-container {
+    height: 100%;
+    width: 300px;
+    //overflow-y: auto;
+    background: #fff;
+    .panel {
+        .task-panel-title {
+            background: #F5F5F5;
+            border-bottom: 1px solid #CCDDEE;
+            height: 31px;
+            margin-bottom: 10px;
+            .tab {
+                display: inline-block;
+                span {
+                    float: left;
+                    width: 82px;
+                    line-height: 30px;
+                    text-align: center;
+                    color: #666;
+                    border-top: 2px solid transparent;
+                    border-left: 1px solid #CCDDEE;
+                    border-right: 1px solid #CCDDEE;
+                    cursor: pointer;
+                    &.checked {
+                        background: #fff;
+                        border-top-color: #4499EE;
+                        color: #333333;
+                        border-left: 0;
+                        border-right: 0;
+                    }
+                    &:first-child {
+                        border-left: 0;
+                    }
+                }
+            }
+            .close {
+                float: right;
+                margin-right: 15px;
+                cursor: pointer;
+                color: #666666;
+                margin-top: 2px;
+                &:hover {
+                    color: #FF3333;
+                }
+            }
+        }
+        &.show {
+            transform: translateX(0);
+        }
+        .item {
+            margin-bottom: 25px;
+            padding: 0 5px;
+            .item-title {
+                margin-bottom: 15px;
+                font-size: 14px;
+                color: #666;
+                //font-weight: bold;
+                .iconfont {
+                    color: #4499EE;
+                }
+            }
+            .item-col {
+                margin-bottom: 20px;
+                color: #666;
+                &.info {
+                    margin-bottom: 10px;
+                }
+                >span {
+                    display: inline-block;
+                    &:first-child {
+                        width: 60px;
+                        text-align: right;
+                    }
+                    &.s {
+                        width: 47px;
+                    }
+                    &.checked-select {
+                        width: 204px;
+                    }
+                    &.principal {
+                        width: 216px;
+                    }
+                    >span {
+                        &.checked-select {
+                            width: 204px;
+                        }
+                    }
+                }
+                .date-container {
+                    width: auto;
+                }
+                .year {
+                    width: 70px;
+                }
+                .number {
+                    width: 80px;
+                    display: inline-block;
+                }
+                .desc {
+                    position: relative;
+                    top: -2px;
+                }
+                .moment {
+                    width: 190px;
+                }
+                .givenTime {
+                    display: inline-block;
+                    width: 65px;
+                }
+
+                .time-error {
+                    position: absolute;
+                    color: #FF3333;
+                    font-size: 12px;
+                    left: 14px;
+                    bottom: -17px;
+                }
+            }
+        }
+    }
+    .panel-btn {
+        text-align: center;
+        .btn {
+            margin-right: 10px;
+        }
+    }
+}

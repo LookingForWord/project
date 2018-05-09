@@ -1,0 +1,256 @@
+<div class="container">
+    <div class="title">
+        <div class="title-content">
+            <span class="left" (click)="goBack()">
+                <i class="iconfont icon-leixing"></i>
+                <span>服务列表</span>
+            </span>
+            <i class="iconfont icon-ico_arrow_right jt"></i>
+            <span class="left">
+                <span>{{isAddServe ? '新增服务' : '编辑服务'}}</span>
+            </span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="row clearfix">
+            <ul class="clearfix">
+                <li>
+                    <span>服务名称</span>
+                    <span class="input-container">
+                        <span class="required-content">
+                            <i class="required-red">*</i>
+                            <input type="text" class="input" [(ngModel)]="serveName" minlength="2" maxlength="20"
+                            [class.error]="errorType==='serveName'"  placeholder="服务名称">
+                            <span class="input-error" *ngIf="errorType === 'serveName'">{{error}}</span>
+                        </span>
+                    </span>
+                </li>
+                <li>
+                    <span>服务状态</span>
+                    <span class="input-container select-box">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <select-component
+                            [option]="checkedStatus"
+                            [options]="statusArray"
+                            [position]="'bottom'"
+                            [placeholder]="'选择状态'"
+                            [class.error]="errorType=== 'checkedStatus'"
+                            (callback)="checkStatus($event)"></select-component>
+                        <span class="input-error" *ngIf="errorType === 'checkedStatus'">{{error}}</span>
+                    </span>
+                </span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="row clearfix">
+            <ul class="clearfix">
+                <li>
+                    <span [class.bug-mulsel]="checkedTag.length > 0">标签</span>
+                    <span class="input-container select-box">
+                        <span class="required-content">
+                            <multi-select-component
+                                [option]="checkedTag"
+                                [options]="tags"
+                                (callback)="checkTag($event)"
+                                [position]="'bottom'"
+                                [class.error]="errorType===3"
+                                [placeholder]="'选择标签'">
+                            </multi-select-component>
+                            <span class="input-error" *ngIf="errorType === 3">{{error}}</span>
+                        </span>
+                    </span>
+                </li>
+                <!--<li>-->
+                    <!--<span>服务类型</span>-->
+                    <!--<span class="input-container select-box">-->
+                        <!--<span class="required-content">-->
+                            <!--<i class="required-red">*</i>-->
+                            <!--<select-component-->
+                                <!--[option]="checkedServeType"-->
+                                <!--[options]="serveTypes"-->
+                                <!--(callback)="checkType($event)"-->
+                                <!--[position]="'bottom'"-->
+                                <!--[placeholder]="'选择服务类别'">-->
+                            <!--</select-component>-->
+                        <!--</span>-->
+                    <!--</span>-->
+                <!--</li>-->
+            </ul>
+        </div>
+        <div class="row clearfix">
+            <ul class="clearfix">
+                <li>
+                    <span>服务说明</span>
+                    <span class="input-container textarea">
+                        <span class="required-content">
+                            <!-- <i class="required-red">*</i> -->
+                            <textarea type="text" class="input" [class.error]="errorType===4"
+                                      [(ngModel)]="remark" placeholder="服务说明"></textarea>
+                            <span class="input-error" *ngIf="errorType === 4">{{error}}</span>
+                        </span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <!--&lt;!&ndash; 控制编辑状态 &ndash;&gt;-->
+        <!--<div class="row controlEditState">-->
+            <!--<button class="btn mr14" [class.primary]="!isDisabled.addTable" size="small" (click)="isDisabled.addTable=!isDisabled.addTable">添加表</button>-->
+            <!--<button class="btn " [class.primary]="!isDisabled.editSql"  size="small" (click)="isDisabled.editSql=!isDisabled.editSql">自定义sql</button>-->
+        <!--</div>-->
+
+        <!-- 添加表 -->
+        <div class="add-table" *ngIf="!isDisabled.addTable">
+            <div class="add-title">
+                添加表：
+            </div>
+            <div class="add-table-content">
+                <!-- 选择表-->
+                <div class="row clearfix">
+                    <ul class="clearfix">
+                        <li>
+                            <span class="input-container select-box">
+                                <span class="required-content">
+                                    <i class="required-red">*</i>
+                                    <select-component
+                                        [option]="checkedSys"
+                                        [options]="sysArray"
+                                        [position]="'bottom'"
+                                        [placeholder]="'选择系统'"
+                                        [class.error]="errorType===5"
+                                        (callback)="checkSys($event)"></select-component>
+                                    <span class="input-error" *ngIf="errorType === 5" style="padding-left: 0">{{error}}</span>
+                                </span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="input-container select-box">
+                                <span class="required-content">
+                                    <i class="required-red">*</i>
+                                    <select-component
+                                        [option]="checkedDb"
+                                        [options]="dbArray"
+                                        [position]="'bottom'"
+                                        [placeholder]="'选择数据库'"
+                                        [class.error]="errorType===6"
+                                        [disabled]="!checkedSys"
+                                        (callback)="checkDb($event)"></select-component>
+                                    <span class="input-error" *ngIf="errorType === 6" style="padding-left: 0">{{error}}</span>
+                                </span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="input-container select-box">
+                                <span class="required-content">
+                                    <i class="required-red">*</i>
+                                    <select-component
+                                        [option]="checkedTable"
+                                        [options]="tableArray"
+                                        [position]="'bottom'"
+                                        [placeholder]="'选择表'"
+                                        [disabled]="!checkedDb"
+                                        [class.error]="errorType===7"
+                                        (callback)="checkTable($event)"></select-component>
+                                    <span class="input-error" *ngIf="errorType === 7" style="padding-left: 0">{{error}}</span>
+                                </span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 选择字段 (左边列表，右边结果)-->
+                <div class="row clearfix check-column" *ngIf="checkedTable">
+                    <!-- 左边 -->
+                    <div class="common-table">
+                        <div class="common-table-box">
+                            <div class="common-table-body">
+                                <table>
+                                    <thead>
+                                        <tr >
+                                            <th colspan='3'  [style.textAlign]="'center'" >{{checkedTable.tableName}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tbody">
+                                        <tr *ngFor="let item of columnArray;let i = index;" >
+                                            <td width="25%">
+                                                <span class="checkbox" >
+                                                   <input type="checkbox" [id]="'checkbox_col'+i" [(ngModel)]="item.checked" (click)="checkCol(item, $event)">
+                                                    <label [for]="'checkbox_col'+i"></label>
+                                                </span>
+                                            </td>
+                                            <td width="35%" (click)="setColRange(item)" >{{item.columnName}}</td>
+                                            <td width="40%" (click)="setColRange(item)" >{{item.columnComment || '/'}}</td>
+                                        </tr>
+                                        <tr *ngIf="columnArray.length < 1">
+                                            <td colspan='3' [style.textAlign]="'center'">暂无数据...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 右边 -->
+                    <div class="common-table">
+                        <div class="common-table-box">
+                            <div class="common-table-body">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th colspan='2'  [style.textAlign]="'center'" >结果集</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tbody">
+                                        <ng-template ngFor let-item [ngForOf]="columnArray">
+                                            <tr *ngIf="item.checked">
+                                                <td width="150px">{{checkedTable.tableName}}</td>
+                                                <td >{{item.columnName}}</td>
+                                            </tr>
+                                        </ng-template>
+                                        <!-- <tr *ngFor="let item of columnArray;let i = index;"
+                                            [style.display]="item.checked ? 'table-row': 'none'">
+                                            <td width="150px">{{checkedTable.tableName}}</td>
+                                            <td >{{item.columnName}}</td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 自定义sql -->
+        <div class="add-table">
+            <div class="add-title">
+                SQL语句：<button class="btn ml20" [class.primary]="!isDisabled.editSql"  size="small" (click)="isDisabled.editSql=!isDisabled.editSql">自定义sql</button>
+            </div>
+            <div class="add-table-content">
+                <div class="row clearfix sql">
+                    <ul>
+                        <li>
+                            <span class="input-container textarea">
+                                <span class="required-content">
+                                    <i class="required-red" style="">*</i>
+                                    <textarea type="text" class="input" [class.error]="errorType===4"
+                                    [disabled]="isDisabled.editSql"
+                                    [(ngModel)]="sqlStatement" placeholder="SQL语句"></textarea>
+                                    <span class="input-error" *ngIf="errorType === 8">{{error}}</span>
+                                </span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-box">
+            <button class="btn primary mr14" (click)="addData('add')" *ngIf="isAddServe">确定</button>
+            <button class="btn primary mr14" (click)="addData('edit')" *ngIf="!isAddServe">保存</button>
+            <button class="btn" (click)="goBack()">取消</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+@import 'assets/styles/variable';
+@import 'frontend-common/assets/styles/variable';
+
+.container {
+    width: 500px;
+    padding: 25px 0;
+
+    input[type='text'],textarea {
+        width: 374px;
+    }
+    textarea {
+        height: 90px;
+        vertical-align: top;
+    }
+    .row {
+        margin-bottom: 25px;
+        ul li {
+            float: inherit;
+            display: block;
+            margin-right: 0;
+        }
+    }
+    >div {
+        .item {
+            display: inline-block;
+            float: left;
+            margin-right: 10px;
+            .desc {
+                width: 300px;
+                height: 60px;
+            }
+            > span {
+                &:first-child {
+                    display:inline-block;
+                    width: 80px;
+                    text-align: right;
+                    margin-right: 5px;
+                    color: #666666;
+                    font-size: 14px;
+                }
+                &.node-type {
+                    width: 390px;
+                }
+            }
+        }
+    }
+    .input-error {
+        position: absolute;
+        color: #FF3333;
+        font-size: 12px;
+        bottom: -17px;
+        left: 10px;
+    }
+}
+
+.tree-container {
+    position: relative;
+    display: inline-block;
+    bottom: 0;
+    .tree-inner {
+        overflow: auto;
+        display: inline-block;
+        width: 388px;
+        border: 1px solid $borderColor;
+        border-top: 0;
+        max-height: 150px;
+        margin-left: 10px;
+        .inner {
+            width:auto;
+            display: inline;
+            min-width: 100%;
+            white-space: nowrap;
+        }
+    }
+    .tree-required {
+        padding-left:10px;
+        color: $redColor;
+    }
+}
+

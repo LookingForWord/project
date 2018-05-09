@@ -1,0 +1,139 @@
+<div class="container">
+    <!-- 编辑目录、工作流 -->
+    <div *ngIf="type === 'editWorkflow' || type === 'editDirectory'">
+        <div class="row clearfix">
+            <ul>
+                <li class="item">
+                    <span>{{type === 'editWorkflow' ? '工作流' : '目录'}}名称</span>
+                    <span class="input-container node-type required-content">
+                    <i class="required-red">*</i>
+                    <input type="text" class="input" [(ngModel)]="dircName" maxlength="20" placeholder="名称">
+                    <span class="input-error" *ngIf="errorObj.dircName">请填写{{type === 'editWorkflow' ? '工作流' : '目录'}}名称</span>
+                </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 创建目录 -->
+    <div *ngIf="type === 'addDirectory'">
+        <div class="row clearfix">
+            <ul>
+                <li class="item">
+                    <span>目录名称</span>
+                    <span class="input-container node-type required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" [(ngModel)]="dircName" maxlength="20" placeholder="名称">
+                        <span class="input-error" *ngIf="errorObj.dircName">请填写目录名称</span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix" >
+            <ul>
+                <li class="item">
+                    <span >选择目录</span>
+                    <span class="input-container node-type required-content">
+                        <i class="required-red">{{type === 'addDirectory' ? '' : '*'}}</i>
+                        <input type="text" class="input" [(ngModel)]="dircPath" [disabled]="'true'" >
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix" >
+            <ul>
+                <li class="item">
+                    <span>&nbsp;</span>
+                    <div class="tree-container">
+                        <div class="tree-inner">
+                            <div class="inner">
+                                <workflow-work-aside-tree-component
+                                    [type]="'add'"
+                                    [workflows]="menuList"
+                                    [allWorkflows]="allMenuList"
+                                    [index]="menuIndex">
+                                </workflow-work-aside-tree-component>
+                            </div>
+                        </div>
+                        <span class="input-error" *ngIf="errorObj.dircPath">请选择目录</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 创建工作流 -->
+    <div *ngIf="type === 'addWorkflow'">
+        <div class="row clearfix">
+            <ul>
+                <li class="item">
+                    <span>工作流名称</span>
+                    <span class="input-container node-type required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" [(ngModel)]="dircName" maxlength="20" placeholder="名称">
+                        <span class="input-error" *ngIf="errorObj.dircName">请填写工作流名称</span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <!--<div class="row clearfix">-->
+            <!--<ul>-->
+                <!--<li class="item">-->
+                    <!--<span>工作流类型</span>-->
+                    <!--<span class="input-container node-type required-content">-->
+                    <!--<i class="required-red">*</i>-->
+                    <!--<select-component-->
+                        <!--[option]="menuType"-->
+                        <!--[options]="menuTypes"-->
+                        <!--(callback)="nodeTypeChecked($event)">-->
+                    <!--</select-component>-->
+                    <!--<span class="input-error" *ngIf="errorObj.type">请选择工作流类型</span>-->
+                <!--</span>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <div class="row clearfix">
+            <ul>
+                <li class="item">
+                    <span>描述</span>
+                    <span class="input-container node-type required-content">
+                    <i class="required-red"></i>
+                    <span class="required-label" *ngIf="errorObj.remark">请填写描述</span>
+                    <textarea class="input" [(ngModel)]="remark" maxlength="120" placeholder="备注"></textarea>
+                </span>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix" >
+            <ul>
+                <li class="item">
+                    <span >选择目录</span>
+                    <span class="input-container node-type required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" [(ngModel)]="dircPath" [disabled]="'true'" >
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix" >
+            <ul>
+                <li class="item">
+                    <span>&nbsp;</span>
+                    <div class="tree-container">
+                        <div class="tree-inner">
+                            <div class="inner">
+                                <workflow-work-aside-tree-component
+                                    [type]="'add'"
+                                    [workflows]="menuList"
+                                    [allWorkflows]="allMenuList"
+                                    [index]="menuIndex">
+                                </workflow-work-aside-tree-component>
+                            </div>
+                        </div>
+                        <span class="input-error" *ngIf="errorObj.dircPath">请选择目录</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+

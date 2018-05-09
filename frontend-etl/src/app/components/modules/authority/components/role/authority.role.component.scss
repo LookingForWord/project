@@ -1,0 +1,157 @@
+@import 'frontend-common/assets/styles/variable.scss';
+.container {
+    padding: 10px 0 10px 0;
+    margin: 0;
+    width: auto;
+    height: auto;
+    .left-table {
+        float: left;
+        width: 350px;
+        overflow: auto;
+        height: 100%;
+        margin-top: 10px;
+        .common-table-box {
+            padding: 0;
+            .common-table-body {
+                table {
+                    tbody {
+                        tr{
+                            &.active {
+                                background-color: rgba(185, 193, 220, 0.7);
+                            }
+                            >td> {
+                                button {
+                                    display: none;
+                                }
+                            }
+                            &:hover {
+                                >td> {
+                                    button {
+                                        display: inline-block;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+    .right-content {
+        margin-left:10px;
+        height: 100%;
+        overflow: auto;
+        margin-top: 10px;
+        .header-container {
+            height: 35px;
+            padding: 2px 0;
+            border-top: 1px solid #CCDDEE;
+            border-bottom: 1px solid #CCDDEE;
+            background: #F5F5F5;
+            .btn {
+                color: $textNormalColor;
+                font-size: 14px;
+            }
+            .iconfont {
+                color: $backgroundColor;
+            }
+        }
+        .tab {
+
+            background: #F5F5F5;
+            border-bottom: 1px solid #CCDDEE;
+            span {
+                padding: 8px 20px;
+                text-align: center;
+                font-size: 14px;
+                border-top: 2px solid transparent;
+                border-right: 1px solid rgba(204, 221, 238, 0);
+                border-left: 1px solid rgba(204, 221, 238, 0);
+                color: #666;
+                position: relative;
+                transition: $transitionAll;
+                display: inline-block;
+                cursor: pointer;
+                float: left;
+                &:hover {
+                    color: #333;
+                }
+                &:first-child {
+                    &.checked {
+                        border-left-color: transparent;
+                    }
+                }
+                &.active {
+                    background: #fff;
+                    border-color: #4499EE;
+                    color: #333;
+                    border-right: 1px solid #CCDDEE;
+                    border-left: 1px solid #CCDDEE;
+                    &.department {
+                        border-left: 1px solid transparent;
+                    }
+                    &:after {
+                        content: '';
+                        width: 100%;
+                        height: 1px;
+                        position: absolute;
+                        bottom: -1px;
+                        left: 0;
+                        background: #fff;
+                    }
+                }
+            }
+
+        }
+        .tree-box {
+            width: 100%;
+            margin-right: 0;
+            &.data {
+                width: calc(100% - 10px);
+                padding: 10px 0 0 10px;
+            }
+            > span {
+                &:first-child {
+                    width: 100%;
+                    text-align: left;
+                    margin-right: 0;
+                    //position: relative;
+                    //top: -220px;
+                    //left: 0;
+                }
+                .required-red {
+                    top: 16px;
+                }
+                .tree {
+                    width: 698px;
+                    max-width: 698px;
+                    overflow: auto;
+                    height: 240px;
+                    display: inline-block;
+                    border-bottom-left-radius: 4px;
+                    border-bottom-right-radius: 4px;
+                    //border-radius: 4px;
+                    border: 1px solid #CCDDEE;
+                    &.error {
+                        border: 1px solid #FF3333;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.data-permission {
+    position: absolute;
+    right: 0;
+    left: 349px;
+    bottom: 0;
+    top: 137px;
+}
+// 修改子组件的样式
+:host ::ng-deep authority-object-data-permission-component  {
+    .container {
+        top: 0;
+    }
+}

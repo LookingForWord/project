@@ -1,0 +1,48 @@
+<div class="container">
+    <div>
+        <div class="row clearfix">
+            <ul>
+                <li class="item">
+                    <span>名称</span>
+                    <span class="input-container node-type required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" [(ngModel)]="dircName" maxlength="20" placeholder="名称">
+                        <span class="input-error" *ngIf="errorType===1">{{error}}</span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix" >
+            <ul>
+                <li class="item">
+                    <span >选择目录</span>
+                    <span class="input-container node-type required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" [(ngModel)]="dircPath" [disabled]="'true'" >
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix" >
+            <ul>
+                <li class="item">
+                    <span>&nbsp;</span>
+                    <div class="tree-container">
+                        <div class="tree-inner">
+                            <div class="inner">
+                                <governance-norm-audit-aside-tree-component
+                                    [type]="'add'"
+                                    [workflows]="menuList"
+                                    [allWorkflows]="allMenuList"
+                                    [index]="menuIndex">
+                                </governance-norm-audit-aside-tree-component>
+                            </div>
+                        </div>
+                        <span class="input-error" *ngIf="errorType===2">请选择目录</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+

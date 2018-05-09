@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="row clearfix">
+        <ul class="clearfix ">
+            <li *ngIf="status=== 'addRule' ||  status === 'infoRule' || status === 'editRule'">
+                <span>规则名称</span>
+                <span class="input-container" >
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text"
+                           [class.error]="errorType===1"
+                           class="input"
+                           [(ngModel)]="ruleName"
+                           maxlength="20"
+                           [disabled] = "status === 'infoRule'"
+                           placeholder="请输入规则名称">
+                        <span class="input-error" *ngIf="errorType === 1">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row clearfix">
+        <ul>
+            <li>
+                <span>作用对象</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                         <span class="select-box">
+                            <select-component
+                                [placeholder]="'选择作用对象'"
+                                [option]="checkedObj"
+                                [options]="objList"
+                                [disabled]="status === 'infoRule'"
+                                (callback)="selectObjChange($event)">
+                            </select-component>
+                             <span class="input-error" *ngIf="errorType === 2">{{error}}</span>
+                         </span>
+                    </span>
+
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row clearfix" >
+        <ul class="clearfix parent">
+            <li class="desc-box mb2">
+                <span>正则</span>
+                <span class="input-container" >
+                    <span class="required-content">
+                        <i class="required-red" style="top: 15px">*</i>
+                        <textarea class="desc input"  maxlength="100" [disabled] = "status === 'infoRule'" [(ngModel)]="regText" placeholder="请输入正则表达式"></textarea>
+                        <span class="required-label" *ngIf="errorType === 2">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+            <li class="desc-box">
+                <span>规则描述</span>
+                <span class="input-container" >
+                    <span class="required-content">
+                        <i class="required-red"></i>
+                        <textarea class="desc input"  maxlength="100" [disabled] = "status === 'infoRule'" [(ngModel)]="ruleDesc" placeholder="描述"></textarea>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

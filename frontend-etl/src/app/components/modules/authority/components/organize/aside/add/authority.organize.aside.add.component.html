@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="row clearfix">
+        <ul class="clearfix organize">
+            <li *ngIf="type==='addCompany' || type==='editCompany' || type === 'headOffice'">
+                <span>公司名称</span>
+                <span class="input-container" [class.form-error]="errorObj.companyError">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text"
+                           class="input"
+                           [(ngModel)]="company"
+                           maxlength="10"
+                           placeholder="公司名称2—10位">
+                        <span class="input-error" *ngIf="errorObj.companyError">请填写2—10位公司名称</span>
+                    </span>
+                </span>
+            </li>
+            <li *ngIf="type==='addDepartment' || type==='editDepartment'">
+                <span>部门名称</span>
+                <span class="input-container" [class.form-error]="errorObj.departmentError">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text"
+                               class="input"
+                               [(ngModel)]="department"
+                               maxlength="10"
+                               placeholder="部门名称2—10位">
+                        <span class="input-error" *ngIf="errorObj.departmentError">请填写2—10位部门名称</span>
+                    </span>
+                </span>
+            </li>
+            <li class="not-required" *ngIf="type !== 'upload'">
+                <span>负责人</span>
+                <span class="input-container">
+                    <span class="select-box">
+                        <select-component
+                            [placeholder]="'负责人'"
+                            [option]="leader"
+                            [options]="leaderArr"
+                            [clear]="true"
+                            (callback)="selectChange($event,'leader')">
+                        </select-component>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row clearfix" *ngIf="type !== 'headOffice'">
+        <ul class="clearfix parent">
+            <li [attr.innerHTML]="" class="checked-tree">
+                <span>{{(type==='addDepartment' || type==='editDepartment') ? '上级部门' : '上级公司'}}</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <i class="required-red"><span *ngIf="type!=='addCompany'">*</span></i>
+                        <div [attr.innerHTML]="parentOrganize.name" [class.disabled]="disabled" (click)="changeToggle()">{{parentOrganize.name}}</div>
+                        <span class="input-error" *ngIf="">请选择{{(type==='addDepartment' || type==='editDepartment') ? '上级部门' : '上级公司'}}</span>
+                        <i class="iconfont icon-ico_arrow_down jt" [class.open]="toggleTree"></i>
+                    </span>
+                    <div class="tree-box" *ngIf="toggleTree">
+                        <authority-organize-tree-component
+                            [list] ="list"
+                            [type]="'org'"
+                        ></authority-organize-tree-component>
+                    </div>
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

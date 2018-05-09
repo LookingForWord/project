@@ -1,0 +1,53 @@
+@import 'frontend-common/assets/styles/variable.scss';
+
+.container {
+    height: 100%;
+    padding: 10px 10px 30px 10px;
+    overflow: auto;
+    .row {
+        margin-bottom: 10px;
+        ul>li{
+            width: 50%;
+            float: left;
+            .title {
+                display: block;
+                font-size: 22px;
+                //font-weight: 600;
+            }
+            span {
+                display: inline-block;
+            }
+        }
+    }
+    .slot-header{}
+    .demo-select {
+        display: inline-block;
+        width: 216px;
+    }
+    .jsplumb-container {
+        padding: 20px;
+        height: 125px;
+        position: relative;
+        .point {
+            border: 1px solid $backgroundColor;
+            border-top: 0;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            padding: 3px 5px;
+            position: absolute;
+            left: 0;
+            &.first {
+                border-top: 1px solid $backgroundColor;
+            }
+            &.right {
+                left: 300px;
+            }
+        }
+    }
+    .input-container {
+        .input-error {
+            color: #FF3333;
+        }
+    }
+}

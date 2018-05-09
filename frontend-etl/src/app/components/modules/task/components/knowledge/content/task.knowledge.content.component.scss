@@ -1,0 +1,85 @@
+@import 'frontend-common/assets/styles/variable';
+@import 'assets/styles/variable.scss';
+
+.container {
+    height:100%;
+    position: relative;
+    .header-container {
+        height: 34px;
+        border-bottom: 1px solid #CCDDEE;
+        background: #F5F5F5;
+        .btn {
+            color: $textNormalColor;
+            font-size: 12px;
+        }
+        .iconfont {
+            color: $backgroundColor;
+        }
+    }
+    .task-content {
+        position: absolute;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        top: 35px;
+        //overflow-y: auto;
+        min-height: calc(100% - 35px);
+        .content {
+            position: relative;
+            display: inline-block;
+            left: 30px;
+            top: 30px;
+            background: #FFFDF3;
+            border: 1px solid #EEE7CC;
+            box-shadow: 0 2px 2px 0 rgba(223, 220, 206, .6);
+            border-radius: 4px;
+            padding: 10px;
+            width: 216px;
+            height: 38px;
+            .label {
+                font-size: 14px;
+                color: $textNormalColor;
+                position: relative;
+                top: 8px;
+            }
+            .input.error {
+                border-color: #FF3333;
+            }
+        }
+        .knowledges {
+            position: relative;
+            left: 450px;
+            width: 400px;
+        }
+        .knowledge {
+            position: relative;
+            display: inline-block;
+            left: 0;
+            background: #FFFFFF;
+            border: 1px solid #CCDDEE;
+            box-shadow: 0 2px 2px 0 rgba(206,211,223,0.60);
+            border-radius: 4px;
+            padding: 10px;
+            width: 242px;
+            height: 38px;
+            float: left;
+            margin-bottom: 5px;
+            .input.error {
+                border-color: #FF3333;
+            }
+            .iconfont {
+                color: $backgroundColor;
+                font-size: 20px;
+                position: relative;
+                top: 3px;
+                cursor: pointer;
+            }
+            .label {
+                font-size: 14px;
+                color: $textNormalColor;
+                position: relative;
+                top: 8px;
+            }
+        }
+    }
+}

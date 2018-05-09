@@ -1,0 +1,24 @@
+<div class="tree-container">
+    <ul>
+        <li *ngFor="let rule of rules; let i = index;">
+            <div class="tree-title"
+                 [style.paddingLeft.px]="index*20 + 10"
+                 [class.checked]="rule.checked"
+                 (click)="checkedClick(rule)">
+                <span (click)="toggleExpandClick(rule, $event)">
+                    <i class="iconfont icon-ico_folder_close fold" *ngIf="!rule.expand"></i>
+                    <i class="iconfont icon-ico_folder_open fold" *ngIf="rule.expand"></i>
+                </span>
+                <span class="name">{{getName(rule)}}</span>
+            </div>
+            <div class="child-content" *ngIf="rule.children&&rule.children.length&&rule.expand" [@slideUpDwon] style="overflow: hidden">
+                <task-config-content-datasync-clean-rule-tree-component
+                    [rules]="rule.children"
+                    [index]="index+1"
+                    [ruleParent]="rule"
+                    [rulesAll]="rulesAll">
+                </task-config-content-datasync-clean-rule-tree-component>
+            </div>
+        </li>
+    </ul>
+</div>

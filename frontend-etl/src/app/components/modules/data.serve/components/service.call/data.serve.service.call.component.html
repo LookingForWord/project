@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="title">
+        <div class="title-content">
+            <span class="left" (click)="goBack()">
+                <i class="iconfont icon-leixing"></i>
+                <span>服务列表</span>
+            </span>
+            <i class="iconfont icon-ico_arrow_right jt"></i>
+            <span class="left">
+                <span>服务调用</span>
+            </span>
+        </div>
+    </div>
+    <div class="content">
+        <table-component>
+            <div class="table-component-title">
+                <span class="title">
+                    <i class="iconfont icon-ico_start start" *ngIf="status===0"></i>
+                    <i class="iconfont icon-ico_pause pause" *ngIf="status===1"></i>
+                    <i class="iconfont icon-ico_block failure" *ngIf="status===2"></i>
+                    <span>{{serveName}}</span>
+                </span>
+                <!--<span class="record">共{{totalcount}}条记录</span>-->
+            </div>
+            <thead class="table-component-thead" *ngIf="dataList && dataList.length>0">
+                <tr>
+                    <th *ngFor="let name of titleList" [style.width]="100/titleList.length + '%'">{{name}}</th>
+                </tr>
+            </thead>
+            <tbody class="table-component-tbody">
+                <tr *ngFor="let item of dataList">
+                    <td *ngFor="let name of titleList">{{item[name]}}</td>
+                </tr>
+            </tbody>
+            <tfoot class="table-component-tfoot">
+                <tr *ngIf="noDataType">
+                    <td colspan="7">暂无数据...</td>
+                </tr>
+            </tfoot>
+            <div class="table-component-page">
+                <multi-pagination-component [pagenow]="pageNum" [pagesize]="pageSize" [totalcount]="totalCount" (onPageChange)="doPageChange($event)"></multi-pagination-component>
+            </div>
+        </table-component>
+    </div>
+</div>

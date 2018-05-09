@@ -1,0 +1,56 @@
+@import 'assets/styles/global.scss';
+
+.container {
+    width: 670px;
+    padding: 20px 0 20px 20px;
+    height: 200px;
+    .row {
+        margin-bottom: 25px;
+        li {
+            display: inline-block;
+            float: left;
+            // 必填项设置
+            .required-content {
+                width: calc(100% - 10px);
+                display: inline-block;
+                padding-left: 10px;
+                position: relative;
+                .required-red {
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    margin-top: -7px;
+                    &.invisible {
+                        visibility: hidden;
+                    }
+                }
+                .required-label {
+                    position: absolute;
+                    bottom: -18px;
+                    left: 13px;
+                    color: $redColor;
+                }
+            }
+            &:first-child {
+                margin-right: 10px;
+            }
+            .input-container {
+                .input {
+                    width: 218px;
+                }
+            }
+            > span {
+                font-size: 14px;
+                color: #666;
+                &:first-child {
+                    display:inline-block;
+                    width: 70px;
+                    text-align: right;
+                }
+                &.db-type {
+                    width: 245px;
+                }
+            }
+        }
+    }
+}

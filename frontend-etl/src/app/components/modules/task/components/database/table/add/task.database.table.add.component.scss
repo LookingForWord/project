@@ -1,0 +1,443 @@
+@import 'assets/styles/global.scss';
+$arrowNoChecked: #CCCCCC;
+
+.container {
+    //width: 930px;
+    padding: 10px 20px 20px 20px;
+    overflow-y: auto;
+    color: #666;
+    height:  calc(100% - 40px);
+    //min-height: 400px;
+    font-size: 14px;
+    .header {
+        padding: 0 0 10px 0 ;
+        height: 30px;
+        line-height: 30px;
+        font-size: 20px;
+        position: relative;
+        border-bottom: 1px solid #CCDDED;
+        >span {
+            font-size: 18px;
+            color: #666666;
+            letter-spacing: 1px;
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            left: 20px;
+        }
+        >i {
+            font-size: 16px;
+            position: absolute;
+            top: 0;
+            color: #666666;
+            right: 20px;
+            cursor: pointer;
+            &:hover {
+                color:  #FF3333;
+            }
+        }
+
+    }
+    .cell {
+        // 必填项设置
+        .required-content {
+            width: calc(100% - 10px);
+            display: inline-block;
+            padding-left: 10px;
+            position: relative;
+            .required-red {
+                position: absolute;
+                left: 0;
+                top: 50%;
+                margin-top: -7px;
+                &.invisible {
+                    visibility: hidden;
+                }
+            }
+            .required-label {
+                position: absolute;
+                bottom: -21px;
+                left: 13px;
+                color: $redColor;
+            }
+        }
+    }
+    .headerArrows-box {
+        text-align: center;
+        padding: 25px 10%;
+        span {
+            line-height: 25px;
+            background: $arrowNoChecked;
+            color: #fff;
+            display: inline-block;
+            width: 30%;
+            margin-right: 3px;
+            position: relative;
+            &:nth-child(1), &:nth-child(2) {
+                &:after {
+                    right: -9px;
+                    top: 4px;
+                    background: $arrowNoChecked;
+                    z-index: 1;
+                }
+            }
+            &:nth-child(3) {
+                &:after {
+                    display: none;
+                }
+            }
+            &:nth-child(2), &:nth-child(3) {
+                &:before {
+                    left: -9px;
+                    top: 4px;
+                    background: #fff;
+                    z-index: 0;
+                }
+            }
+
+            &:after, &:before {
+                content: '';
+                width: 17px;
+                height: 17px;
+                position: absolute;
+                transform: rotate(45deg);
+            }
+
+            &.checked {
+                background: $backgroundColor;
+                &:after {
+                    background: $backgroundColor;
+                }
+            }
+        }
+    }
+    .basic-information-box {
+        width: auto;
+        padding: 20px 10% 10px 10%;
+        .input-container {
+            input[type="text"] {
+                width: 100%;
+                &:first-child {
+                    margin-left: 10px ;
+                }
+            }
+        }
+        .tableName , .delimiter{
+            width: 340px;
+        }
+        .title {
+            margin-right: 5px;
+            display: inline-block;
+            width: 75px;
+            text-align: right;
+        }
+        .storageUrl {
+            width:  calc(100% - 98px);
+        }
+        .desc-box {
+            position: relative;
+            >span {
+                position: absolute;
+                top: -33px;
+                right: 0;
+            }
+        }
+        .desc {
+            width:  calc(100% - 106px);
+            >textarea {
+                width: calc(100% - 10px);
+                height: 60px;
+                margin-left: 10px;
+            }
+        }
+        ul {
+            width: auto;
+            height: auto;
+            li {
+                float: left;
+            }
+        }
+        .hint {
+            margin-left: 20px;
+            color: #999;
+            font-size: 12px;
+        }
+    }
+    .row {
+        padding: 10px 0;
+        .head {
+            font-weight: bold;
+            font-size: 12px;
+            color: #6699BB;
+            letter-spacing: 1px;
+            background: #DDEEFF;
+            padding: 8px 5px;
+            border-radius: 4px;
+            a {
+                float: right;
+            }
+            >button {
+                float: right;
+                margin-top: -3px;
+            }
+        }
+    }
+    .delimiter-row {
+        li {
+            display: inline-block;
+            float: left;
+            width: 50%;
+            .delimiter {
+                width:  calc(100% - 99px);
+            }
+            .tableName {
+                width:  calc(100% - 99px);
+            }
+        }
+    }
+    .add {
+        padding-left: 18px;
+        padding-top: 7px;
+        span{
+            color:  #4499EE;
+            font-size: 12px;
+        }
+    }
+    .field-information-box {
+        width: auto;
+        padding: 0 10% 36px 10%;
+
+        >.save {
+            width: 100%;
+            margin-top: 20px;
+            padding: 36px 0;
+            border-top: 1px solid #CCDDEE;
+            >.btn {
+                width: 200px;
+                text-align: center;
+                margin-left: calc(50% - 100px);
+                background-image: linear-gradient(-180deg, #4499EE 0%, #3377BB 100%);
+                border-radius: 4px;
+                font-size: 14px;
+                color: #FFFFFF;
+                letter-spacing: 1px;
+            }
+        }
+
+
+
+        .checkbox {
+            position: relative;
+            .check-input {
+                position: absolute;
+                left: 6px;
+                display: inherit;
+                width: 74%;
+                height:100%;
+                z-index: 99;
+                display: block;
+                opacity: 0;
+                filter: alpha(opacity(0));
+            }
+            label {
+                vertical-align: middle;
+                position: relative;
+                margin-right: 4px;
+                top: -2px;
+            }
+        }
+        >.row {
+            .cell {
+                width: 100%;
+                padding: 10px 0 0 0;
+                margin-bottom: 10px;
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                .input-container {
+                    input[type="text"] {
+                        width: 80%;
+                        &:first-child {
+                            margin-left: 0;
+                        }
+                    }
+                    .btn.only.icon.disabled {
+                        &:hover {
+                            .iconfont {
+                                color: #dddddd !important;
+                                &:hover {
+                                    color: #dddddd !important;
+                                }
+                            }
+                            color: #dddddd !important;
+                        }
+                    }
+                }
+                .required-content {
+                    width: calc(100%);
+                    display: inline-block;
+                    position: relative;
+                    .required-red {
+                        position: absolute;
+                        left: 3px;
+                        top: 50%;
+                        margin-top: -7px;
+                        &.invisible {
+                            visibility: hidden;
+                        }
+                    }
+                    .required-label {
+                        position: absolute;
+                        bottom: -18px;
+                        left: 13px;
+                        color: $redColor;
+                    }
+                }
+                .input-container.select-box {
+                    .required-red {
+                        left: 0;
+                    }
+                }
+                > span {
+                    display: inline-block;
+                    width: 10.5%;
+                    text-align: center;
+                    margin-right: 1%;
+                    input {
+                        width: 70%;
+                    }
+                    &:first-child {
+                        width: 12.5%;
+                    }
+                    &:last-child {
+                        width: 4%;
+                        margin-right: 0;
+                    }
+                    &.desc {
+                        width: 13.5%;
+                    }
+                    .btn {
+                        .iconfont {
+                            font-size: 19px;
+                        }
+
+                    }
+                    &.length {
+                        width: 10.5%;
+                        input.input {
+                            width: 80%;
+                        }
+                        &.length-title {
+                            text-align: center;
+                            box-sizing: border-box;
+                            -moz-box-sizing: border-box;
+                            -webkit-box-sizing: border-box;
+                        }
+                    }
+                    &.other {
+                        width: 10%;
+                    }
+                    &.primaryKey {
+                        width: 5%;
+                    }
+
+                    &.checkbox {
+                        width: 5%;
+                        position: relative;
+                        .check-input {
+                            position: absolute;
+                            left: 6px;
+                            display: inherit;
+                            width: 74%;
+                            height:100%;
+                            z-index: 99;
+                            display: block;
+                            opacity: 0;
+                            filter: alpha(opacity(0));
+                        }
+                        label {
+                            vertical-align: middle;
+                            position: relative;
+                            margin-right: 4px;
+                            top: -2px;
+                        }
+                    }
+                    // hive情况
+                    //&.hiveType {
+                    //    &.length {
+                    //        text-align: center;
+                    //    }
+                    //    width: 20%;
+                    //    &.input-container.length {
+                    //        .input {
+                    //            width: 90%;
+                    //        }
+                    //    }
+                    //}
+
+                }
+                &:first-child {
+                    padding: 0;
+                    padding-top: 10px;
+                    margin-bottom: 0;
+                }
+                &.isHive {
+                    > span {
+                        display: inline-block;
+                        width: 22%;
+                        margin-right: 0.5%;
+                        input {
+                            width: 90%;
+                        }
+                        text-align: center;
+                        &:first-child {
+                            width: 22%;
+                        }
+                        &:last-child {
+                            width: 5%;
+                            margin-right: 0;
+                        }
+                        .required-red {
+                            left: 11px;
+                        }
+                    }
+                    span.select-box {
+                        .required-red {
+                            left: 0;
+                        }
+                    }
+                }
+                &.partitions {
+                    >span {
+                        display: inline-block;
+                        width: 35%;
+                        text-align: center;
+                        input {
+                            width: 90%;
+                        }
+                        &:last-child {
+                            width: 25%;
+                        }
+                        .partion-types {
+                            width: 90%;
+                        }
+                    }
+                }
+                .required-content .required-label {
+                    text-align: left;
+                    word-break: keep-all;
+                }
+            }
+        }
+        .select-box {
+            position: relative;
+            top: 2px;
+        }
+        .link {
+            margin-left: 10px;
+        }
+        .nodata {
+            margin-top: 10px;
+        }
+    }
+}

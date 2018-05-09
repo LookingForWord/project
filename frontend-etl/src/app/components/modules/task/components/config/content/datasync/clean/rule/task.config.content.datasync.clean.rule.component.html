@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="tree-container">
+        <task-config-content-datasync-clean-rule-tree-component
+            [rules]="rules">
+        </task-config-content-datasync-clean-rule-tree-component>
+    </div>
+    <div class="content-container">
+        <!--<table>-->
+            <!--<thead>-->
+                <!--<tr>-->
+                    <!--<th>选择</th>-->
+                    <!--<th>规则内容</th>-->
+                    <!--<th>备注</th>-->
+                    <!--<th>创建时间</th>-->
+                <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+                <!--<tr *ngFor="let content of contents">-->
+                    <!--<td>-->
+                        <!--<input type="checkbox" [(ngModel)]="content.checked" (change)="checkedClick(content)">-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<span>{{content.content}}</span>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<span>{{content.remark}}</span>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<span>{{content.createTime | date}}</span>-->
+                    <!--</td>-->
+                <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+
+        <table-component>
+            <thead class="table-component-thead">
+                <tr>
+                    <th width="50px">选择</th>
+                    <th width="50%">规则内容</th>
+                    <th>备注</th>
+                    <th width="100px">创建时间</th>
+                </tr>
+            </thead>
+            <tbody class="table-component-tbody">
+                <tr *ngFor="let content of contents">
+                    <td>
+                        <input type="checkbox" [(ngModel)]="content.checked" (change)="checkedClick(content)">
+                    </td>
+                    <td>
+                        <span>{{content.content}}</span>
+                    </td>
+                    <td>
+                        <span>{{content.remark}}</span>
+                    </td>
+                    <td>
+                        <span>{{content.createTime | date}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table-component>
+    </div>
+</div>

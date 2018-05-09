@@ -1,0 +1,39 @@
+@import 'frontend-common/assets/styles/variable.scss';
+@import 'assets/styles/variable.scss';
+.container {
+    .not {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: deepskyblue;
+        margin-left: 48%;
+    }
+    .failed {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: #FF3333;
+        margin-left: 48%;
+    }
+    .finished {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: #66BB11;
+        margin-left: 48%;
+    }
+}
+.table-component-search {
+    .input-icon {
+        position: relative;
+        span.error {
+            position: absolute;
+            left: 0;
+            top: 100%;
+            color: #FF3333;
+            font-size: 12px;
+        }
+    }
+}
+
+

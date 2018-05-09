@@ -1,0 +1,28 @@
+@import 'frontend-common/assets/styles/variable.scss';
+@import 'assets/styles/variable.scss';
+
+.container {
+    width: 450px;
+    height: 300px;
+    color: $textNormalColor;
+    .nodata {
+        text-align: center;
+        padding-top: 20px;
+    }
+    .table {
+        width: 95%;
+        margin-left: 10px;
+        th, td {
+            text-align: center;
+        }
+        th {
+            padding: 10px 0;
+        }
+        td {
+            padding-bottom: 20px;
+        }
+    }
+    .required-content {
+        width: 200px;
+    }
+}

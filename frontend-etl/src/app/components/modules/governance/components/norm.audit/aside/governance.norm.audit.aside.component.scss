@@ -1,0 +1,44 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+
+.container {
+    position: relative;
+    height: 100%;
+    .title {
+        padding: 4px;
+        background: #F5F5F5;
+        border-bottom: 1px solid $borderColor;
+        .new-folder, .new-workflow {
+            padding: 0 3px;
+            cursor: pointer;
+            i {
+                color: #FFAD49;
+            }
+        }
+        .new-workflow {
+            i {
+                color: #4499EE;
+            }
+        }
+        .input {
+            width: 178px;
+        }
+        .search-btn {
+            padding: 0 8px;
+        }
+    }
+    .tree-container {
+        position: absolute;
+        left: 0;
+        top: 35px;
+        bottom: 0;
+        right: 0;
+        overflow: auto;
+        .inner {
+            width:auto;
+            display: inline;
+            min-width: 100%;
+            white-space: nowrap;
+        }
+    }
+}

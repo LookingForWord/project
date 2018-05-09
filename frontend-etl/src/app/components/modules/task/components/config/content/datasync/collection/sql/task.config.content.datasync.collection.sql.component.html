@@ -1,0 +1,6 @@
+<div class="container">
+    <textarea class="input" [(ngModel)]="sql" placeholder="输入sql语句"></textarea>
+    <div *ngIf="errorType===1">
+        <span class="required-red ml20">{{error}}</span>
+    </div>
+</div>

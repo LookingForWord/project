@@ -1,0 +1,82 @@
+<div class="container">
+    <table-component>
+        <div class="table-component-search line">
+            <div  class="input-icon ml10" position="left">
+                <input type="text" class="input" [(ngModel)]="flowName" inputDebounce (debounceClick)="searchChange($event)" placeholder="支持名称搜索">
+                <i class="icon iconfont icon-ico_search_textfield"></i>
+            </div>
+            <button class="back line btn ml4" (click)="getResultList(1)">
+                搜索
+            </button>
+        </div>
+        <div class="table-component-title">
+            <span class="title">
+                <i class="iconfont mr8 icon-ico_running_result"></i>工作流列表
+            </span>
+            <span class="record">共{{totalcount}}条记录</span>
+        </div>
+        <thead class="table-component-thead">
+            <tr>
+                <th width="250px">工作流名称</th>
+                <th width="150px">运行次数</th>
+                <th>运行成功率(%)</th>
+                <th class="remark">描述</th>
+                <th>创建人</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody class="table-component-tbody">
+            <!-- 每个item给一个标识符，表名是弹出层，控制colspan和显示的内容 -->
+            <tr *ngFor="let item of resultList;let i = index" [class.childTitle]="item.childTitle" [class.child]="item.childTask && !item.childTitle">
+                <!-- 默认显示 -->
+                <td [style.paddingLeft.px]="item.childTask ? 42 : 21">
+                <i class="iconfont icon-ico_arrow_down"
+                *ngIf="item.firstLevel"
+                [class.expand]="item.expand"
+                (click)="expandClick(item,i,$event)"></i>
+                <!-- 一级列表 -->
+                <span class="link" *ngIf="item.firstLevel" (click)="tdFirstClick(item)">
+                {{item.flowName}}
+                </span>
+                <!-- 二级非表头 -->
+                <span *ngIf="!item.childTitle && item.childTask" class="link" (click)="tdFirstClick(item)">{{item.startTime}}</span>
+                <!-- 二级表头 -->
+                <span *ngIf="item.childTitle && item.childTask">{{item.startTime}}</span>
+                </td>
+
+                <!-- 一级列表 -->
+                <td *ngIf="item.firstLevel">{{item.runCount}}</td>
+                <td *ngIf="item.firstLevel">{{item.sucessRate!==0 ? (item.sucessRate*100).toFixed(2) : 0}}</td>
+                <td *ngIf="item.firstLevel">{{item.desc}}</td>
+                <td *ngIf="item.firstLevel">{{item.manager}}</td>
+                <td *ngIf="item.firstLevel">
+                <button class="icon only btn" (click)="changeWorkflow('cancle',item)" tooltip="取消" authority="workflow.result.cancle">
+                <i class="iconfont icon-ico_block"></i>
+                </button>
+                </td>
+
+                <!-- 子项表头 -->
+                <td *ngIf="item.childTitle && item.childTask">{{item.endTime}}</td>
+                <td *ngIf="item.childTitle && item.childTask">{{item.status}}</td>
+                <td *ngIf="item.childTitle && item.childTask">{{item.duration}}</td>
+                <td *ngIf="item.childTitle && item.childTask">{{item.totalCount}}</td>
+                <td *ngIf="item.childTitle && item.childTask">{{item.successCount}}</td>
+
+                <!-- 子项 -->
+                <td *ngIf="item.childTask && !item.childTitle">{{item.endTime}}</td>
+                <td *ngIf="item.childTask && !item.childTitle">{{changeRunStatus(item.status)}}</td>
+                <td *ngIf="item.childTask && !item.childTitle">{{item.duration}}</td>
+                <td *ngIf="item.childTask && !item.childTitle">{{item.totalCount}}</td>
+                <td *ngIf="item.childTask && !item.childTitle">{{item.successCount}}</td>
+            </tr>
+        </tbody>
+        <tfoot class="table-component-tfoot">
+            <tr *ngIf="noDataType">
+                <td colspan="6">暂无数据...</td>
+            </tr>
+        </tfoot>
+        <div class="table-component-page">
+            <multi-pagination-component [pagenow]="pageNow" [pagesize]="pageSize" [totalcount]="totalcount" (onPageChange)="doPageChange($event)"></multi-pagination-component>
+        </div>
+    </table-component>
+</div>

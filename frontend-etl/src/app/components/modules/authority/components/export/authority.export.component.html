@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row clearfix"  *ngIf="type === 'import'">
+        <ul>
+            <li>
+                <span class="title ">文件选择</span>
+                <span class="input-container ">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <span class="required-label ml10" *ngIf="errorType===11">{{error}}</span>
+                        <a class="btn primary file-btn">
+                            <input type="file" #uploaderRef ng2FileSelect [uploader]="uploader">
+                            <span>浏览...</span>
+                        </a>
+                        <span class="file-name" *ngIf="uploader&&uploader.queue.length>0" [title]="uploader.queue[0].file.name">{{uploader.queue[0].file.name | substr}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row clearfix"  *ngIf="type === 'export'">
+        <ul>
+            <li>
+                <span class="title ">模糊查询</span>
+                <span class="input-container">
+                    <span>
+                        <span class="required-label" *ngIf="errorType===1">{{error}}</span>
+                        <input type="text" class="input export" maxlength="20"  [(ngModel)]="exportKeyword" [style.width.px]="model==='user'? 280 : 250" [placeholder]="placeholder" >
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

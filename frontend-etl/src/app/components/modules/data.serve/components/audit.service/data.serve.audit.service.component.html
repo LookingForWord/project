@@ -1,0 +1,78 @@
+<div class="container">
+    <div class="title">
+        <div class="title-content">
+            <span class="left" (click)="goBack()">
+                <i class="iconfont icon-leixing"></i>
+                <span>服务列表</span>
+            </span>
+            <i class="iconfont icon-ico_arrow_right jt"></i>
+            <span class="left">
+                <span>服务审批</span>
+            </span>
+        </div>
+    </div>
+    <div class="content">
+        <table-component>
+            <div class="table-component-search line">
+                <div class="search-bar line">
+                    <div class="select ml10">
+                        <span class="select-box">
+                            <select-component
+                                [background]="'#fff'"
+                                [option]="checkedStatus"
+                                [options]="statusList"
+                                (callback)="chooseStatus($event)"
+                            ></select-component>
+                        </span>
+                    </div>
+                    <div  class="input-icon mr10" position="left">
+                        <i class="icon iconfont icon-ico_search_textfield"></i>
+                        <input type="text" class="input"  [(ngModel)]="keyWord" inputDebounce (debounceClick)="searchChange($event)" placeholder="支持服务名搜索">
+                    </div>
+                </div>
+            </div>
+            <thead class="table-component-thead">
+            <tr>
+                <th width="10%">服务名称</th>
+                <th width="22%">服务地址</th>
+                <th width="8%">申请人</th>
+                <th width="10%">申请时间</th>
+                <th width="13%">申请理由</th>
+                <th width="8%">审批状态</th>
+                <th width="6%">服务状态</th>
+                <th width="8%">审批人</th>
+                <th width="8%">失效日期</th>
+                <th width="7%">操作</th>
+            </tr>
+            </thead>
+            <tbody class="table-component-tbody">
+            <tr *ngFor="let item of auditList">
+                <td>{{item.serveName}}</td>
+                <td>{{item.url}}</td>
+                <td>{{item.applyUserName}}</td>
+                <td>{{item.applyTime}}</td>
+                <td>{{item.applyDesc}}</td>
+                <td>{{item.approveStatus===2?'不通过':(item.approveStatus===1?'通过':'待审批')}}</td>
+                <td>
+                    <i class="iconfont icon-ico_start start" *ngIf="item.serveStatus===0" tooltip="正常"></i>
+                    <i class="iconfont icon-ico_pause pause" *ngIf="item.serveStatus===1" tooltip="暂停使用"></i>
+                    <i class="iconfont icon-ico_block failure" *ngIf="item.serveStatus===2" tooltip="已失效"></i>
+                </td>
+                <td>{{item.approveUserName}}</td>
+                <td>{{item.expireDate}}</td>
+                <td>
+                    <button class="btn" size="small" *ngIf="item.approveStatus===0" (click)="openModal(item)">审批</button>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot class="table-component-tfoot">
+            <tr *ngIf="noDataType">
+                <td colspan="10">暂无数据...</td>
+            </tr>
+            </tfoot>
+            <div class="table-component-page">
+                <multi-pagination-component [pagenow]="pageNum" [pagesize]="pageSize" [totalcount]="totalCount" (onPageChange)="doPageChange($event)"></multi-pagination-component>
+            </div>
+        </table-component>
+    </div>
+</div>

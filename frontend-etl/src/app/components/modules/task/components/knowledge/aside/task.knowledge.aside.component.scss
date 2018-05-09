@@ -1,0 +1,42 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+
+.container {
+    height: 100%;
+    padding: 10px;
+    color: $textNormalColor;
+    .title {
+        padding: 4px;
+        text-align: right;
+        &.search {
+            position: relative;
+            input {
+                width: 176px;
+            }
+            i {
+                display: inline-block;
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                font-size: 10px;
+                cursor: pointer;
+            }
+        }
+    }
+    .tree-container {
+        margin-top: 34px;
+        width: 280px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        overflow: auto;
+        .inner {
+            width:auto;
+            display: inline;
+            min-width: 100%;
+            white-space: nowrap;
+        }
+    }
+}

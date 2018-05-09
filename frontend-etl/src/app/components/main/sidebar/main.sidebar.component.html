@@ -1,0 +1,48 @@
+<div class="side-container theme-sidebar"
+     [class.max]="state===4"
+     [class.mixMax]="state===3"
+     [class.normal]="state===2"
+     [class.min]="state===1"
+     [class.close]="state===0"
+     [class.home]="isHome">
+    <div class="side-child">
+        <div class="shrink clearfix" *ngIf="!showChild" (click)="toggleShowChild(true)">
+            <i class="icon iconfont icon-ico_submenu_collapsi"></i>
+        </div>
+        <div class="shrink clearfix" *ngIf="showChild" (click)="toggleShowChild(false)">
+            <i class="icon iconfont icon-ico_submenu_expandin"></i>
+        </div>
+        <div class="navi" [class.min]="state===1||state===3">
+            <ul>
+                <li *ngFor="let navi of navigate"
+                    [tooltip]="navi.name"
+                    [tooltipPosition]="'right'"
+                    [tooltipShow]="(state===1)||(state===3)">
+                    <span [class.checked]="navi.checked" (click)="naviClick(navi)">
+                        <span class="pl20">
+                            <i [attr.class]="'iconfont icon icon-' + navi.icon"
+                               [class.expand]="navi.expand"></i>
+                        </span>
+                        <span class="name" [class.min]="state===1||state===3">{{navi.name}}</span>
+                    </span>
+                    <div class="child-navi" *ngIf="(navi.children&&navi.children.length>0)&&navi.expand" [@slideUpDwon]>
+                        <ul>
+                            <li *ngFor="let n of navi.children">
+                                <span [class.checked]="n.checked" (click)="naviClick(n)">
+                                    <span>
+                                        <i [attr.class]="'iconfont icon icon-' + n.icon"></i>
+                                    </span>
+                                    <span>{{n.name}}</span>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--<div class="side-sub-child" *ngIf="showSubChild">-->
+        <!--<main-sidebar-child-component [component]="naviComponent"></main-sidebar-child-component>-->
+    <!--</div>-->
+</div>

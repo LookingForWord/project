@@ -1,0 +1,152 @@
+@import 'assets/styles/global.scss';
+.container {
+    width: 635px;
+    padding: 25px 0;
+    //height:240px;
+    .row {
+        margin-bottom: 25px;
+        &:last-child {
+            margin: 0;
+        }
+        li {
+            &.item {
+                width: 100%;
+            }
+            &:first-child {
+                margin-right: 10px;
+            }
+            // 必填项设置
+            .required-content {
+                width: calc(100% - 10px);
+                display: inline-block;
+                padding-left: 10px;
+                position: relative;
+                .required-red {
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    margin-top: -7px;
+                    &.invisible {
+                        visibility: hidden;
+                    }
+                }
+                .required-label {
+                    position: absolute;
+                    bottom: -18px;
+                    left: 13px;
+                    color: $redColor;
+                }
+            }
+            .input-container {
+                .input {
+                    width: 529px;
+                    &.desc {
+                        height: 80px;
+                        resize: none;
+                    }
+                }
+                .tree-inner {
+                    width: 529px;
+                    height: auto;
+                    border-radius: 4px;
+                    border: 1px solid #ccddee;
+                    overflow: auto;
+                }
+                .select-box {
+                    display: block;
+                    width: 243px;
+                }
+            }
+            &.desc-box {
+                position: relative;
+                >span {
+                    &:first-child {
+                        position: relative;
+                        top: -69px;
+                    }
+                }
+            }
+            .tree-container-parent {
+                position: relative;
+                display: inline-block;
+                margin-left: 10px;
+                .tree-container {
+                    overflow: auto;
+                    display: inline-block;
+                    width: 543px;
+                    border: 1px solid $borderColor;
+                    border-top: 0;
+                    max-height: 120px;
+                    .inner {
+                        width:auto;
+                        display: inline;
+                        min-width: 100%;
+                        white-space: nowrap;
+                    }
+                }
+                .required {
+                    color: $redColor;
+                }
+            }
+            > span {
+                &:first-child {
+                    display: inline-block;
+                    width: 60px;
+                    text-align: right;
+                    margin-right: 5px;
+                    color: #666666;
+                    font-size: 14px;
+                }
+            }
+            span.input-error{
+                padding-left: 14px;
+            }
+            .input {
+                width: 217px;
+            }
+            .input-error {
+                bottom: -17px;
+                font-size: 12px;
+            }
+            &.checked-tree {
+                margin-right: 0;
+                .input-container .required-content {
+                    div {
+                        display: inline-block;
+                        width: 547px;
+                        padding-left: 6px;
+                        height: 34px;
+                        line-height: 35px;
+                        font-size: 14px;
+                        border: 1px solid #CCDDEE;
+                        border-radius: 4px;
+                        vertical-align: middle;
+                        cursor: pointer;
+                    }
+                    .disabled {
+                        background: #F5F5F5;
+                        border: 1px solid #E0E0E0;
+                        color: #CCCCCC;
+                        cursor: not-allowed;
+                    }
+                }
+            }
+        }
+    }
+    .row {
+        .tree-box {
+            position: absolute;
+            top: 40px;
+            left: 10px;
+            right: 0;
+            //height: 150px;
+            overflow-y: auto;
+            background: #fff;
+            z-index: 9999;
+            border: 1px solid #CCDDEE;
+            box-shadow: 0 2px 2px 0 rgba(206, 211, 223, 0.6);
+            border-radius: 4px;
+            overflow-y: auto;
+        }
+    }
+}

@@ -1,0 +1,393 @@
+@import 'assets/styles/global.scss';
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+.container {
+    width: 930px;
+    padding: 25px 0;
+    min-height:290px;
+    max-height: 500px;
+    overflow: auto;
+    &.impact-box {
+        padding: 15px 0;
+    }
+    >.row {
+        width: auto;
+        margin-bottom: 25px;
+        &:last-child {
+            margin: 0;
+        }
+        li {
+            float: left;
+            &.item {
+                width: 100%;
+            }
+            &:first-child {
+                margin-right: 10px;
+            }
+            &.desc-box, &.tags-box {
+                margin-right: 0;
+            }
+            // 必填项设置
+            .required-content {
+                width: calc(100% - 10px);
+                display: inline-block;
+                padding-left: 10px;
+                position: relative;
+                .required-red {
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    margin-top: -7px;
+                    &.invisible {
+                        visibility: hidden;
+                    }
+                }
+                .required-label {
+                    position: absolute;
+                    bottom: -18px;
+                    left: 13px;
+                    color: $redColor;
+                }
+            }
+            .input-container {
+                vertical-align: middle;
+                .input {
+                    width: 344px;
+                    &.desc {
+                        width: 834px;
+                        height: 80px;
+                    }
+                    &.viewSQL {
+                        height: 270px;
+                    }
+                }
+                .tags {
+                    display: inline-block;
+                    width: 840px;
+                }
+                .tree-inner {
+                    width: 519px;
+                    height: auto;
+                    border-radius: 4px;
+                    border: 1px solid #ccddee;
+                    overflow: auto;
+                }
+                .select-box {
+                    display: block;
+                    width: 360px;
+                }
+            }
+            &.desc-box {
+                position: relative;
+                >span {
+                    &:first-child {
+                        position: relative;
+                        vertical-align: top;
+                    }
+                }
+                .input-container .input.desc {
+                    width: 808px;
+                    resize: none;
+                }
+                .input-container .required-content .required-red {
+                    top: 12px;
+                }
+            }
+
+            > span {
+                &:first-child {
+                    display: inline-block;
+                    width: 80px;
+                    text-align: right;
+                    //margin-right: 5px;
+                    color: #666666;
+                    font-size: 14px;
+                }
+            }
+            span.input-error{
+                padding-left: 14px;
+            }
+            .input {
+                width: 207px;
+            }
+            .input-error {
+                bottom: -17px;
+                font-size: 12px;
+            }
+        }
+
+
+    }
+    .row.line {
+        margin-bottom: 25px;
+        li {
+            display: inline-block;
+            float: left;
+            &:first-child {
+                margin-right: 9px;
+            }
+            > span {
+                >select-component {
+                    width: 216px;
+                    display: inline-block;
+                }
+                &:first-child {
+                    display:inline-block;
+                    width: 100px;
+                    color: #666;
+                    text-align: right;
+                    margin-right: 3px;
+                }
+                &.source-type {
+                    width: 330px;
+                }
+            }
+
+        }
+    }
+    // 规则
+    .field-information-box {
+        >.row {
+            .head {
+                font-weight: bold;
+                font-size: 12px;
+                color: #6699BB;
+                letter-spacing: 1px;
+                background: #DDEEFF;
+                padding: 5px;
+                border-radius: 4px;
+
+                width: 899px;
+                margin-left: 10px;
+
+                a {
+                    float: right;
+                }
+            }
+            .cell {
+                padding: 10px 0 0 10px;
+                margin-bottom: 10px;
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                > span {
+                    display: inline-block;
+                    width: 13%;
+                    margin-right: 1%;
+                    input {
+                        width: 90%;
+                    }
+                    text-align: center;
+                    &:first-child {
+                        width: 14%;
+                    }
+                    &:last-child {
+                        width: 6%;
+                        margin-right: 0;
+                    }
+                    .btn {
+                        .iconfont {
+                            font-size: 19px;
+                        }
+
+                    }
+                    &.length {
+                        width: 7%;
+                        input.input {
+                            width: 60%;
+                        }
+                        &.length-title {
+                            text-align: right;
+                            box-sizing: border-box;
+                            -moz-box-sizing: border-box;
+                            -webkit-box-sizing: border-box;
+                            padding-right: 7px;
+                        }
+                    }
+                    &.other {
+                        width: 10%;
+                    }
+                    &.primaryKey {
+                        width: 5%;
+                    }
+
+                    &.checkbox {
+                        position: relative;
+                        .check-input {
+                            position: absolute;
+                            left: 6px;
+                            display: inherit;
+                            width: 74%;
+                            height:100%;
+                            z-index: 99;
+                            display: block;
+                            opacity: 0;
+                            filter: alpha(opacity(0));
+                        }
+                        label {
+                            vertical-align: middle;
+                            position: relative;
+                            margin-right: 4px;
+                            top: -2px;
+                        }
+                    }
+                    // hive情况
+                    &.hiveType {
+                        &.length {
+                            text-align: center;
+                        }
+                        width: 22%;
+                        &.input-container.length {
+                            .input {
+                                width: 90%;
+                            }
+                        }
+                    }
+
+                }
+                &:first-child {
+                    padding: 0;
+                    padding-top: 10px;
+                    margin-bottom: 0;
+                }
+                &.isHive {
+                    > span {
+                        display: inline-block;
+                        width: 29%;
+                        margin-right: 1%;
+                        input {
+                            width: 90%;
+                        }
+                        text-align: center;
+                        &:first-child {
+                            width: 29%;
+                        }
+                        &:last-child {
+                            width: 3%;
+                        }
+                    }
+                }
+                &.partitions {
+                    >span {
+                        display: inline-block;
+                        width: 35%;
+                        text-align: center;
+                        input {
+                            width: 90%;
+                        }
+                        &:last-child {
+                            width: 25%;
+                        }
+                        .partion-types {
+                            width: 90%;
+                        }
+                    }
+                }
+                .required-content .required-label {
+                    text-align: left;
+                    word-break: keep-all;
+                }
+                .select-box {
+                    position: relative;
+                    top: 2px;
+                }
+
+            }
+        }
+        .link {
+            margin-left: 10px;
+        }
+        .add {
+            margin-top: 15px;
+        }
+        .nodata {
+            margin-top: 10px;
+        }
+
+    }
+    .cell {
+        width: 100%;
+        // 必填项设置
+        .required-content {
+            width: calc(100% - 10px);
+            display: inline-block;
+            padding-left: 10px;
+            position: relative;
+            .required-red {
+                position: absolute;
+                left: 0;
+                top: 50%;
+                margin-top: -7px;
+                &.invisible {
+                    visibility: hidden;
+                }
+            }
+            .required-label {
+                position: absolute;
+                bottom: -18px;
+                left: 13px;
+                color: $redColor;
+            }
+        }
+    }
+    // table表格
+    .common-table {
+        .common-table-body {
+            height: 100%;
+            padding: 10px 0;
+            table {
+                thead {
+                    width: 100%;
+                    tr>th {
+                        width: 20%;
+                        &:last-child {
+                            width: 20%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // 树形
+    .row {
+        ul li {
+            &.item {
+                width: 100%;
+                .input-container {
+                    .required-content {
+                        .input {
+                            width: 808px;
+                        }
+                    }
+                }
+            }
+            &.item .tree-container-parent {
+                position: relative;
+                display: inline-block;
+                margin-left: 10px;
+                .tree-container {
+                    overflow: auto;
+                    display: inline-block;
+                    width: 822px;
+                    border: 1px solid $borderColor;
+                    border-top: 0;
+                    max-height: 120px;
+                    .inner {
+                        width:auto;
+                        display: inline;
+                        min-width: 100%;
+                        white-space: nowrap;
+                    }
+                }
+                .required {
+                    color: $redColor;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    padding-left: 0;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}

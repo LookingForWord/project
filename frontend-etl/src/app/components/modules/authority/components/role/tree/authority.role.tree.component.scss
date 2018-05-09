@@ -1,0 +1,98 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+
+.tree-container {
+    float: left;
+    min-width: 100%;
+    position: relative;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    li {
+        width: 100%;
+        float: left;
+    }
+    .tree-title {
+        position: relative;
+        line-height: 34px;
+        cursor: pointer;
+        white-space:nowrap;
+        transition: $transitionAll;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        > a {
+            display: none;
+        }
+        &:hover {
+            > a {
+                display: inline-block;
+            }
+        }
+        i.iconfont {
+            color: #666666;
+            font-size: 14px;
+            &.icon-checkbox_normal {
+                color: #ccddee;
+                transition: $transitionAll;
+                &:hover {
+                    color: #4499EE;
+                }
+            }
+            &.icon-checkbox_partialcheck, &.icon-checkbox_checked_hover {
+                color: #4499EE;
+            }
+            &.disabled {
+                color: #CCCCCC;
+                cursor: not-allowed;
+                &.icon-checkbox_normal:hover {
+                    color: #CCCCCC;
+                    cursor: not-allowed;
+                }
+            }
+            &.logo {
+                color: #49e;
+            }
+        }
+        &.checked {
+            background: #EEEEEE;
+        }
+        .arrow {
+            display: inline-block;
+            transition: $transitionAll;
+            transform: rotate(-90deg);
+            font-size: 12px;
+            position: relative;
+            top: -1px;
+            &.expand {
+                transform: rotate(0deg);
+            }
+        }
+        //.fold {
+        //    font-size: 23px;
+        //    color: $backgroundColor;
+        //    position: relative;
+        //    top: 4px;
+        //}
+    }
+
+    //.modal {
+    //    background: #fff;
+    //    border: 1px solid $borderColor;
+    //    position: fixed;
+    //    left: 0;
+    //    top: 0;
+    //    text-align: center;
+    //    width: 80px;
+    //    padding: 5px;
+    //    z-index: 999;
+    //    span {
+    //        display: block;
+    //        margin-bottom: 3px;
+    //        cursor: pointer;
+    //    }
+    //}
+    .child-content {
+        overflow: hidden;
+    }
+}

@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="header-chart">
+        <div class="chart-box"></div>
+    </div>
+    <div class="btn-box">
+        <span class="btn-group">
+            <button *ngFor="let item of timesArr" class="btn" [class.primary]="item.checked" (click)="timeChange(item)">{{item.name}}</button>
+        </span>
+    </div>
+    <div class="content clearfix">
+        <div class="common-table">
+            <div class="common-table-box">
+                <div class="common-table-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>数据源名称</th>
+                                <th>数据源类型</th>
+                                <th>表总数</th>
+                                <th>接入表总数</th>
+                                <th>数据总数</th>
+                                <th>抽取数据总数</th>
+                            </tr>
+                        </thead>
+                    <!--</table>-->
+                <!--</div>-->
+                <!--<div class="common-table-body">-->
+                    <!--<table>-->
+                        <tbody class="tbody">
+                            <tr *ngFor="let item of tableList">
+                                <td>{{item.dsName}}</td>
+                                <td>{{item.dsType}}</td>
+                                <td>{{item.tableCount}}</td>
+                                <td>{{item.tableEtlCount}}</td>
+                                <td>{{item.dataCount}}</td>
+                                <td>{{item.dataEtlCount}}</td>
+                            </tr>
+                            <tr *ngIf="noData">
+                                <td colspan='6' [style.textAlign]="'center'">暂无数据...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

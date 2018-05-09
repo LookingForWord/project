@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="header-container">
+        <ul class="clearfix">
+            <li (click)="saveTableClick()" authority="governance.bloodAnalysis.save">
+                <i class="iconfont icon-ico_save"></i>
+                <span>保存</span>
+            </li>
+            <li (click)="addTableClick()" authority="governance.bloodAnalysis.add">
+                <i class="iconfont icon-ico_task_add"></i>
+                <span>新增</span>
+            </li>
+            <li (click)="searchTableClick()" authority="governance.bloodAnalysis.search">
+                <i class="iconfont icon-ico_search_textfield"></i>
+                <span>搜索</span>
+            </li>
+            <li (click)="backTableClick()" *ngIf="searchId">
+                <i class="iconfont icon-ico_back"></i>
+                <span>返回</span>
+            </li>
+        </ul>
+    </div>
+    <div class="content-container">
+        <div class="drag-target-container">
+            <div class="drag-target drag-target-blood-analysis"
+                 #dragTarget
+                 [style.transform]="dragTargetPosition"
+                 [style.width.px]="dragTargetOption.width"
+                 [style.height.px]="dragTargetOption.height">
+                <div *ngFor="let relation of relations" class="relations" [style.width.px]="getRelationsWidth(relation)">
+                    <div *ngFor="let relate of relation.lists" class="relation">
+                        <div *ngFor="let rela of relate"
+                              class="relation-item"
+                              [attr.id]="rela.id"
+                              [attr.dsType]="rela.dsType"
+                              [class.checked]="rela.id === searchId">
+                            <div class="text-overflow t" [title]="rela.dsType+'/'+rela.dsName">{{rela.dsType}}/{{rela.dsName}}</div>
+                            <div class="text-overflow n" [title]="rela.name">{{rela.name}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="drag-view">
+                <i class="iconfont icon-ico_array mr10" (click)="positionClick()"></i>
+                <!--<i class="iconfont icon-ico_enlarge" (click)="scaleClick('+')"></i>-->
+                <!--<span>{{getScaleView()}}</span>-->
+                <!--<i class="iconfont icon-ico_narrow" (click)="scaleClick('-')"></i>-->
+            </div>
+        </div>
+    </div>
+</div>

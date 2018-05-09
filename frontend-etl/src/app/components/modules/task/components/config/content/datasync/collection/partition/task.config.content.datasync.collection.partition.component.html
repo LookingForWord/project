@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="nodata" *ngIf="!partitions||partitions.length<=0">
+        <span>暂无分区字段...</span>
+    </div>
+    <table class="table" *ngIf="partitions&&partitions.length">
+        <thead>
+        <tr>
+            <th>目标表分区字段</th>
+            <th>分区值</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let partition of partitions; let i = index;">
+            <td>
+                <span class="required-content">
+                    <i class="required-red">*</i>
+                    <span class="required-label" *ngIf="partition.errorType===1">请输入字段名称</span>
+                    <input type="text" class="input all" size="small" [(ngModel)]="partition.fieldName" placeholder="分区字段名称" disabled>
+                </span>
+            </td>
+            <td>
+                <span class="required-content">
+                    <i class="required-red">*</i>
+                    <span class="required-label" *ngIf="partition.errorType===2">请填写分区值</span>
+                    <span class="required-label" *ngIf="partition.errorType===3">最大长度为30个字符</span>
+                    <input type="text" class="input all" size="small" [(ngModel)]="partition.value" placeholder="填写分区值">
+                </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="row header">
+        <div class="col-3">
+            <div class="numbers total-source">
+                <div class="number font-number" *ngIf="!noTotalAuthority">{{(dsCount || 0) | number}}</div>
+                <p *ngIf="noTotalAuthority" class="number noAuthourity">您无权限查看</p>
+                <div class="title">数据源数量</div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="numbers total-task">
+                <div class="font-number number" *ngIf="!noTotalAuthority">{{(dsTableCount || 0) | number}}</div>
+                <p *ngIf="noTotalAuthority" class="number noAuthourity">您无权限查看</p>
+                <div class="title">数据源表数量</div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="numbers total-storehouse">
+                <div class="number font-number" *ngIf="!noTotalAuthority">{{(dbCount || 0) | number}}</div>
+                <p *ngIf="noTotalAuthority" class="number noAuthourity">您无权限查看</p>
+                <div class="title">数据仓库数量</div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="numbers total-table">
+                <div class="number font-number" *ngIf="!noTotalAuthority">{{(dbTableCount || 0) | number}}</div>
+                <p *ngIf="noTotalAuthority" class="number noAuthourity">您无权限查看</p>
+                <div class="title">数据仓库表数量</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-box clearfix">
+        <div *ngIf="!noChartAuthority" class="left-tab clearfix">
+            <div class="clearfix">
+                <div class="item" [class.checked]="item.checked" *ngFor="let item of letfTabs" (click)="resetLeftCanvas(item)">
+                    <div class="font-number">{{item.value | number}}</div>
+                    <div class="title">{{item.name}}</div>
+                </div>
+            </div>
+            <div echarts [options]="chartOption"  class="chart-box" ></div>
+        </div>
+        <div *ngIf="!noChartAuthority" class="right-tab">
+            <div class="clearfix">
+                <div class="item">
+                    <div><span class="font-number">{{successRatio}}</span>%</div>
+                    <div class="title">清洗成功率</div>
+                </div>
+                <div class="item">
+                    <div><span class="font-number">{{resultRatio}}</span>%</div>
+                    <div class="title">任务成功率</div>
+                </div>
+                <div class="item checked">
+                    <div class="font-number">{{failTaskCount}}</div>
+                    <div class="title">失败任务数</div>
+                </div>
+            </div>
+            <ul class="taskList clearfix">
+                <li *ngFor="let item of failTasks;let i=index">
+                    <iconfont-component [name]="'ico_error_'" [width]="16" [height]="16"></iconfont-component>
+                    <span [attr.title]="item.taskName">{{item.taskName}}</span>
+                </li>
+                <li *ngIf="!failTasks || failTasks.length===0" class="no-data">
+                    暂无数据...
+                </li>
+            </ul>
+            <div class="page-box">
+                <span (click)="previousPage()" [class.noPre]="noPre">上一页</span>
+                <span (click)="nextPage()" [class.noNext]="noNext">下一页</span>
+            </div>
+        </div>
+        <div *ngIf="noChartAuthority" class="noChartAuthority">
+            <p>亲！您沒有权限访问以下部分的数据！请到权限管理或联系管理员进行配置。。。</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="container">
+    <h5>请为占位符赋值</h5>
+    <div class="row line" *ngIf="type !== 'sql'">
+        <ul>
+            <li *ngFor="let item of placeArr">
+                <span>{{item.oldValue}}</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" maxlength="20" [class.error]="item.errorType" [(ngModel)]="item.newValue" placeholder="替换值">
+                        <span class="required-label" *ngIf="item.errorType">{{item.error}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

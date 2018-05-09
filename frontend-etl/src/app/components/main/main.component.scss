@@ -1,0 +1,47 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+
+.container {
+    position: absolute;
+    top: $headerHeight;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    .content {
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        transition: $transitionAll;
+        overflow: auto;
+        &.full {
+            overflow: hidden;
+        }
+        &.min {
+            left: $sidebarMinWidth;
+        }
+        &.normal {
+            left: $sidebarWidth;
+        }
+        &.mixMax {
+            left: $sidebarMinWidth + $sidebarWidth;
+        }
+        &.max {
+            left: $sidebarMaxWidth;
+        }
+        &.home {
+            transition: none;
+        }
+
+        .auto {
+            min-width: $bodyInnerMinWidth;
+            height: 100%;
+        }
+        .full {
+            height: 100%;
+        }
+    }
+}

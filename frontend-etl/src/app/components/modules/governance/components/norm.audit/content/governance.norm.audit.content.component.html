@@ -1,0 +1,79 @@
+<div class="container">
+    <div class="header-container">
+        <ul class="clearfix">
+            <li (click)="getRunHistory()" authority="governance.normAudit.runHistory">
+                <i class="iconfont icon-ico_btn_object"></i>
+                <span>运行历史</span>
+            </li>
+            <li (click)="saveTaskClick($event)" authority="governance.normAudit.save">
+                <i class="iconfont icon-ico_save"></i>
+                <span>保存</span>
+            </li>
+            <li (click)="runWorkflow()" authority="governance.normAudit.submit">
+                <i class="iconfont icon-ico_run"></i>
+                <span>提交</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 可以添加顶部的tab选项卡 -->
+    <div class="tabbar" *ngIf="tasks&&tasks.length">
+        <ul class="clearfix">
+            <li *ngFor="let task of tasks; let i = index;"
+                (click)="toggleCheckedTask(task)"
+                [class.checked]="task.checked">
+                <i class="iconfont icon-ico_task_work_flow icon-project-work"></i>
+                <span class="text-overflow" [title]="task.workflow.name">{{task.workflow.name}}</span>
+                <i class="iconfont icon-delete icon-ico_tab_close" (click)="deleteByTask(task, i)" *ngIf="!task.updating"></i>
+                <i class="iconfont icon-delete updating" (click)="deleteByTask(task, i, true)" *ngIf="task.updating"></i>
+            </li>
+        </ul>
+    </div>
+
+    <!--可以下穿显示的内容内容 start-->
+    <div class="task-items-content">
+        <div *ngFor="let task of tasks" [class.hidden]="!task.checked">
+            <div #taskItems></div>
+        </div>
+    </div>
+    <!--内容 end-->
+
+    <!-- 实时运行日志 -->
+    <div class="runlog" [@slideBottom] *ngIf="showRunLog">
+        <div class="log-header">
+            <i class="iconfont icon-ico_tab_close" (click)="closeLogPanel()"></i>
+        </div>
+        <table-component>
+            <thead class="table-component-thead">
+            <tr>
+                <th width="30%">任务id</th>
+                <th width="20%">运行状态</th>
+                <th width="20%">运行时间</th>
+                <th width="20%">运行结果</th>
+                <th width="10%">操作</th>
+            </tr>
+            </thead>
+            <tbody class="table-component-tbody">
+            <tr *ngFor="let item of logs; let i=index">
+                <td>{{item.configId}}</td>
+                <td>{{getRunStatus(item.runType)}}</td>
+                <td>{{item.runningTime | date: 'YYYY-MM-DD HH:mm:ss'}}</td>
+                <td>{{getRunStatus(item.runResult)}}</td>
+                <td>
+                    <button class="btn icon only" tooltip="删除" (click)="deleteRunHistory(item.id)">
+                        <i class="iconfont icon-ico_delete"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot class="table-component-tfoot">
+            <tr *ngIf="noLog">
+                <td colspan="5">暂无数据...</td>
+            </tr>
+            </tfoot>
+            <div class="table-component-page">
+                <multi-pagination-component [pagenow]="pageNum" [pagesize]="pageSize" [totalcount]="totalCount" (onPageChange)="doPageChange($event)"></multi-pagination-component>
+            </div>
+        </table-component>
+    </div>
+</div>

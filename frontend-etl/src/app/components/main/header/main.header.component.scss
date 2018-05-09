@@ -1,0 +1,209 @@
+@import 'assets/styles/variable.scss';
+@import 'frontend-common/assets/styles/variable.scss';
+
+.header-container {
+    height: $headerHeight;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    background: #062042;
+    min-width: $bodyMinWidth;
+    user-select: none;
+    &.background {
+        background: $headerBackgroundHome;
+    }
+    .logo {
+        width: $sidebarWidth + 30px;
+        height: 100%;
+        display: inline-block;
+        color: #fff;
+        float: left;
+        background-image: linear-gradient(90deg, #0C4084 3%, #062042 100%);
+        &.isHome {
+            background: transparent;
+        }
+        .header_logo {
+            height: 100%;
+        }
+    }
+    .navi {
+        display: inline-block;
+        height: $headerHeight - 14px;
+        position: absolute;
+        left: 212px;
+        top: 7px;
+        &.small {
+            > ul {
+                > li {
+                    padding: 0 15px;
+                }
+            }
+        }
+        > ul {
+            display: inline-block;
+            height: 100%;
+            > li {
+                float: left;
+                display: inline-block;
+                height: 100%;
+                color: #fff;
+                font-size: 18px;
+                line-height: $headerHeight - 14px;
+                padding: 0 30px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                border-top: 1px solid transparent;
+                border-bottom: 1px solid transparent;
+                position: relative;
+                top: -1px;
+                &:hover {
+                    background: #0D3160;
+                    color: #00BBFF;
+                }
+                &.checked {
+                    background: #0C4084;
+                    color: #00BBFF;
+                    border-top: 1px solid #1880FF;
+                    border-bottom: 1px solid #1880FF;
+                    i {
+                        display: inline-block;
+                    }
+                }
+                i {
+                    position: absolute;
+                    width: 4px;
+                    height: 4px;
+                    border: 1px solid transparent;
+                    display: none;
+                    &.top-left {
+                        left: 0;
+                        top: -1px;
+                        border-top-color: #00BBFF;
+                        border-left-color: #00BBFF;
+                    }
+                    &.top-right {
+                        right: 0;
+                        top: -1px;
+                        border-top-color: #00BBFF;
+                        border-right-color: #00BBFF;
+                    }
+                    &.bottom-left {
+                        left: 0;
+                        bottom: -1px;
+                        border-left-color: #00BBFF;
+                        border-bottom-color: #00BBFF;
+                    }
+                    &.bottom-right {
+                        right: 0;
+                        bottom: -1px;
+                        border-right-color: #00BBFF;
+                        border-bottom-color: #00BBFF;
+                    }
+                }
+            }
+        }
+
+    }
+    .user {
+        color: #fff;
+        height: 100%;
+        float: right;
+        display: inline-block;
+        line-height: $headerHeight;
+        width: 150px;
+        padding-left: 15px;
+        font-size: 14px;
+        cursor: pointer;
+        position: relative;
+        user-select: none;
+        // xmw
+        padding-right: 25px;
+        > span:first-child {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        &.show {
+            background: #0D3160;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .4);
+        }
+        .logout {
+            font-size: 12px;
+            display: inline-block;
+            transition: $transitionAll;
+            position: absolute;
+            right: 10px;
+            &.toggle {
+                transform: rotate(180deg);
+            }
+        }
+        .content {
+            position: absolute;
+            width: 100%;
+            top: 100%;
+            left: 0;
+            z-index: 1;
+            overflow: hidden;
+            background: #0D3160;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .4);
+            color: #fff;
+            .split {
+                margin: 5px 15px;
+                height: 1px;
+                background: #0A4C7F;
+                position: relative;
+                i {
+                    width: 7px;
+                    height: 7px;
+                    position: absolute;
+                    top: -3.5px;
+                    &:before {
+                        content: '';
+                        width: 1px;
+                        height: 100%;
+                        position: absolute;
+                        left: 2.5px;
+                        background: #00BBFF;
+                    }
+                    &:after {
+                        content: '';
+                        width: 100%;
+                        height: 1px;
+                        position: absolute;
+                        top: 3.5px;
+                        background: #00BBFF;
+                    }
+                    &.left {
+                        left: -7px;
+                    }
+                    &.right {
+                        right: -7px;
+                    }
+                }
+            }
+            ul {
+                padding: 10px 0;
+            }
+            li {
+                line-height: 20px;
+                padding: 5px 0 5px 15px;
+                width: 100%;
+                transition: $transitionAll;
+                &:hover {
+                    background: rgba(255, 255, 255, .2);
+                }
+                .iconfont {
+                    font-size: 20px;
+                }
+                span {
+                    position: relative;
+                }
+            }
+        }
+    }
+    &.isHome {
+        background: transparent;
+    }
+}

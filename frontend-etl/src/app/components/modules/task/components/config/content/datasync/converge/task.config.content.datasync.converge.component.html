@@ -1,0 +1,84 @@
+<div class="container">
+    <div class="back">
+        <a class="link" (click)="backClick()">
+            <i class="iconfont icon-ico_back"></i><span>返回</span>
+        </a>
+    </div>
+    <div class="row mb24 mt24" *ngFor="let input of inputs">
+        <div class="col-4 line">
+            <span class="name">采集源类型</span>
+            <span class="desc text-overflow">
+                {{input.gatherBankType&&input.gatherBankType['name'] || '&nbsp;'}}
+                <i class="iconfont icon-ico_arrow_down"></i>
+            </span>
+        </div>
+        <div class="col-4 line">
+            <span class="name">采集源</span>
+            <span class="desc text-overflow">
+                {{input.gatherSource&&input.gatherSource['dsName'] || '&nbsp;'}}
+                <i class="iconfont icon-ico_arrow_down"></i>
+            </span>
+        </div>
+        <div class="col-4 line" *ngIf="input.gatherBankType&&(input.gatherBankType['type']===collectDatabaseEnum.MYSQL||input.gatherBankType['type']===collectDatabaseEnum.ORACLE||input.gatherBankType['type']===collectDatabaseEnum.HIVE)">
+            <span class="name">采集源表</span>
+            <span class="desc text-overflow">
+                {{input.gatherSourceTable&&input.gatherSourceTable['tableName'] || '&nbsp;'}}
+                <i class="iconfont icon-ico_arrow_down"></i>
+            </span>
+        </div>
+    </div>
+
+    <div class="jsPlumb-container row drag-target-headers mt20" #jsplumbContainer>
+        <div class="col-6">
+            <div *ngFor="let input of inputFiles;let i = index;" class="items" [class.last]="i===1">
+                <div class="item-title text-overflow">{{input.nickname}}</div>
+                <div class="item-content deep">
+                    <span>字段名</span>
+                    <span>类型</span>
+                </div>
+                <div class="item-content drag-line"
+                     *ngFor="let field of input.sourceFiles"
+                     [attr.gatherBankType]="input.gatherBankType&&input.gatherBankType['name']"
+                     [attr.fieldName]="field.fieldName"
+                     [attr.dataType]="field.dataType"
+                     [attr.uuid]="field.uuid"
+                     [attr.nickname]="input.nickname"
+                     [attr.source]="true">
+                    <span class="text-overflow" [title]="field.fieldName">{{field.fieldName}}</span>
+                    <span class="text-overflow">{{field.dataType}}</span>
+                    <i class="iconfont icon-ico_tab_close"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="items">
+                <div class="item-title">{{nickname}}</div>
+                <div class="item-content deep">
+                    <span>字段名</span>
+                    <span>类型</span>
+                </div>
+                <div class="item-content drag-line"
+                     *ngFor="let field of outputs;let i = index;"
+                     [attr.uuid]="field.uuid"
+                     [attr.nickname]="nickname"
+                     [attr.source]="false"
+                    (mouseenter)="showDel(true, i)"
+                    (mouseleave)="showDel(false, i)">
+                    <span class="text-overflow" [title]="field.fieldName">
+                        <input type="text" [(ngModel)]="field.fieldName" size="small">
+                    </span>
+                    <span class="text-overflow">
+                        <span>{{field.dataType.name}}</span>
+                        <i class="iconfont icon-ico_arrow_down"></i>
+                    </span>
+                    <i class="iconfont icon-ico_tab_close"
+                       [class.show]="field.del"
+                       (click)="delClick(i)"></i>
+                </div>
+                <div class="item-content item-add">
+                    <a class="link" (click)="addOutputClick()">新增字段</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

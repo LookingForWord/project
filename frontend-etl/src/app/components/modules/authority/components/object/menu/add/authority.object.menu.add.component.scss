@@ -1,0 +1,132 @@
+@import 'assets/styles/global.scss';
+
+.container {
+    width: 660px;
+    padding: 25px 0;
+    .row {
+        margin-bottom: 25px;
+        li {
+            display: inline-block;
+            float: left;
+            // 必填项设置
+            .required-content {
+                width: calc(100% - 10px);
+                display: inline-block;
+                padding-left: 10px;
+                position: relative;
+                .required-red {
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    margin-top: -7px;
+                    &.invisible {
+                        visibility: hidden;
+                    }
+                }
+                .required-label {
+                    position: absolute;
+                    bottom: -18px;
+                    left: 13px;
+                    color: $redColor;
+                }
+            }
+            &:first-child {
+                margin-right: 10px;
+            }
+            .input-container {
+                .input {
+                    width: 218px;
+                }
+                .input-error {
+                    font-size: 12px;
+                    left: 10px;
+                    bottom: -18px;
+                }
+            }
+            > span {
+                font-size: 14px;
+                color: #666;
+                &:first-child {
+                    display:inline-block;
+                    width: 70px;
+                    text-align: right;
+                }
+                &.db-type {
+                    width: 244px;
+                }
+            }
+        }
+    }
+    .row {
+        .department-box {
+            .checked-department {
+                display: inline-block;
+                width: 548px;
+                height: 26px;
+                line-height: 26px;
+                border: 1px solid #CCDDEE;
+                border-radius: $borderRradius;
+                padding: 4px 7px;
+                font-size: 14px;
+                color: #333333;
+                &:hover {
+                    border-color: #4499EE;
+                    & + .jt {
+                        color: #4499EE;
+                    }
+                }
+                &.disabled {
+                    background: #F5F5F5;
+                    border: 1px solid #E0E0E0;
+                    color: #CCCCCC;
+                    cursor: not-allowed;
+                }
+            }
+            i.jt {
+                display: inline-block;
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                color: #BBCCDD;
+                font-size: 12px;
+                transition: all 0.2s ease;
+                transform: rotate(0);
+                &.open {
+                    transform: rotate(180deg);
+                    color: #4499EE;
+                }
+            }
+            i.delete {
+                display: inline-block;
+                position: absolute;
+                right: 30px;
+                top: 9px;
+                color: #BBCCDD;
+                font-size: 14px;
+                cursor: pointer;
+                &:hover {
+                    color: #4499ee;
+                }
+                &.disabled {
+                    &:hover {
+                        color: #BBCCDD;
+                    }
+                }
+            }
+            .tree-box {
+                position: absolute;
+                top: 40px;
+                left: 10px;
+                height: 150px;
+                width: 562px;
+                overflow-y: auto;
+                background: #fff;
+                z-index: 9999;
+                border: 1px solid #CCDDEE;
+                box-shadow: 0 2px 2px 0 rgba(206, 211, 223, 0.6);
+                border-radius: 4px;
+                overflow-y: auto;
+            }
+        }
+    }
+}

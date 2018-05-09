@@ -1,0 +1,53 @@
+<div class="container">
+    <ul class="clearfix">
+        <li>报告名称:&nbsp;{{resultName}}</li>
+        <li>行数统计:&nbsp;{{countResult}}</li>
+        <li>执行时间:&nbsp;{{createTime ? (createTime | date:'YYYY-MM-DD HH:mm:ss') : ''}}</li>
+    </ul>
+    <ul class="clearfix filter">
+        <li>字段过滤:&nbsp;</li>
+        <li *ngFor="let item of fieldFilter">
+            {{item.fieldName}}&nbsp;{{item.func}}&nbsp;{{item.value}}
+        </li>
+    </ul>
+    <table-component>
+        <thead class="table-component-thead">
+        <tr>
+            <th width="10%">字段名</th>
+            <!--
+             min:最小值，max：最大值，count：计数，sum：求和，average：平均值，基数：base，平均长度：aveLength，标准差：stddev，方差：varpop
+             -->
+            <th width="9%">基数</th>
+            <th width="9%">计数</th>
+            <th width="9%">最大值</th>
+            <th width="9%">最小值</th>
+            <th width="9%">平均值</th>
+            <th width="9%">平均长度</th>
+            <th width="9%">标准差</th>
+            <th width="9%">方差</th>
+            <th width="9%">求和</th>
+            <th width="9%">范围</th>
+        </tr>
+        </thead>
+        <tbody class="table-component-tbody">
+        <tr *ngFor="let item of resultList">
+            <td>{{item.resultField}}</td>
+            <td>{{item['obj']['base']}}</td>
+            <td>{{item['obj']['count']}}</td>
+            <td>{{item['obj']['max']}}</td>
+            <td>{{item['obj']['min']}}</td>
+            <td>{{item['obj']['average']}}</td>
+            <td>{{item['obj']['aveLength']}}</td>
+            <td>{{item['obj']['stddev']}}</td>
+            <td>{{item['obj']['varpop']}}</td>
+            <td>{{item['obj']['sum']}}</td>
+            <td>{{item['obj']['range']}}</td>
+        </tr>
+        </tbody>
+        <tfoot class="table-component-tfoot">
+        <tr *ngIf="noData">
+            <td colspan="11">暂无数据...</td>
+        </tr>
+        </tfoot>
+    </table-component>
+</div>

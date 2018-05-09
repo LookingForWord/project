@@ -1,0 +1,53 @@
+@import 'frontend-common/assets/styles/variable.scss';
+
+.container {
+    .tabs {
+        background: #F5F5F5;
+        border-bottom: 1px solid #CCDDEE;
+        span {
+            padding: 8px 20px;
+            text-align: center;
+            font-size: 14px;
+            border-top: 2px solid transparent;
+            border-right: 1px solid transparent;
+            border-left: 1px solid transparent;
+            color: #666;
+            position: relative;
+            transition: $transitionAll;
+            display: inline-block;
+            cursor: pointer;
+            float: left;
+            &:hover {
+                color: #333;
+            }
+            &:first-child {
+                &.checked {
+                    border-left-color: transparent;
+                }
+            }
+            &.checked {
+                background: #fff;
+                border-color: #4499EE;
+                border-right: 1px solid #cde;
+                border-left: 1px solid #cde;
+                color: #333;
+                &:after {
+                    content: '';
+                    width: 100%;
+                    height: 1px;
+                    position: absolute;
+                    bottom: -1px;
+                    left: 0;
+                    background: #fff;
+                }
+            }
+        }
+    }
+
+    .no-authority {
+        text-align: center;
+        padding-top: 30px;
+        font-size: 16px;
+        color: #FFAD49;
+    }
+}

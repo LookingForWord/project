@@ -1,0 +1,59 @@
+<div class="container">
+    <table-component>
+        <div class="table-component-search line">
+            <div  class="input-icon" position="left">
+                <input type="text" class="input" #search inputDebounce (debounceClick)="searchChange($event)" [(ngModel)]="keyWord" (keyup.enter)="getLogs(1)" placeholder="支持配置名称搜索">
+                <i class="icon iconfont icon-ico_search_textfield"></i>
+            </div>
+            <button class="back line btn ml10" (click)="getLogs(1)">
+                搜索
+            </button>
+        </div>
+        <div class="table-component-title">
+        <span class="title">
+            <i class="iconfont mr8 icon-ico_datapick"></i>汇聚日志
+        </span>
+            <span class="record">共{{totalcount}}条记录</span>
+        </div>
+        <thead class="table-component-thead">
+            <tr>
+                <th width="15%">配置名称</th>
+                <th width="15%">汇聚类型</th>
+                <th width="15%">数据源类</th>
+                <th width="15%">目标库类</th>
+                <th width="15%">状态</th>
+                <th width="15%">创建时间</th>
+                <th width="10%">操作</th>
+            </tr>
+        </thead>
+        <tbody class="table-component-tbody">
+            <tr *ngFor="let item of converngenceLogs;let i = index">
+                <td>{{item.configName}}</td>
+                <td>{{item.dataType === 'split' ? '一表多拆' : (item.dataType === 'merge' ? '多表合一' : '')}}</td>
+                <td>{{item.sourceDataType}}</td>
+                <td>{{item.targetDataType}}</td>
+                <td>{{getTaskStatus(item.status)}}</td>
+                <td>{{item.createTime ? (item.createTime | date:'YYYY/MM/DD HH:mm:ss') : '--'}}</td>
+                <td>
+                    <button class="icon only btn" tooltip="查看" position="top" (click)="preview(item)">
+                        <i class="iconfont icon-ico_view"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot class="table-component-tfoot">
+            <tr *ngIf="noDataType">
+                <td colspan='7' [style.textAlign]="'center'">暂无数据...</td>
+            </tr>
+        </tfoot>
+        <div class="table-component-page">
+            <multi-pagination-component [pagenow]="pageNow"
+                                  [pagesize]="pageSize"
+                                  [totalcount]="totalcount"
+                                  (onPageChange)="doPageChange($event)">
+            </multi-pagination-component>
+        </div>
+    </table-component>
+
+</div>
+

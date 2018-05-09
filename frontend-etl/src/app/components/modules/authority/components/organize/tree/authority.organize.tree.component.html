@@ -1,0 +1,56 @@
+<div class="tree-container">
+    <ul #titleContainer>
+        <li *ngFor="let item of list;let i = index;">
+            <div class="tree-title"
+                 [class.checked]="item.checked"
+                 (click)="checkedClick(item, $event)"
+                 [style.paddingLeft.px]="(item.index)*20 + 10"
+                 [attr.index]="i"
+                 >
+                <span>
+                    <i class="iconfont icon-ico_arrow_down arrow"
+                       [class.right]="!item.expand"
+                       (click)="expandClick(item, $event)"
+                       *ngIf="item.children && item.children.length"
+                    ></i>
+                    <i class="iconfont icon-ico_company logo" *ngIf="item.orgType === 1"></i>
+                    <i class="iconfont icon-ico_department logo" *ngIf="item.orgType === 2"></i>
+                </span>
+                <span class="name">{{item.name}}</span>
+                <!--<span class="icon-group">-->
+                    <!--<i class="iconfont icon-ico_task_add" tooltip="新增下级公司" (click)="openModal('addCompany')" *ngIf="item.orgType === 1 && checkBtnAuthority('authority.organize.addNextCompany')"></i>-->
+                    <!--<i class="iconfont icon-ico_add" tooltip="新增下级部门" (click)="openModal('addDepartment')" *ngIf="(item.orgType === 2 || item.orgType === 1) && checkBtnAuthority('authority.organize.addNext')"></i>-->
+                    <!--<i class="iconfont icon-ico_edit" tooltip="编辑公司" (click)="openModal('editCompany')" *ngIf="item.orgType === 1 && checkBtnAuthority('authority.organize.editCompany')"></i>-->
+                    <!--<i class="iconfont icon-ico_edit" tooltip="编辑部门" (click)="openModal('editDepartment')"  *ngIf="item.orgType === 2 && checkBtnAuthority('authority.organize.editDepartment')"></i>-->
+                    <!--<i class="iconfont icon-ico_delete delete" tooltip="删除" (click)="delete()"></i>-->
+                <!--</span>-->
+            </div>
+            <div class="child-content" *ngIf="item.children&&item.children.length&&item.expand" [@slideUpDwon]>
+                <authority-organize-tree-component
+                    [menuList]="menuList"
+                    [type]='type'
+                    [list]="item.children">
+                </authority-organize-tree-component>
+            </div>
+        </li>
+    </ul>
+
+    <div *ngIf="showCatalogModal"
+         [style.left.px]="modalX"
+         [style.top.px]="modalY"
+         class="modal">
+        <span (click)="openModal('addCompany')" authority="authority.organize.addNextCompany">新增下级公司</span>
+        <span (click)="openModal('addDepartment')" authority="authority.organize.addNext">新增下级部门</span>
+        <span (click)="openModal('editCompany')" authority="authority.organize.editCompany">编辑公司</span>
+        <span (click)="delete()" authority="authority.organize.delete">删除</span>
+    </div>
+
+    <div *ngIf="showTaskTModal"
+         [style.left.px]="modalX"
+         [style.top.px]="modalY"
+         class="modal">
+        <span (click)="openModal('addDepartment')" authority="authority.organize.addNext">新增下级部门</span>
+        <span (click)="openModal('editDepartment')" authority="authority.organize.editDepartment">编辑部门</span>
+        <span (click)="delete()" authority="authority.organize.delete">删除</span>
+    </div>
+</div>

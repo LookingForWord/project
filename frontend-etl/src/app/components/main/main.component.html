@@ -1,0 +1,17 @@
+<main-header-component></main-header-component>
+<div class="container" >
+    <main-sidebar-component [isHome]="isHome"></main-sidebar-component>
+    <div class="content"
+         [@routerAnimation]="routerStateCode"
+         [class.min]="leftState===1"
+         [class.normal]="leftState===2"
+         [class.mixMax]="leftState===3"
+         [class.max]="leftState===4"
+         [class.full]="isFullScreen"
+         [class.home]="isHome">
+        <div [class.auto]="!isFullScreen"
+             [class.full]="isFullScreen">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

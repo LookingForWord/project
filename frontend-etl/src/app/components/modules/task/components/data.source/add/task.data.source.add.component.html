@@ -1,0 +1,200 @@
+<div class="container">
+    <div class="row line" >
+        <ul>
+            <li>
+                <span>数据源名称</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" maxlength="30" [class.error]="errorType===1" [(ngModel)]="sourceName" placeholder="名称" [disabled]="status === 0">
+                        <span class="required-label" *ngIf="errorType===1">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+            <li class="line">
+                <span>数据源类型</span>
+                <span class="input-container source-type">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                         <select-component
+                             [option]="sourceType"
+                             [options]="sourceTypes"
+                             [disabled]="status === 0"
+                             [downHeight]="180"
+                             (callback)="sourceTypeChecked($event)">
+                         </select-component>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row line" *ngIf="sourceType&&(sourceType['value']===collectDatabaseEnum.FTP || sourceType['value']===collectDatabaseEnum.FILE || sourceType['value']===collectDatabaseEnum.SPIDER)">
+        <li class="line">
+            <span>ftp类型</span>
+            <span class="input-container source-type">
+                <span class="required-content">
+                    <i class="required-red">*</i>
+                    <span class="required-label" *ngIf="errorType===13">{{error}}</span>
+                    <select-component
+                         [option]="protocol"
+                         [options]="protocols"
+                         [disabled]="status === 0"
+                         (callback)="protocolChecked($event)"
+                        [placeholder]="'选择ftp类型'">
+                    </select-component>
+                </span>
+            </span>
+        </li>
+    </div>
+    <div class="row line"
+         *ngIf="sourceType&&(
+         sourceType['value']===collectDatabaseEnum.MYSQL ||
+         sourceType['value']===collectDatabaseEnum.ORACLE ||
+         sourceType['value']===collectDatabaseEnum.HIVE ||
+         sourceType['value']===collectDatabaseEnum.FTP ||
+         sourceType['value']===collectDatabaseEnum.FILE ||
+         sourceType['value']===collectDatabaseEnum.SPIDER ||
+         sourceType['value']===collectDatabaseEnum.HDFS ||
+         sourceType['value']===collectDatabaseEnum.SQLSERVER)">
+        <ul>
+            <li class="datasource-url-box">
+                <span>数据源Url</span>
+                <span class="input-container">
+                    <span class="required-content">
+                         <i class="required-red">*</i>
+                        <input type="text" class="input datasource-url" [class.error]="errorType===2" [(ngModel)]="url" placeholder="请输入数据源Url" [disabled]="status === 0">
+                        <!--<input type="text" class="input" [class.error]="errorType===2" [(ngModel)]="ip" placeholder="jdbc:mysql://localhost:3306/dataName">-->
+                        <span class="required-label" *ngIf="errorType===2">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row" *ngIf="sourceType&&(
+         sourceType['value']===collectDatabaseEnum.MYSQL ||
+         sourceType['value']===collectDatabaseEnum.ORACLE ||
+         sourceType['value']===collectDatabaseEnum.HIVE ||
+         sourceType['value']===collectDatabaseEnum.FTP ||
+         sourceType['value']===collectDatabaseEnum.FILE ||
+         sourceType['value']===collectDatabaseEnum.SPIDER ||
+         sourceType['value']===collectDatabaseEnum.HDFS ||
+         sourceType['value']===collectDatabaseEnum.SQLSERVER)">
+        <ul>
+            <li>
+                <span>用户名</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <!--hdfs类型 用户名非必传-->
+                        <i class="required-red" [class.invisible]="sourceType&&sourceType['value']===collectDatabaseEnum.HDFS">*</i>
+                        <input type="text" class="input" maxlength="30" [class.error]="errorType===4" [(ngModel)]="username" placeholder="输入用户名" [disabled]="status === 0">
+                        <span class="required-label" *ngIf="errorType===4">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+            <li>
+                <span>密码</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <!--hdfs类型 密码非必传-->
+                        <i class="required-red" [class.invisible]="sourceType&&sourceType['value']===collectDatabaseEnum.HDFS">*</i>
+                        <input type="text" class="input" [class.error]="errorType===5" [(ngModel)]="password" minlength="6" maxlength="20" placeholder="输入密码" *ngIf="status === 1" >
+                        <input type="password" class="input" [class.error]="errorType===5" [(ngModel)]="password" (keyup)="updatePassword=true" minlength="6" maxlength="20" placeholder="输入密码"  *ngIf="status !== 1" [disabled]="status === 0">
+                        <span class="required-label" *ngIf="errorType===5">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row" style="margin-bottom: 86px;" *ngIf="sourceType&&sourceType['value'] === collectDatabaseEnum.KAFKA">
+        <ul>
+            <li>
+                <span>server</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" [class.error]="errorType===6" [(ngModel)]="server" placeholder="server" [disabled]="status === 0">
+                        <span class="required-label" *ngIf="errorType===6">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+            <li>
+                <span>端口</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" [class.error]="errorType===7" [(ngModel)]="port"  placeholder="端口"  [disabled]="status === 0">
+                        <span class="required-label" *ngIf="errorType===7">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row" *ngIf="sourceType&&sourceType['value'] === collectDatabaseEnum.ODPS">
+        <ul>
+            <li>
+                <span>odpsServer</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" [class.error]="errorType===8" [(ngModel)]="odpsServer" placeholder="odps server" [disabled]="status === 0">
+                        <span class="required-label" *ngIf="errorType===8">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+            <li>
+                <span>tunnelServer</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" [class.error]="errorType===9" [(ngModel)]="tunnelServer"  placeholder="tunnel server"  [disabled]="status === 0">
+                        <span class="required-label" *ngIf="errorType===9">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row" *ngIf="sourceType&&sourceType['value'] === collectDatabaseEnum.ODPS">
+        <ul>
+            <li>
+                <span>accessId</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" [class.error]="errorType===10" [(ngModel)]="accessId" placeholder="access id" [disabled]="status === 0">
+                        <span class="required-label" *ngIf="errorType===10">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+            <li>
+                <span>accessKey</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" [class.error]="errorType===11" [(ngModel)]="accessKey"  placeholder="access key"  [disabled]="status === 0">
+                        <span class="required-label" *ngIf="errorType===11">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="row" *ngIf="sourceType&&sourceType['value'] === collectDatabaseEnum.ODPS">
+        <ul>
+            <li>
+                <span>project</span>
+                <span class="input-container">
+                    <span class="required-content">
+                        <i class="required-red">*</i>
+                        <input type="text" class="input" [class.error]="errorType===12" [(ngModel)]="project" placeholder="project" [disabled]="status === 0">
+                        <span class="required-label" *ngIf="errorType===12">{{error}}</span>
+                    </span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <!--<div class="row btns">-->
+        <!--<button class="btn" (click)="cancelClick()"  *ngIf="status!==0">取消</button>-->
+        <!--<button class="btn" (click)="connectClick()" *ngIf="status!==0">连接测试</button>-->
+        <!--<button class="btn primary" (click)="saveClick()" *ngIf="status!==0">保存</button>-->
+
+    <!--</div>-->
+</div>

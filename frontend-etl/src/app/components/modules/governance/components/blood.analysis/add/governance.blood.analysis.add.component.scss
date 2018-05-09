@@ -1,0 +1,34 @@
+@import 'assets/styles/global.scss';
+
+.container {
+    width: 500px;
+    padding: 25px 0;
+    font-size: 14px;
+    .row {
+        li {
+            margin-bottom: 25px;
+            // 必填项设置
+            .required-content {
+                width: calc(100% - 10px);
+                display: inline-block;
+                padding-left: 10px;
+                position: relative;
+            }
+            &:first-child {
+                margin-right: 9px;
+            }
+            > span {
+                &:first-child {
+                    display:inline-block;
+                    width: 100px;
+                    color: #666;
+                    text-align: right;
+                    margin-right: 3px;
+                }
+                &.source-type {
+                    width: 360px;
+                }
+            }
+        }
+    }
+}
