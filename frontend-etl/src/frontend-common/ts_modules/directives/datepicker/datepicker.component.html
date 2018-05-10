@@ -1,0 +1,167 @@
+<div class="datepicker"
+     [class.left]="parent.options.align === 'left'"
+     [class.right]="parent.options.align === 'right'"
+     #datepickerRef
+    (click)="$event.stopPropagation();">
+    <div class="view" [class.show]="!showYearView&&!showMonthView">
+        <div class="title clearfix" *ngIf="!showMomentView">
+            <span class="left">
+                <a class="arror ml12" (click)="nextYearClick('before')">
+                    <i class="iconfont icon-arr_left1"></i>
+                </a>
+                <a class="arror" (click)="nextMonthClick('before')">
+                    <i class="iconfont icon-arr_left"></i>
+                </a>
+            </span>
+            <span class="center">
+                <a class="link year" (click)="showYearViewClick()">{{time.year}}</a>
+                <a class="link month" (click)="showMonthView=true">{{parent.options.monthLabels[time.month + 1]}}</a>
+            </span>
+            <span class="right">
+                <a class="arror" (click)="nextMonthClick('after')">
+                    <i class="iconfont icon-arr_right"></i>
+                </a>
+                <a class="arror mr24" (click)="nextYearClick('after')">
+                    <i class="iconfont icon-arr_right1"></i>
+                </a>
+            </span>
+        </div>
+        <div class="week" *ngIf="!showMomentView">
+            <span>{{parent.defaultOptions.dayLabels['su']}}</span>
+            <span>{{parent.defaultOptions.dayLabels['mo']}}</span>
+            <span>{{parent.defaultOptions.dayLabels['tu']}}</span>
+            <span>{{parent.defaultOptions.dayLabels['we']}}</span>
+            <span>{{parent.defaultOptions.dayLabels['th']}}</span>
+            <span>{{parent.defaultOptions.dayLabels['fr']}}</span>
+            <span>{{parent.defaultOptions.dayLabels['sa']}}</span>
+        </div>
+        <div class="date clearfix" *ngIf="!showMomentView">
+            <span class="day"
+                  *ngFor="let date of time.dates"
+                  [class.checked]="date.checked"
+                  [class.disabled]="date.disabled"
+                  [class.now]="date.now">
+                <span (click)="dateClick(date)">{{date.date}}</span>
+            </span>
+        </div>
+        <!--时分秒选择-->
+        <div class="moment" *ngIf="showMomentView" #moment>
+            <div class="hour">
+                <div class="scroll">
+                    <div class="scroll-inner">
+                        <div class="t" *ngFor="let hour of hours">
+                            <span [class.checked]="time.hour===hour.value"
+                                  (click)="momentCheckedClick('hour', hour)">{{hour.name}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider">
+                    <span (mousedown)="sliderMouseDown('hour', $event)">
+                        <i></i>
+                    </span>
+                </div>
+            </div>
+            <div class="minute">
+                <div class="scroll">
+                    <div class="scroll-inner">
+                        <div class="t" *ngFor="let minute of minutes">
+                            <span [class.checked]="time.minute===minute.value"
+                                (click)="momentCheckedClick('minute', minute)">{{minute.name}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider">
+                    <span (mousedown)="sliderMouseDown('minute', $event)">
+                        <i></i>
+                    </span>
+                </div>
+            </div>
+            <div class="second">
+                <div class="scroll">
+                    <div class="scroll-inner">
+                        <div class="t" *ngFor="let second of seconds">
+                            <span [class.checked]="time.second===second.value"
+                                  (click)="momentCheckedClick('second', second)">{{second.name}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider">
+                    <span (mousedown)="sliderMouseDown('second', $event)">
+                        <i></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!--底部工具栏-->
+        <div class="tool clearfix"
+            [class.one]="toolNum===1"
+             [class.two]="toolNum===2"
+             [class.three]="toolNum===3"
+             [class.four]="toolNum===4">
+            <div *ngIf="parent.options.showMoment">
+                <a class="link" (click)="momentClick(true)" *ngIf="!showMomentView">{{parent.options.showMonentLabel}}</a>
+                <a class="link" (click)="momentClick(false)" *ngIf="showMomentView">{{parent.options.showTimeLabel}}</a>
+            </div>
+            <div *ngIf="parent.options.showToday">
+                <a class="link" (click)="todayClick()">{{parent.options.showTodayLabel}}</a>
+            </div>
+            <div *ngIf="parent.options.showOk">
+                <a class="link" (click)="okClick()">{{parent.options.showOkLabel}}</a>
+            </div>
+            <div *ngIf="parent.options.showDelete">
+                <a class="link" (click)="deleteClick()">{{parent.options.showDeleteLabel}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="view" [class.show]="showMonthView">
+        <div class="title clearfix">
+            <span class="left">
+                <a class="link" (click)="nextYearClick('before')">
+                    <i class="iconfont icon-ico_arrow_right2" style="display: inline-block;transform: rotate(180deg)"></i>
+                </a>
+            </span>
+            <span class="center">
+                <a class="link year" (click)="showMonthView=false;">{{time.year}}</a>
+            </span>
+            <span class="right">
+                <a class="link" (click)="nextYearClick('after')">
+                    <i class="iconfont icon-ico_arrow_right2"></i>
+                </a>
+            </span>
+        </div>
+        <div class="month">
+            <span class="item"
+                  *ngFor="let month of monthLabels;let i = index;"
+                  [class.checked]="i===time.month"
+                  (click)="selectMonthClick(i)">
+                <span>{{month}}</span>
+            </span>
+        </div>
+    </div>
+    <div class="view" [class.show]="showYearView">
+            <div class="title clearfix">
+                <span class="left">
+                    <a class="link" (click)="nextSelectYearClick('before');">
+                        <i class="iconfont icon-ico_arrow_right2" style="display: inline-block;transform: rotate(180deg)"></i>
+                    </a>
+                </span>
+                <span class="center">
+                    <a class="link year" (click)="showYearView=false">{{time.year}}</a>
+                </span>
+                <span class="right">
+                    <a class="link" (click)="nextSelectYearClick('after');">
+                        <i class="iconfont icon-ico_arrow_right2"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="year">
+                <span class="item"
+                      *ngFor="let year of yearLabels;"
+                      [class.checked]="year === time.year"
+                      (click)="selectYearClick(year)">
+                    <span>{{year}}</span>
+                </span>
+            </div>
+        </div>
+</div>

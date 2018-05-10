@@ -1,0 +1,65 @@
+@import "frontend-common/assets/styles/variable.scss";
+
+.pager {
+    padding: 20px;
+    text-align: center;
+    .page-items {
+        height: auto;
+        display: inline-block;
+        margin:  auto;
+        overflow: hidden;
+        span {
+            float: left;
+            width: auto;
+            height: 26px;
+            text-align: center;
+            margin-left: 5px;
+            line-height: 26px;
+            font-size: 14px;
+            padding: 0 10px;
+            cursor: pointer;
+            position: relative;
+            background: #EEF1F7;
+            color: #666;
+            border-left: 0;
+            transition: $transitionAll;
+            &:first-child {
+                cursor: default;
+                margin-left: 0;
+            }
+            &.text {
+                padding: 0 20px;
+            }
+            &.cur,  &.cur:hover {
+                //color: #333;
+                //background: none;
+                color: #fff;
+                background-color: #108ee9;
+            }
+
+            &:hover {
+                background-color: #108ee9;
+                color: #fff;
+            }
+            &.disabled {
+                color: #ccc;
+                background-color: #F5F5F5;
+                cursor: not-allowed;
+            }
+            &.ellipsis {
+                cursor: none;
+                color: #ccc;
+                background: none;
+            }
+        }
+    }
+    .page-jumps {
+        display: inline-block;
+        color: $textNormalColor;
+        input {
+            width: 24px;
+            height: 16px;
+            border-color: $borderColor;
+        }
+    }
+}

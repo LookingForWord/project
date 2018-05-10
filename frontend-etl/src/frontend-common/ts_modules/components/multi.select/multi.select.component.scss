@@ -1,0 +1,212 @@
+@import 'frontend-common/assets/styles/variable.scss';
+
+.container {
+    //width: 216px;
+    width: 100%;
+    line-height: 20px;
+    display: inline-block;
+    color: $textColor;
+    position: relative;
+    font-size: 14px;
+    letter-spacing: 1px;
+    max-width: 100%;
+    &.adaption {
+        width: 100%;
+    }
+    .iconfont {
+        font-size: 12px;
+    }
+    .top {
+        //padding: 5px 5px;
+        padding-right: 7px;
+        border-radius: $borderRradius;
+        border: 1px solid  #CCDDEE;
+        transition: $transitionAll;
+        min-height: 34px;
+        position: relative;
+        &.placeholder {
+            //padding: 5px 5px ;
+            .no-content {
+                width: auto;
+                font-size: 14px;
+                padding-left: 7px;
+                display: inline-block;
+                line-height: 34px;
+            }
+            color: #BBCCDD;
+        }
+        i.arrow_jt {
+            display: inline-block;
+            position: absolute;
+            right: 10px;
+            top: 7px;
+            transition: $transitionAll;
+            transform: rotate(0);
+            &.open {
+                transform: rotate(180deg);
+            }
+        }
+
+        .item {
+            display: inline-block;
+            max-width: 80%;
+            padding: 3px 22px 3px 7px;
+            line-height: 18px;
+            position: relative;
+            color: #333;
+            margin: 5px 0 5px 5px;
+
+            cursor: default;
+            background: #EEEEEE;
+            border-radius: 4px;
+            .close {
+                display: inline-block;
+                cursor: pointer;
+                position: absolute;
+                right: 6px;
+                top: 3px;
+                .iconfont {
+                    font-size: 12px;
+                    color: #666666;
+                }
+            }
+        }
+        &.small {
+            //padding: 3px 3px ;
+            border-radius: $borderRradius;
+            border: 1px solid  #CCDDEE;
+            transition: $transitionAll;
+            min-height: 24px;
+            position: relative;
+            &.placeholder {
+                font-size: 12px;
+                //padding: 3px 3px;
+                .no-content {
+                    font-size: 12px;
+                    width: auto;
+                    padding-left: 8px;
+                    display: inline-block;
+                    line-height: 24px;
+                }
+            }
+
+            i.arrow_jt {
+                display: inline-block;
+                position: absolute;
+                right: 10px;
+                top: 2px;
+                transition: $transitionAll;
+                transform: rotate(0);
+                &.open {
+                    transform: rotate(180deg);
+                }
+            }
+
+            .item {
+                padding: 1px 20px 1px 5px;
+                line-height: 16px;
+                font-size: 12px;
+                margin: 3px 0 3px 3px;
+                .close {
+                    display: inline-block;
+                    cursor: pointer;
+                    position: absolute;
+                    right: 4px;
+                    top: 3px;
+                    .iconfont {
+                        font-size: 12px;
+                        color: #666666;
+                    }
+                }
+            }
+        }
+        &:hover {
+            border-color: #4499EE;
+            //color: #4499EE;
+            .arrow_jt {
+                color: #4499EE;
+            }
+        }
+        &.showDown {
+            border-color: #4499EE;
+        }
+        .open {
+            color: #4499EE;
+        }
+    }
+    &.disabled {
+        .top {
+            color: #ccc;
+            background-color: #e0e0e0;
+            cursor: not-allowed;
+            .item {
+                cursor: not-allowed;
+                color:  #CCCCCC;
+                .close {
+                    cursor: not-allowed;
+                }
+            }
+            .iconfont {
+                color: #ccc;
+                cursor: not-allowed;
+            }
+        }
+    }
+    .down {
+        max-height: 250px;
+        position: absolute;
+        width: 100%;
+        z-index: 10;background: #fff;
+        border: 1px solid #CCDDEE;
+        box-shadow: 0 2px 2px 0 rgba(206,211,223,0.60);
+        border-radius: $borderRradius;
+        overflow-y: hidden;
+        &.pos-top {
+            bottom: calc(100% + 4px);
+        }
+        &.pos-bottom {
+            top: calc(100% + 4px);
+        }
+        > div {
+            overflow-y: auto;
+            //max-height: 300px;
+            max-height: 250px;
+            position: relative;
+        }
+        li {
+            padding: 7px 11px;
+            line-height: 18px;
+            transition: $transitionAll;
+            cursor: default;
+            &.small {
+                padding: 2px 7px;
+                font-size: 12px;
+                &:first-child {
+                    margin-top: 4px;
+                }
+                &:last-child {
+                    margin-bottom: 4px;
+                }
+            }
+            color: #666666;
+            &:hover {
+                color: #333333;
+                background: #DDEEFF;
+            }
+            &.checked {
+                color: #333;
+                background: #EEEEEE;
+                &:hover {
+                    cursor: not-allowed;
+                    background: #EEEEEE;
+                }
+            }
+            &:first-child {
+                margin-top: 10px;
+            }
+            &:last-child {
+                margin-bottom: 10px;
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+@import 'frontend-common/assets/styles/all.scss';
+.app-modal-confirm-container {
+    width:340px;
+    height: 92px;
+    overflow: hidden;
+    .content {
+        padding: 36px 10px;
+        line-height: 20px;
+        font-size: 14px;
+        color: #666666;
+        letter-spacing: 1px;
+    }
+
+    .btns {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        padding: 10px 0;
+        text-align: right;
+        //border-top: 1px solid #D4D5DA;
+    }
+}

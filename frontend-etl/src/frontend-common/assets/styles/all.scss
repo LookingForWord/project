@@ -1,0 +1,10 @@
+/**
+ * 所有公共样式同意从本文件导出
+ */
+@import './reset.scss';
+@import './global.scss';
+@import './bootstrap.scss';
+@import './grid.scss';
+@import './logo.scss';
+
+@import '../../ts_modules/directives/tooltip/tooltip';

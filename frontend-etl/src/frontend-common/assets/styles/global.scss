@@ -1,0 +1,279 @@
+@import './variable.scss';
+
+// 滚动条样式
+::-webkit-scrollbar {
+    width: 10px!important;
+    height: 10px!important;
+    -webkit-appearance: none
+}
+::-webkit-scrollbar-thumb {
+    height: 5px;
+    border: 1px solid transparent;
+    border-top: none;
+    border-bottom: none;
+    -webkit-border-radius: 6px;
+    background-color: rgba(0, 0, 0, .3);
+    background-clip: padding-box
+}
+
+html {
+    -webkit-font-smoothing: antialiased;
+    font-size: 12px;
+    font-family: Helvetica Neue For Number,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif;
+    color: #333;
+    line-height: 1.5;
+}
+
+h1 {
+    font-size: 28px
+}
+h2 {
+    font-size: 22px
+}
+h3 {
+    font-size: 18px
+}
+h4 {
+    font-size: 16px
+}
+h5 {
+    font-size: 14px
+}
+h6 {
+    font-size: 12px
+}
+
+// 文本溢出
+.text-overflow {
+    display: block;
+    width: auto;
+    word-break: keep-all;
+    white-space: nowrap; // 不换行
+    word-wrap: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.multi-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+// 显示隐藏
+.hidden {
+    display: none;
+}
+
+// 清除浮动
+.clearfix {
+    *zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+    display: table;
+    line-height: 0;
+    content: "";
+}
+.clearfix:after {
+    clear: both;
+}
+
+// 各种margin padding
+$maxIndex: 30;
+$unit: 1px;
+@for $i from 0 through $maxIndex {
+    .pt#{$i} {
+        padding-top: $unit * $i;
+    }
+    .pr#{$i} {
+        padding-right: $unit * $i;
+    }
+    .pb#{$i} {
+        padding-bottom: $unit * $i;
+    }
+    .pl#{$i} {
+        padding-left: $unit * $i;
+    }
+    .ptb#{$i} {
+        padding: $unit * $i 0;
+    }
+    .plr#{$i} {
+        padding: auto $unit * $i;
+    }
+    .mt#{$i} {
+        margin-top: $unit * $i;
+    }
+    .mr#{$i} {
+        margin-right: $unit * $i;
+    }
+    .mb#{$i} {
+        margin-bottom: $unit * $i;
+    }
+    .ml#{$i} {
+        margin-left: $unit * $i;
+    }
+    .mtb#{$i} {
+        margin: $unit * $i 0;
+    }
+    .mlr#{$i} {
+        margin: auto $unit * $i;
+    }
+}
+
+// 水平对齐
+.line > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+.back.btn {
+    .iconfont {
+        display: inline;
+        vertical-align: baseline;
+        font-size: 14px;
+    }
+    span {
+        vertical-align: baseline;
+    }
+}
+// 超链接
+.link {
+    color: #4499EE;
+    cursor: pointer;
+    &:hover {
+        color: #285D92;
+    }
+    &.hover {
+        color: #285D92;
+    }
+    &.checked {
+        color: #2121F7;
+    }
+    &.disable {
+        color: #999;
+        cursor: not-allowed;
+    }
+}
+
+// 隐藏
+.hidden {
+    display: none;
+}
+
+/**
+    一组from表单样式 基本模板
+    <span class="input-container">
+        <input type="text" [class.error]="errorType===1" [(ngModel)]="dbName" placeholder="数据库名">
+        <span class="input-error" *ngIf="error">{{error}}</span>
+    </span>
+ */
+.input-container {
+    display: inline-block;
+    position: relative;
+    input.error {
+        border-color: #FF3333;
+    }
+    span.input-error {
+        display: inline-block;
+        position: absolute;
+        bottom: -20px;
+        left: 0;
+        color: #FF3333;
+    }
+}
+
+/**
+    几个基础颜色
+ */
+.font-color-normal {
+    color: $textNormalColor;
+}
+.font-color-deep {
+    color: $textDeepColor;
+}
+.font-color-light {
+    color: $textLightColor;
+}
+
+/** loading 动画 暂时不要
+ */
+//.loading,
+//.loading::before,
+//.loading::after {
+//    position: absolute;
+//    top: 50%;
+//    left: 50%;
+//    border: 1px solid rgba(34, 85, 238, 0.1);
+//    border-left-color: rgba(34, 85, 238, 0.4);
+//    -webkit-border-radius: 999px;
+//    -moz-border-radius: 999px;
+//    border-radius: 999px;
+//}
+//.loading {
+//    margin: -25px 0 0 -25px;
+//    height: 50px;
+//    width: 50px;
+//    -webkit-animation: animation-rotate 1000ms linear infinite;
+//    -moz-animation: animation-rotate 1000ms linear infinite;
+//    -o-animation: animation-rotate 1000ms linear infinite;
+//    animation: animation-rotate 1000ms linear infinite;
+//}
+//.loading::before {
+//    content: "";
+//    margin: -23px 0 0 -23px;
+//    height: 44px;
+//    width: 44px;
+//    -webkit-animation: animation-rotate 1000ms linear infinite;
+//    -moz-animation: animation-rotate 1000ms linear infinite;
+//    -o-animation: animation-rotate 1000ms linear infinite;
+//    animation: animation-rotate 1000ms linear infinite;
+//}
+//.loading::after {
+//    content: "";
+//    margin: -29px 0 0 -29px;
+//    height: 56px;
+//    width: 56px;
+//    -webkit-animation: animation-rotate 2000ms linear infinite;
+//    -moz-animation: animation-rotate 2000ms linear infinite;
+//    -o-animation: animation-rotate 2000ms linear infinite;
+//    animation: animation-rotate 2000ms linear infinite;
+//}
+//@-webkit-keyframes animation-rotate {
+//    100% {
+//        -webkit-transform: rotate(360deg);
+//    }
+//}
+//@-moz-keyframes animation-rotate {
+//    100% {
+//        -moz-transform: rotate(360deg);
+//    }
+//}
+//@-o-keyframes animation-rotate {
+//    100% {
+//        -o-transform: rotate(360deg);
+//    }
+//}
+//@keyframes animation-rotate {
+//    100% {
+//        transform: rotate(360deg);
+//    }
+//}
+//.loading.small {
+//    margin: -12.5px 0 0 -12.5px;
+//    height: 25px;
+//    width: 25px;
+//    &.loading::before {
+//        margin: -11.5px 0 0 -11.5px;
+//        height: 22px;
+//        width: 22px;
+//    }
+//    &.loading::after {
+//        margin: -14.5px 0 0 -14.5px;
+//        height: 28px;
+//        width: 28px;
+//    }
+//}
+//.loading.white {
+//    border: 1px solid rgba(255, 255, 255, .6);
+//    border-left-color: rgba(255, 255, 255, .1);
+//}

@@ -1,0 +1,8 @@
+@import 'frontend-common/assets/styles/variable.scss';
+.container {
+    display: inline-block;
+    .label {
+        color: $textNormalColor;
+        cursor: default;
+    }
+}

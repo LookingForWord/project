@@ -1,0 +1,17 @@
+<div class="app-modal-container" *ngIf="show" #container>
+    <div class="app-modal-overlay"></div>
+    <div class="app-modal-content" [style.width.px]="width" [style.marginLeft.px]="-width/2">
+        <div class="app-modal-content-title">
+            <span class="title">
+                <ng-content select=".slot-header"></ng-content>
+                <i class="iconfont close" (click)="closeClick()" aria-hidden="true">&#xe62b;</i>
+            </span>
+        </div>
+        <div class="app-modal-content-inner">
+            <ng-content select=".slot-content"></ng-content>
+        </div>
+        <div class="app-modal-btns">
+            <ng-content select=".slot-footer"></ng-content>
+        </div>
+    </div>
+</div>
