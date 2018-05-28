@@ -1,0 +1,490 @@
+/*
+ * 基础的btn text grid 样式
+ */
+
+@import "./variable";
+
+.btn {
+    outline: 0;
+    display: inline-block;
+    font-weight: 500;
+    text-align: center;
+    touch-action: manipulation;
+    cursor: pointer;
+    white-space: nowrap;
+    //line-height: 1.15;
+    height: 34px;
+    padding: 0 15px;
+    font-size: 14px;
+    border-radius: $borderRradius;
+    user-select: none;
+    transition: $transitionAll;
+    position: relative;
+    background-image: linear-gradient(-180deg, #EEF7FF 0%, #E1F0FF 96%);
+    border: 1px solid #CCDDEE;
+    color: #6688AA;
+    letter-spacing: 1px;
+    &:hover {
+        background-image: linear-gradient(-180deg, #D0E7FF 0%, #A3D1FF 100%);
+        border: 1px solid #97C4F1;
+    }
+    &:active {
+        //background: #A5D2FF;
+    }
+    // 禁用状态（包含带icon的禁用）
+    &.disabled,&.icon.disabled {
+        background: #F5F5F5;
+        color: #CCCCCC;
+        cursor: not-allowed;
+        border-color: transparent;
+        .fa, .iconfont {
+            color: #CCCCCC !important;
+            &:hover {
+                color: #CCCCCC !important;
+            }
+        }
+        &:hover {
+            color: #CCCCCC;
+        }
+    }
+    &.icon {
+        .fa,.iconfont {
+            color: #4499EE;
+        }
+        &:hover {
+            .fa, .iconfont {
+                color: #4499EE;
+            }
+        }
+        &.only {
+            padding: 0;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            border: 0;
+            background: transparent;
+            &:hover {
+                background: transparent;
+                //color:;
+                .fa,.iconfont {
+                    color: #285D92;
+                }
+                .iconfont.icon-ico_delete {
+                    color: #FF3333 !important;
+                }
+            }
+            .fa, .iconfont {
+                margin-right: 0;
+                font-size: 24px;
+            }
+            &[size='small']{
+                .fa,.iconfont {
+                    font-size:12px;
+                }
+            }
+
+        }
+    }
+    // primary
+    &.primary {
+        color: #fff;
+        border: 0;
+        background: linear-gradient(-180deg, #0088DD 0%, #004488 100%);
+        background: linear-gradient(-180deg, #4499EE 0%, #3377BB 100%);
+        &:hover {
+            background-image: linear-gradient(-180deg, #3274B7 0%, #1F4A75 100%);
+            .fa,.iconfont {
+                color: #fff !important;
+                &:hover {
+                    color: #fff !important;
+                }
+            }
+        }
+        &.icon {
+            .fa,.iconfont {
+                color: #fff !important;
+                &:hover {
+                    color: #fff !important;
+                }
+            }
+        }
+        &:active {
+            //background: #1F4B76;
+        }
+    }
+    // small
+    &[size='small'] {
+        height: 24px;
+        font-size:12px;
+        .iconfont {
+            font-size:12px;
+        }
+    }
+    // 删除
+    &.delete {
+        color: #6688AA;
+        background: linear-gradient(-180deg, #EEF7FF 0%, #E1F0FF 96%);
+        &:hover {
+            border-color: #FF3333;
+            color: #FF3333;
+            background: linear-gradient(-180deg, #FFEEEE 0%, #FFE1E1 96%);
+        }
+        &:active {
+            //border-color: #FFA5A5;
+            //background: #FFA5A5;
+        }
+    }
+    // 菜单button
+    &.menu-btn {
+        background: transparent;
+        border-radius: 0;
+        border:0;
+        border: none;
+        font-size: 14px;
+        color: #666666;
+        letter-spacing: 1px;
+        .fa, .iconfont {
+            color: #4499EE;
+        }
+        &:hover {
+            background: #E0E0E0;
+            color: #333333;
+            &.fa,.iconfont {
+                color: #1F4B76;
+            }
+        }
+        // 选中
+        &.active {
+            background: #EEEEEE;
+            color: #333333;
+            &.fa,.iconfont {
+                color: #4499EE;
+            }
+        }
+        &.disabled {
+            background: transparent;
+            color: #CCCCCC;
+            .fa,.iconfont {
+                color: #CCCCCC;
+            }
+        }
+    }
+}
+
+// 按钮组
+.btn-group {
+    display: inline-block;
+    font-size: 0; // 消除两个相邻button的间隙
+    .btn {
+        border-left: 1px solid transparent;
+        margin-right: -1px;
+        border-radius: 0;
+        background:#fff;
+        &:hover {
+            border-color: $backgroundColor;
+        }
+        &.primary {
+            background: linear-gradient(-180deg, #0088DD 0%, #004488 100%);
+            background: linear-gradient(-180deg, #4499EE 0%, #3377BB 100%);
+            border:1px solid transparent;
+        }
+        &:first-child {
+            border-left: 1px solid $borderColor;
+            border-top-left-radius: $borderRradius;
+            border-bottom-left-radius: $borderRradius;
+            &:hover {
+                border-color: $backgroundColor;
+            }
+            &:not(:last-child) {
+                padding-left: 20px;
+            }
+        }
+        &:last-child {
+            border-top-right-radius: $borderRradius;
+            border-bottom-right-radius: $borderRradius;
+            &:hover {
+                border-color: $backgroundColor;
+            }
+            &:not(:first-child) {
+                padding-right: 20px;
+            }
+        }
+    }
+}
+// input样式
+.input {
+    position: relative;
+    display: inline-block;
+    padding: 4px 7px;
+    width: 200px;
+    height: 26px;
+    font-size: 14px;
+    line-height: 1.5;
+    background: #FFFFFF;
+    border: 1px solid #CCDDEE;
+    border-radius: $borderRradius;
+    transition: $transitionAll;
+    outline: 0;
+    color: #333333;
+    &[disabled]{
+        background: #F5F5F5;
+        border: 1px solid #E0E0E0;
+        color: #CCCCCC;
+        &:hover {
+            color: #CCCCCC;
+            background: #F5F5F5;
+            border: 1px solid #E0E0E0;
+            cursor: not-allowed;
+        }
+    }
+    &::-moz-placeholder {
+        color: #BBCCDD;
+        opacity: 1
+    }
+    &:-ms-input-placeholder {
+        color: #BBCCDD;
+    }
+    &::-webkit-input-placeholder {
+        color: #BBCCDD;
+    }
+    &:focus, &:hover {
+        border: 1px solid #4499EE;
+    }
+    &[size='small'] {
+        height: 16px;
+        font-size: 12px;
+    }
+    &.all {
+        width: calc(100% - 16px);
+    }
+}
+textarea.input {
+    height: auto;
+    max-width: 100%;
+}
+// 带icon的input组
+.input-icon {
+    display: inline-block;
+    position: relative;
+    transition: $transitionAll;
+    &[position='left'] {
+        .input {
+            padding-left: 30px;
+            color:#333333;
+        }
+        .fa, .iconfont {
+            left: 10px;
+        }
+    }
+    &[position='right'] {
+        .input {
+            padding-right: 30px;
+        }
+        .fa, .iconfont {
+            right: 10px;
+        }
+    }
+    .fa, .iconfont {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        font-size: 14px;
+        color: #BBCCDD;
+        transition: $transitionAll;
+    }
+    &:hover {
+        .fa, .iconfont {
+            color: $backgroundColor;
+        }
+    }
+    &.disabled {
+        background: #F5F5F5;
+        color: #CCCCCC;
+        border-color: #E0E0E0;;
+        .input {
+            background: #F5F5F5;
+            color: #CCCCCC;
+            border-color: #E0E0E0;
+            cursor: not-allowed;
+        }
+        &:hover {
+            background: #F5F5F5;
+            cursor: not-allowed;
+            color: #CCCCCC;
+            .fa,.iconfont {
+                color: #CCCCCC;
+            }
+            .input {
+                background: #F5F5F5;
+                cursor: not-allowed;
+                color: #CCCCCC;
+            }
+        }
+    }
+    .input:focus + .iconfont {
+        color: $backgroundColor;
+    }
+}
+
+// 输入错误
+.form-error {
+    .input {
+        border-color: #FF3333;
+    }
+    .iconfont {
+        color: #FF3333;
+    }
+}
+
+.checkbox {
+    position: relative;
+    cursor: pointer;
+    input[type='checkbox']{
+        display: none;
+    }
+    input[type='checkbox'] + label {
+        border: 1px solid #CCDDEE;
+        padding: 6px;
+        //border-radius: 3px;
+        display: inline-block;
+        position: relative;
+    }
+    input[type='checkbox']:checked + label {
+        background: #4499EE;
+        border-color: #4499EE;
+        &:hover {
+            background: #fff;
+            &:after {
+                color: #4499EE;
+            }
+        }
+    }
+    input[type='checkbox'] + label:after {
+        content: '\2714';
+        font-size: 13px;
+        position: absolute;
+        top: -4px;
+        left: 1px;
+        color: #fff;
+        opacity: 0;
+        transition: $transitionAll;
+    }
+    input[type='checkbox']:checked + label:after {
+        opacity: 1;
+    }
+
+    // 禁用
+    &.disabled {
+        cursor: not-allowed;
+        input[type='checkbox'] + label {
+            border: 1px solid #E0E0E0;
+            padding: 6px;
+            //border-radius: 3px;
+            display: inline-block;
+            position: relative;
+            cursor: not-allowed;
+        }
+        input[type='checkbox']:checked + label {
+            background: #F5F5F5;
+            border-color: #E0E0E0;
+            cursor: not-allowed;
+            &:hover {
+                &:after {
+                    color: #CCCCCC;
+                }
+            }
+        }
+        input[type='checkbox'] + label:after {
+            content: '\2714';
+            font-size: 13px;
+            position: absolute;
+            top: -4px;
+            left: 1px;
+            color: #CCCCCC;
+            opacity: 0;
+            transition: $transitionAll;
+        }
+        input[type='checkbox']:checked + label:after {
+            opacity: 1;
+        }
+
+    }
+
+    // 部分选中
+    &.part {
+        input[type='checkbox'] + label:after {
+            content: '';
+            position: absolute;
+            left: 2px;
+            top: 5px;
+            display: table;
+            width: 8px;
+            height: 0;
+            border-top: 2px solid #fff;
+        }
+        input[type='checkbox']:checked + label:after {
+            opacity: 1;
+        }
+        input[type='checkbox']:checked +label {
+            &:hover {
+                background: #fff;
+                &:after {
+                    border-color: #4499EE;
+                }
+            }
+        }
+    }
+}
+
+.radio {
+    position: relative;
+    cursor: pointer;
+    input[type='radio'] {
+        display: none;
+    }
+    input[type='radio'] + label {
+        -webkit-appearance: none;
+        border: 1px solid $borderColor;
+        padding: 8px;
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+        transition: $transitionAll;
+    }
+    input[type='radio']:checked + label {
+        border: 1px solid $backgroundColor;
+    }
+    input[type='radio'] + label:after {
+        content: ' ';
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        position: absolute;
+        background: $backgroundColor;
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, .3);
+        text-shadow: none;
+        font-size: 32px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        transition: $transitionAll;
+        opacity: 0;
+    }
+    input[type='radio']:checked + label:after {
+        opacity: 1;
+    }
+}
+
+.rowstyle {
+    > div {
+        text-align: center;
+        color: #fff;
+        &:nth-child(odd) {
+            background: #4CBCF0;
+        }
+        &:nth-child(even) {
+            background: #00A0E9;
+        }
+    }
+}

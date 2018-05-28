@@ -1,0 +1,198 @@
+@import 'frontend-common/assets/styles/variable.scss';
+
+.container {
+    width: 100%;
+    line-height: 20px;
+    display: inline-block;
+    position: relative;
+    max-width: 100%;
+    letter-spacing: 1px;
+    font-size: 14px;
+    color: #333333;
+    text-align: left;
+    .top {
+        padding: 5px 7px ;
+        border-radius: $borderRradius;
+        border: 1px solid  #CCDDEE;
+        transition: $transitionAll;
+        color: #333333;
+        cursor: default;
+        position: relative;
+        &.small {
+            padding: 0 7px;
+            font-size: 12px;
+            .item {
+                width: 80%;
+                display: inline-block;
+                height: 19px;
+                //padding-left: 1px;
+                line-height: 19px;
+                position: relative;
+                top: 2px;
+            }
+            input.item {
+                border: 0;
+                top: 0;
+                font-size: 12px;
+                padding: 3px 0;
+            }
+            .arrow {
+                position: absolute;
+                top: 2px;
+                right: 5px;
+            }
+            .clear {
+                position: absolute;
+                top: 2px;
+                right: 20px;
+            }
+        }
+        .item {
+            width: 80%;
+            display: inline-block;
+            height: 19px;
+            //padding-left: 5px;
+            line-height: 19px;
+            position: relative;
+            top: 3px;
+        }
+        input.item {
+            border: 0;
+            top: 0;
+            padding: 2px 0;
+        }
+        &.placeholder {
+            color: #BBCCDD;
+            .arrow {
+                color: #BBCCDD;
+            }
+        }
+        &:hover {
+            border-color: #4499EE;
+            //color: #4499EE;
+            .arrow {
+                color: #4499EE;
+            }
+        }
+        &.showDown {
+            border-color: #4499EE;
+            .iconfont {
+                transform: rotate(180deg);
+                color: #4499EE;
+            }
+        }
+        .iconfont {
+            float: right;
+            margin-right: 5px;
+            transition: all 0.2s ease;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+        }
+        .arrow {
+            position: absolute;
+            top: 7px;
+            right: 5px;
+        }
+        .clear {
+            position: absolute;
+            top: 7px;
+            right: 20px;
+        }
+    }
+    &.disabled {
+        .top {
+            color: #CCCCCC;
+            background: #F5F5F5;
+            cursor: not-allowed;
+            border-color: #e0e0e0;
+            .iconfont {
+                color: #ccc;
+                cursor: not-allowed;
+            }
+        }
+    }
+    .down {
+        max-height: 300px;
+        position: absolute;
+        width: 100%;
+        z-index: 10;
+        background: #fff;
+        border-radius: $borderRradius;
+        box-shadow: 1px 0 5px rgba(0, 0, 0, .1),
+            -1px 0 5px rgba(0, 0, 0, .1);
+
+        overflow-y: hidden;
+        &.pos-top {
+            bottom: calc(100% + 10px);
+        }
+        &.pos-bottom {
+            top: calc(100% + 10px);
+        }
+        .search {
+            position: absolute;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            height: auto;
+            background-color: #fff;
+            padding: 6px 18px;
+            &.small {
+                padding: 6px 18px;
+                input {
+                    padding: 0 7px;
+                }
+            }
+            &.pos-top {
+                bottom: 0;
+            }
+            &.pos-bottom {
+                top: 0;
+            }
+            input {
+                padding: 3px 7px;
+                width: 100%;
+                position: relative;
+                left: -8px;
+            }
+        }
+        .search-blank {
+            height: 46px;
+            &.small {
+                height: 40px;
+            }
+        }
+        .content {
+            overflow-y: auto;
+            max-height: 200px;
+            position: relative;
+            //padding: 4px 0;
+            background-color: #fff;
+            //border: 1px solid #CCDDEE;
+            box-shadow: 0 2px 2px 0 rgba(206,211,223,0.60);
+        }
+        li {
+            padding: 7px 11px;
+            transition: $transitionAll;
+            cursor: default;
+            margin-bottom: 1px;
+            color: #666666;
+            &.small {
+                padding: 2px 7px;
+                font-size: 12px;
+            }
+            &:hover {
+                background:  #DDEEFF;
+                color: #333333;
+            }
+            &.checked {
+                background: #EEEEEE;
+                color: #333333;
+            }
+            &.single {
+                color: #cccccc;
+                cursor: not-allowed;
+            }
+        }
+    }
+}
