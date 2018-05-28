@@ -1,7 +1,0 @@
-<span class="container" #container (click)="checkedClick()">
-    <iconfont-component [name]="'radiobutton_disable'" *ngIf="disabled"></iconfont-component>
-    <iconfont-component [name]="'radiobutton_checked'" *ngIf="!disabled && checked"></iconfont-component>
-    <iconfont-component [name]="'radiobutton_hover'" *ngIf="!disabled && !checked && hover"></iconfont-component>
-    <iconfont-component [name]="'radiobutton_normal'" *ngIf="!disabled && !checked && !hover"></iconfont-component>
-    <span class="label">{{label}}</span>
-</span>
